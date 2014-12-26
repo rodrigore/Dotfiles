@@ -1,6 +1,6 @@
 [user]
-  name = %%GITNAME%%
-  email = %%GITEMAIL%%
+  name = rodrigore
+  email = rodrigopcg@gmail.com
 [diff]
   tool = vimdiff
 [color]
