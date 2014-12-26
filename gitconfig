@@ -1,0 +1,15 @@
+[user]
+  name = %%GITNAME%%
+  email = %%GITEMAIL%%
+[diff]
+  tool = vimdiff
+[color]
+  ui = auto
+[alias]
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
+  ch = checkout -
+[core]
+  ignore = dirty
+  editor = vim
+[credential]
+	helper = osxkeychain

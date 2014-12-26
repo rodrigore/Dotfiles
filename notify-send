@@ -1,0 +1,2 @@
+#!/bin/zsh
+/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier -title "$2" -message "$3"
