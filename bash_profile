@@ -1,4 +1,6 @@
 set -o vi
+source $HOME/.aliases.sh
+
 # Colorful Bash Prompt, inspired by "Extravagant Zsh Prompt"
 # Screenshot: http://img.gf3.ca/d54942f474256ec26a49893681c49b5a.png
 # A big thanks to \amethyst on Freenode
@@ -21,7 +23,7 @@ if tput setaf 1 &> /dev/null; then
     GREEN=$(tput setaf 2)
     PURPLE=$(tput setaf 1)
     WHITE=$(tput setaf 7)
-  fi  
+  fi
   BOLD=$(tput bold)
   RESET=$(tput sgr0)
 else
