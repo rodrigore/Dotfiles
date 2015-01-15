@@ -1,69 +1,65 @@
-" Vundle Init Setting
+" Vim-Plug Init Setting
 set nocompatible                        " be iMproved
-filetype off                            " required!
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
 " General plugins
-Plugin 'gmarik/Vundle.vim'              " Package Manager
-Plugin 'bling/vim-airline'              " Status bar
-" Plugin 'edkolev/tmuxline.vim'         " Tmux bar generator like vim-airline
-Plugin 'christoomey/vim-tmux-navigator' " Navigation through Vim-Tmux panels
-Plugin 'jgdavey/tslime.vim'             " Send command from Vim to a Tmux
-Plugin 'kien/ctrlp.vim'                 " Fuzzy file, buffer, mru, tags finder
-Plugin 'scrooloose/nerdtree'            " Project - Sidebar explorer
-Plugin 'scrooloose/syntastic'           " Syntax checking of multiples langs.
-Plugin 'rking/ag.vim'                   " Grep with steroids
-Plugin 'tpope/vim-commentary'           " Make easy un/comment lines of code
-Plugin 'tpope/vim-fugitive'             " Nice Git wrapper(it should be ilegal)
-Plugin 'tpope/vim-surround.git'         " Add/Remove/Change surrounding text
-Plugin 'godlygeek/tabular'              " Line up text (like this comments)
-Plugin 'terryma/vim-expand-region'      " Expand visual selection
-Plugin 'SirVer/ultisnips'               " Enable Snippets like Sublime-Textmate
-Plugin 'honza/vim-snippets'             " Snippets database
-Plugin 'osyo-manga/vim-over'            " Highlight subtitution
-Plugin 'tpope/vim-projectionist'
+Plug 'bling/vim-airline'              " Status bar
+" Plug 'edkolev/tmuxline.vim'         " Tmux bar generator like vim-airline
+Plug 'christoomey/vim-tmux-navigator' " Navigation through Vim-Tmux panels
+Plug 'jgdavey/tslime.vim'             " Send command from Vim to a Tmux
+Plug 'kien/ctrlp.vim'                 " Fuzzy file, buffer, mru, tags finder
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] } " Project - Sidebar explorer
+Plug 'scrooloose/syntastic'           " Syntax checking of multiples langs.
+Plug 'rking/ag.vim', { 'on': ['Ag']}  " Grep with steroids
+Plug 'tpope/vim-commentary'           " Make easy un/comment lines of code
+Plug 'tpope/vim-fugitive'             " Nice Git wrapper(it should be ilegal)
+Plug 'tpope/vim-surround'         " Add/Remove/Change surrounding text
+Plug 'godlygeek/tabular'              " Line up text (like this comments)
+Plug 'terryma/vim-expand-region'      " Expand visual selection
+Plug 'tpope/vim-projectionist'
+" Plug 'SirVer/ultisnips'               " Enable Snippets like Sublime-Textmate
+" Plug 'honza/vim-snippets'             " Snippets database
 
 " Syntax and improvements
-Plugin 'jelera/vim-javascript-syntax'           " Enhanced js syntax
-Plugin 'pangloss/vim-javascript'                " Indentation and syntax improved for js files
-Plugin 'othree/javascript-libraries-syntax.vim' " Syntax files for js libraries like jquery, angular
-Plugin 'Raimondi/delimitMate'                   " Autocompletion for quotes, parens, brackets, etc.
-Plugin 'tpope/vim-endwise'                      " Autocompletion the 'end' word in langs like ruby, lua
-Plugin 'vim-scripts/camelcasemotion'            " Motion for CamelCaseWords and underscore_notation
-Plugin '2072/PHP-Indenting-for-VIm'             " Enhanced indent for PHP
-Plugin 'rodrigore/php.vim'                      " Modern PHP syntax 5.3, 5.4, 5.5
+Plug 'jelera/vim-javascript-syntax'           " Enhanced js syntax
+Plug 'pangloss/vim-javascript'                " Indentation and syntax improved for js files
+Plug 'othree/javascript-libraries-syntax.vim' " Syntax files for js libraries like jquery, angular
+Plug 'Raimondi/delimitMate'                   " Autocompletion for quotes, parens, brackets, etc.
+Plug 'tpope/vim-endwise'                      " Autocompletion the 'end' word in langs like ruby, lua
+Plug 'vim-scripts/camelcasemotion'            " Motion for CamelCaseWords and underscore_notation
+Plug '2072/PHP-Indenting-for-VIm'             " Enhanced indent for PHP
+Plug 'rodrigore/php.vim'                      " Modern PHP syntax 5.3, 5.4, 5.5
 
 " Colorschemes
-Plugin 'chriskempson/vim-tomorrow-theme'
-Plugin 'chriskempson/base16-vim'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'junegunn/seoul256.vim'
-Plugin 'morhetz/gruvbox'
-Plugin 'vim-scripts/xoria256.vim'
-Plugin 'jpo/vim-railscasts-theme'
-" Plugin 'flazz/vim-colorschemes'
-" Plugin 'zenorocha/dracula-theme', {'rtp': 'vim/'}
-Plugin 'crusoexia/vim-dracula'
-Plugin 'ajh17/Spacegray.vim'
+Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'chriskempson/base16-vim'
+Plug 'w0ng/vim-hybrid'
+Plug 'junegunn/seoul256.vim'
+Plug 'morhetz/gruvbox'
+Plug 'vim-scripts/xoria256.vim'
+Plug 'jpo/vim-railscasts-theme'
+" Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
+Plug 'crusoexia/vim-dracula'
+Plug 'ajh17/Spacegray.vim'
 
 " Testing
-Plugin 'AndrewRadev/undoquit.vim'
-Plugin 'sheerun/vim-polyglot'
-"Plugin 'majutsushi/tagbar'
-" Plugin 'jnwhiteh/vim-golang'
-Plugin 'tommcdo/vim-exchange'
-Plugin 'jaxbot/semantic-highlight.vim'
-Plugin 'ConradIrwin/vim-bracketed-paste'  " No more :set paste
-" Plugin 'terryma/vim-smooth-scroll'
+Plug 'AndrewRadev/undoquit.vim'
+Plug 'sheerun/vim-polyglot'
+"Plug 'majutsushi/tagbar'
+" Plug 'jnwhiteh/vim-golang'
+Plug 'tommcdo/vim-exchange'
+Plug 'jaxbot/semantic-highlight.vim'
+Plug 'ConradIrwin/vim-bracketed-paste'  " No more :set paste
+" Plug 'terryma/vim-smooth-scroll'
 
-" Plugin 'kien/rainbow_parentheses.vim'   " Highlight parentheses
+" Plug 'kien/rainbow_parentheses.vim'   " Highlight parentheses
 "'idanarye/vim-merginal'   'Merge branch Git (fugitive extension)
 " junegunn/vim-easy-align
-" Plugin 'tpope/vim-dispatch'
-" Plugin 'sheerun/vim-polyglot'
+" Plug 'tpope/vim-dispatch'
+" Plug 'sheerun/vim-polyglot'
 
-call vundle#end()                       " [Vundle requirement]
+call plug#end()
 filetype plugin indent on               " [Vundle requirement]
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

@@ -1,2 +1,4 @@
 vim/bundle/*
+vim/plugged/*
+vim/autoload/*
 .DS_Store
