@@ -42,11 +42,14 @@ Plug 'jpo/vim-railscasts-theme'
 " Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
 Plug 'crusoexia/vim-dracula'
 Plug 'ajh17/Spacegray.vim'
+Plug 'trusktr/seti.vim'
 
 " Testing
+Plug 'mattn/gist-vim', { 'on':  'Gist' }
+Plug 'mattn/webapi-vim'
 Plug 'AndrewRadev/undoquit.vim'
 Plug 'sheerun/vim-polyglot'
-"Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 " Plug 'jnwhiteh/vim-golang'
 Plug 'tommcdo/vim-exchange'
 Plug 'jaxbot/semantic-highlight.vim'
@@ -170,6 +173,9 @@ noremap <leader>ss :call StripWhitespace ()<CR>
 "                        Plugin Customization
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Gist-vim
+let g:gist_clip_command = 'pbcopy'
+
 " Status line: Vim-airline
 let g:airline_powerline_fonts=1
 let g:airline#extensions#whitespace#enabled = 1
@@ -218,6 +224,7 @@ endif
 let g:ctrlp_max_height = 30
 let g:ctrlp_custom_ignore = '\.git$\|\.o$\|\.app$\|\.beam$\|\.dSYM\|\.ipa$\|\.csv\|tags\|public\/images$\|public\/uploads$\|log\|tmp$\|source_maps\|app\/assets\/images\|test\/reports\|node_modules\|bower_components'
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_use_caching = 0
 
 "AG
 if executable('ag')
