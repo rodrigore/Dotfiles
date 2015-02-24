@@ -28,8 +28,10 @@ Plug 'othree/javascript-libraries-syntax.vim' " Syntax files for js libraries li
 Plug 'Raimondi/delimitMate'                   " Autocompletion for quotes, parens, brackets, etc.
 Plug 'tpope/vim-endwise'                      " Autocompletion the 'end' word in langs like ruby, lua
 Plug 'vim-scripts/camelcasemotion'            " Motion for CamelCaseWords and underscore_notation
-Plug '2072/PHP-Indenting-for-VIm'             " Enhanced indent for PHP
+Plug 'stephpy/vim-php-cs-fixer'               " Run PHP CS Fixer
 Plug 'rodrigore/php.vim'                      " Modern PHP syntax 5.3, 5.4, 5.5
+Plug 'shawncplus/phpcomplete.vim'
+Plug 'joonty/vim-phpqa'
 
 " Colorschemes
 Plug 'chriskempson/vim-tomorrow-theme'
@@ -172,6 +174,15 @@ noremap <leader>ss :call StripWhitespace ()<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                        Plugin Customization
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Php CS Fixer
+let g:php_cs_fixer_level = "psr0,psr1,psr2"                  " which level ?
+let g:php_cs_fixer_config = "default"             " configuration
+" If you want to define specific fixers:
+"let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
+let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
+let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
 
 " Gist-vim
 let g:gist_clip_command = 'pbcopy'
