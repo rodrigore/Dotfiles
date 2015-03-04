@@ -40,7 +40,6 @@ Plug 'junegunn/seoul256.vim'
 Plug 'morhetz/gruvbox'
 Plug 'vim-scripts/xoria256.vim'
 Plug 'jpo/vim-railscasts-theme'
-" Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
 Plug 'crusoexia/vim-dracula'
 Plug 'ajh17/Spacegray.vim'
 Plug 'trusktr/seti.vim'
@@ -175,13 +174,13 @@ noremap <leader>ss :call StripWhitespace ()<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Php CS Fixer
-let g:php_cs_fixer_level = "psr0,psr1,psr2"                  " which level ?
+let g:php_cs_fixer_level = "all"                  " which level ?
 let g:php_cs_fixer_config = "default"             " configuration
 " If you want to define specific fixers:
 "let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
 let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
-let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
+let g:php_cs_fixer_verbose = 1                    " Return the output of command if 1, else an inline information.
 
 " Gist-vim
 let g:gist_clip_command = 'pbcopy'
@@ -247,11 +246,11 @@ let g:used_javascript_libs = 'angularjs,jquery'
 
 "syntastic
 let g:syntastic_check_on_open=1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_html_tidy_ignore_errors=['trimming empty']
-
-" avoid angular propietary attributes
+let g:syntastic_enable_signs=1
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_php_checkers = ['php', 'phpcs']
+let g:syntastic_php_phpcs_args = "--standard=psr1,psr2"
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
 " rainbow
