@@ -4,6 +4,7 @@ call plug#begin('~/.vim/plugged')
 
 " General plugins
 Plug 'bling/vim-airline'              " Status bar
+Plug 'ryanoasis/vim-webdevicons'
 " Plug 'edkolev/tmuxline.vim'         " Tmux bar generator like vim-airline
 Plug 'christoomey/vim-tmux-navigator' " Navigation through Vim-Tmux panels
 Plug 'jgdavey/tslime.vim'             " Send command from Vim to a Tmux
@@ -30,8 +31,6 @@ Plug 'tpope/vim-endwise'                      " Autocompletion the 'end' word in
 Plug 'vim-scripts/camelcasemotion'            " Motion for CamelCaseWords and underscore_notation
 Plug 'stephpy/vim-php-cs-fixer'               " Run PHP CS Fixer
 Plug 'rodrigore/php.vim'                      " Modern PHP syntax 5.3, 5.4, 5.5
-Plug 'shawncplus/phpcomplete.vim'
-Plug 'joonty/vim-phpqa'
 
 " Colorschemes
 Plug 'chriskempson/vim-tomorrow-theme'
@@ -303,6 +302,25 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDtree
 nnoremap <leader>n :NERDTreeToggle<CR>
+
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+ exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+ exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+endfunction
+
+call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('php', 'blue', 'none', 'blue', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'green', 'none', 'green', '#151515')
+call NERDTreeHighlightFile('js', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('css', 'Magenta', 'none', '#ff00ff', '#151515')
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('html', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('md', 'Magenta', 'none', '#ff00ff', '#151515')
+" source: https://github.com/scrooloose/nerdtree/issues/201#issuecomment-9954740
 
 " CtrlP
 nnoremap <C-p> :CtrlP<CR>
