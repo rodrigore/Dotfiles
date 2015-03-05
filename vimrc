@@ -9,7 +9,6 @@ Plug 'ryanoasis/vim-webdevicons'
 Plug 'christoomey/vim-tmux-navigator' " Navigation through Vim-Tmux panels
 Plug 'jgdavey/tslime.vim'             " Send command from Vim to a Tmux
 Plug 'kien/ctrlp.vim'                 " Fuzzy file, buffer, mru, tags finder
-Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] } " Project - Sidebar explorer
 Plug 'scrooloose/syntastic'           " Syntax checking of multiples langs.
 Plug 'rking/ag.vim', { 'on': ['Ag']}  " Grep with steroids
@@ -302,23 +301,29 @@ augroup END
 " NERDtree
 nnoremap <leader>n :NERDTreeToggle<CR>
 
-" NERDTress File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+function! NERDTreeHighlightFile(extension, symbol, fg, bg, guifg, guibg)
+ exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+\[' .  a:symbol .'\s\+\]#'
  exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+ " exec 'autocmd filetype nerdtree highlight def link ' . a:extension .' Function'
 endfunction
 
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('php', 'blue', 'none', 'blue', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('js', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('css', 'Magenta', 'none', '#ff00ff', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('html', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('md', 'Magenta', 'none', '#ff00ff', '#151515')
+let s:orange = "215"
+" let s:pink   = "212"
+" let s:green  = "84"
+" let s:aqua   = "117"
+" let s:yellow = "228"
+" let s:orange = "215"
+" let s:purple = "141"
+" let s:red    = "231"
+
+call NERDTreeHighlightFile('ini', '', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('php', '', 'cyan', 'none', 'blue', '#151515')
+call NERDTreeHighlightFile('gulp', '', s:orange, 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('json', '', 'green', 'none', 'green', '#151515')
+call NERDTreeHighlightFile('js', '', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('css', '', 'Magenta', 'none', '#ff00ff', '#151515')
+call NERDTreeHighlightFile('html', '', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('md', '', 'Magenta', 'none', '#ff00ff', '#151515')
 " source: https://github.com/scrooloose/nerdtree/issues/201#issuecomment-9954740
 
 " CtrlP
