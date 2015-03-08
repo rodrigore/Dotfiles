@@ -27,7 +27,7 @@ KEYTIMEOUT=1
 export EDITOR=vim
 
 # Customize to your needs...
-export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/sbin
+export PATH=/usr/local/php5/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/sbin
 
 ## aliases
 source $HOME/.aliases.sh
