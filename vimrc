@@ -172,6 +172,9 @@ noremap <leader>ss :call StripWhitespace ()<CR>
 "                        Plugin Customization
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Vim commentary
+autocmd FileType blade set commentstring={{--%s--}}
+
 " Php CS Fixer
 let g:php_cs_fixer_level = "all"                  " which level ?
 let g:php_cs_fixer_config = "default"             " configuration
