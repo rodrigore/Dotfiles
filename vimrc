@@ -50,9 +50,6 @@ Plug 'AndrewRadev/undoquit.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'majutsushi/tagbar'
 " Plug 'jnwhiteh/vim-golang'
-Plug 'tommcdo/vim-exchange'
-Plug 'jaxbot/semantic-highlight.vim'
-Plug 'ConradIrwin/vim-bracketed-paste'  " No more :set paste
 " Plug 'terryma/vim-smooth-scroll'
 
 " Plug 'kien/rainbow_parentheses.vim'   " Highlight parentheses
@@ -171,6 +168,11 @@ noremap <leader>ss :call StripWhitespace ()<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                        Plugin Customization
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" vim commentary
+autocmd FileType blade set commentstring={{--%s--}}
+autocmd FileType blade.php set tabstop=2 shiftwidth=2  softtabstop=2
+
 
 " Php CS Fixer
 let g:php_cs_fixer_level = "all"                  " which level ?
@@ -491,11 +493,3 @@ else
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
-
-" Rename vim in tmux
-augroup Tmux
-  au!
-  autocmd VimEnter,BufNewFile,BufReadPost * call system('tmux rename-window "vim - ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1] . '"')
-  autocmd VimLeave * call system('tmux rename-window ' . split(substitute(getcwd(), $HOME, '~', ''), '/')[-1])
-augroup END
-
