@@ -8,7 +8,7 @@ Plug 'ryanoasis/vim-webdevicons'
 " Plug 'edkolev/tmuxline.vim'         " Tmux bar generator like vim-airline
 Plug 'christoomey/vim-tmux-navigator' " Navigation through Vim-Tmux panels
 Plug 'jgdavey/tslime.vim'             " Send command from Vim to a Tmux
-Plug 'kien/ctrlp.vim'                 " Fuzzy file, buffer, mru, tags finder
+Plug 'ctrlpvim/ctrlp.vim'                 " Fuzzy file, buffer, mru, tags finder
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] } " Project - Sidebar explorer
 Plug 'scrooloose/syntastic'           " Syntax checking of multiples langs.
 Plug 'rking/ag.vim', { 'on': ['Ag']}  " Grep with steroids
