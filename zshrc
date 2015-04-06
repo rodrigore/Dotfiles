@@ -2,8 +2,8 @@
 ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
-ZSH_THEME="avit"
-#"robbyrussell" "soliah" "tjkirch" "kafeitu" "intheloop" "dpoggi" "fino" "gentoo" "cloud" "Soliah" "smt"
+ZSH_THEME="pure"
+#"avit" "robbyrussell" "soliah" "tjkirch" "kafeitu" "intheloop" "dpoggi" "fino" "gentoo" "cloud" "Soliah" "smt"
 
 # Uncomment following line if you want to disable autosetting terminal title.
 DISABLE_AUTO_TITLE="true"
@@ -27,7 +27,7 @@ KEYTIMEOUT=1
 export EDITOR=vim
 
 # Customize to your needs...
-export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/sbin
+export PATH=/usr/local/php5/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/sbin
 
 ## aliases
 source $HOME/.aliases.sh
