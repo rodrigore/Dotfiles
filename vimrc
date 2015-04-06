@@ -8,7 +8,7 @@ Plug 'ryanoasis/vim-webdevicons'
 " Plug 'edkolev/tmuxline.vim'         " Tmux bar generator like vim-airline
 Plug 'christoomey/vim-tmux-navigator' " Navigation through Vim-Tmux panels
 Plug 'jgdavey/tslime.vim'             " Send command from Vim to a Tmux
-Plug 'kien/ctrlp.vim'                 " Fuzzy file, buffer, mru, tags finder
+Plug 'ctrlpvim/ctrlp.vim'                 " Fuzzy file, buffer, mru, tags finder
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] } " Project - Sidebar explorer
 Plug 'scrooloose/syntastic'           " Syntax checking of multiples langs.
 Plug 'rking/ag.vim', { 'on': ['Ag']}  " Grep with steroids
@@ -50,9 +50,6 @@ Plug 'AndrewRadev/undoquit.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'majutsushi/tagbar'
 " Plug 'jnwhiteh/vim-golang'
-Plug 'tommcdo/vim-exchange'
-Plug 'jaxbot/semantic-highlight.vim'
-Plug 'ConradIrwin/vim-bracketed-paste'  " No more :set paste
 " Plug 'terryma/vim-smooth-scroll'
 
 " Plug 'kien/rainbow_parentheses.vim'   " Highlight parentheses
@@ -172,8 +169,9 @@ noremap <leader>ss :call StripWhitespace ()<CR>
 "                        Plugin Customization
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Vim commentary
+" vim commentary
 autocmd FileType blade set commentstring={{--%s--}}
+autocmd FileType blade.php set tabstop=2 shiftwidth=2  softtabstop=2
 
 " Php CS Fixer
 let g:php_cs_fixer_level = "all"                  " which level ?
