@@ -29,3 +29,6 @@ alias please='sudo $(fc -ln -1)'
 
 # Homestead
 alias vm='ssh vagrant@127.0.0.1 -p 2222'
+
+#
+alias nyancat='telnet nyancat.dakko.us'
