@@ -1,4 +1,4 @@
-" Vim-Plug Init Setting
+" Vi-Plug Init Setting
 set nocompatible                        " be iMproved
 call plug#begin('~/.vim/plugged')
 
@@ -7,8 +7,8 @@ Plug 'bling/vim-airline'              " Status bar
 Plug 'ryanoasis/vim-webdevicons'
 " Plug 'edkolev/tmuxline.vim'         " Tmux bar generator like vim-airline
 Plug 'christoomey/vim-tmux-navigator' " Navigation through Vim-Tmux panels
-Plug 'jgdavey/tslime.vim'             " Send command from Vim to a Tmux
-Plug 'ctrlpvim/ctrlp.vim'                 " Fuzzy file, buffer, mru, tags finder
+" Plug 'jgdavey/tslime.vim'             " Send command from Vim to a Tmux
+Plug 'ctrlpvim/ctrlp.vim'             " Fuzzy file, buffer, mru, tags finder
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] } " Project - Sidebar explorer
 Plug 'scrooloose/syntastic'           " Syntax checking of multiples langs.
 Plug 'rking/ag.vim', { 'on': ['Ag']}  " Grep with steroids
@@ -16,8 +16,7 @@ Plug 'tpope/vim-commentary'           " Make easy un/comment lines of code
 Plug 'tpope/vim-fugitive'             " Nice Git wrapper(it should be ilegal)
 Plug 'tpope/vim-surround'         " Add/Remove/Change surrounding text
 Plug 'godlygeek/tabular'              " Line up text (like this comments)
-Plug 'terryma/vim-expand-region'      " Expand visual selection
-Plug 'tpope/vim-projectionist'
+" Plug 'tpope/vim-projectionist'
 " Plug 'SirVer/ultisnips'               " Enable Snippets like Sublime-Textmate
 " Plug 'honza/vim-snippets'             " Snippets database
 
@@ -30,6 +29,7 @@ Plug 'tpope/vim-endwise'                      " Autocompletion the 'end' word in
 Plug 'vim-scripts/camelcasemotion'            " Motion for CamelCaseWords and underscore_notation
 Plug 'stephpy/vim-php-cs-fixer'               " Run PHP CS Fixer
 Plug 'rodrigore/php.vim'                      " Modern PHP syntax 5.3, 5.4, 5.5
+Plug 'vim-scripts/PHP-correct-Indenting'
 
 " Colorschemes
 Plug 'chriskempson/vim-tomorrow-theme'
@@ -42,14 +42,13 @@ Plug 'jpo/vim-railscasts-theme'
 Plug 'crusoexia/vim-dracula'
 Plug 'ajh17/Spacegray.vim'
 Plug 'trusktr/seti.vim'
+Plug 'jvehent/vim-ulfr'
+Plug 'jdkanani/vim-material-theme'
 
 " Testing
 Plug 'mattn/gist-vim', { 'on':  'Gist' }
-Plug 'mattn/webapi-vim'
-Plug 'AndrewRadev/undoquit.vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'majutsushi/tagbar'
-" Plug 'jnwhiteh/vim-golang'
+" Plug 'majutsushi/tagbar'
 " Plug 'terryma/vim-smooth-scroll'
 
 " Plug 'kien/rainbow_parentheses.vim'   " Highlight parentheses
@@ -96,6 +95,8 @@ endif
 set background=dark        " Make the background color to dark
 " colorscheme base16-railscasts " Cool and pretty colorscheme
 colorscheme dracula
+
+" colorscheme ulfr
 " colorscheme spacegray
 highlight Normal ctermbg=None
 
@@ -171,10 +172,10 @@ noremap <leader>ss :call StripWhitespace ()<CR>
 
 " vim commentary
 autocmd FileType blade set commentstring={{--%s--}}
-autocmd FileType blade.php set tabstop=2 shiftwidth=2  softtabstop=2
+" autocmd FileType blade.php set tabstop=2 shiftwidth=2  softtabstop=2
 
 " Php CS Fixer
-let g:php_cs_fixer_level = "all"                  " which level ?
+let g:php_cs_fixer_level = "psr2"                  " which level ?
 let g:php_cs_fixer_config = "default"             " configuration
 " If you want to define specific fixers:
 "let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
@@ -250,7 +251,7 @@ let g:syntastic_enable_signs=1
 let g:syntastic_style_error_symbol = '✗'
 let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_php_checkers = ['php', 'phpcs']
-let g:syntastic_php_phpcs_args = "--standard=psr1,psr2"
+let g:syntastic_php_phpcs_args = "--standard=psr2"
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
 " rainbow
@@ -286,6 +287,8 @@ autocmd BufRead,BufNewFile *.md,*.txt set filetype=markdown " Highlight Markdown
 
 autocmd BufRead,BufNewFile *.go  set tabstop=4 shiftwidth=4  softtabstop=4
 autocmd BufRead,BufNewFile *.php set tabstop=4 shiftwidth=4 tabstop=4
+autocmd BufRead,BufNewFile *.blade.php set filetype=html
+autocmd Filetype js set tabstop=2 shiftwidth=2 tabstop=2
 
 " Make sure Vim open in the same line when you reopen a file.
 augroup line_return
