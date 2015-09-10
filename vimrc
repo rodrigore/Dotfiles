@@ -1,25 +1,21 @@
-" Vim-Plug Init Setting
+" Vi-Plug Init Setting
 set nocompatible                        " be iMproved
 call plug#begin('~/.vim/plugged')
 
 " General plugins
 Plug 'bling/vim-airline'              " Status bar
-Plug 'ryanoasis/vim-webdevicons'
 " Plug 'edkolev/tmuxline.vim'         " Tmux bar generator like vim-airline
 Plug 'christoomey/vim-tmux-navigator' " Navigation through Vim-Tmux panels
-Plug 'jgdavey/tslime.vim'             " Send command from Vim to a Tmux
-Plug 'ctrlpvim/ctrlp.vim'                 " Fuzzy file, buffer, mru, tags finder
-Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] } " Project - Sidebar explorer
+" Plug 'jgdavey/tslime.vim'             " Send command from Vim to a Tmux
+Plug 'ctrlpvim/ctrlp.vim'             " Fuzzy file, buffer, mru, tags finder
+Plug 'scrooloose/nerdtree'            " Project - Sidebar explorer
 Plug 'scrooloose/syntastic'           " Syntax checking of multiples langs.
 Plug 'rking/ag.vim', { 'on': ['Ag']}  " Grep with steroids
 Plug 'tpope/vim-commentary'           " Make easy un/comment lines of code
 Plug 'tpope/vim-fugitive'             " Nice Git wrapper(it should be ilegal)
-Plug 'tpope/vim-surround'         " Add/Remove/Change surrounding text
+Plug 'tpope/vim-surround'             " Add/Remove/Change surrounding text
 Plug 'godlygeek/tabular'              " Line up text (like this comments)
-Plug 'terryma/vim-expand-region'      " Expand visual selection
-Plug 'tpope/vim-projectionist'
-" Plug 'SirVer/ultisnips'               " Enable Snippets like Sublime-Textmate
-" Plug 'honza/vim-snippets'             " Snippets database
+Plug 'ryanoasis/vim-webdevicons'
 
 " Syntax and improvements
 Plug 'jelera/vim-javascript-syntax'           " Enhanced js syntax
@@ -30,6 +26,7 @@ Plug 'tpope/vim-endwise'                      " Autocompletion the 'end' word in
 Plug 'vim-scripts/camelcasemotion'            " Motion for CamelCaseWords and underscore_notation
 Plug 'stephpy/vim-php-cs-fixer'               " Run PHP CS Fixer
 Plug 'rodrigore/php.vim'                      " Modern PHP syntax 5.3, 5.4, 5.5
+Plug 'vim-scripts/PHP-correct-Indenting'
 
 " Colorschemes
 Plug 'chriskempson/vim-tomorrow-theme'
@@ -39,24 +36,16 @@ Plug 'junegunn/seoul256.vim'
 Plug 'morhetz/gruvbox'
 Plug 'vim-scripts/xoria256.vim'
 Plug 'jpo/vim-railscasts-theme'
-Plug 'crusoexia/vim-dracula'
+Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
 Plug 'ajh17/Spacegray.vim'
 Plug 'trusktr/seti.vim'
+Plug 'jvehent/vim-ulfr'
+Plug 'jdkanani/vim-material-theme'
 
 " Testing
-Plug 'mattn/gist-vim', { 'on':  'Gist' }
-Plug 'mattn/webapi-vim'
-Plug 'AndrewRadev/undoquit.vim'
+Plug 'terryma/vim-expand-region'
 Plug 'sheerun/vim-polyglot'
-Plug 'majutsushi/tagbar'
-" Plug 'jnwhiteh/vim-golang'
-" Plug 'terryma/vim-smooth-scroll'
-
-" Plug 'kien/rainbow_parentheses.vim'   " Highlight parentheses
-"'idanarye/vim-merginal'   'Merge branch Git (fugitive extension)
-" junegunn/vim-easy-align
-" Plug 'tpope/vim-dispatch'
-" Plug 'sheerun/vim-polyglot'
+Plug 'ktonga/vim-follow-my-lead'
 
 call plug#end()
 filetype plugin indent on               " [Vundle requirement]
@@ -79,9 +68,9 @@ set noerrorbells           " Don't beep
 set autoread
 
 if !has("gui_running")
-  set term=screen-256color " Colourful and uniform behaviuor with Tmux/Screen
+    set term=screen-256color " Colourful and uniform behaviuor with Tmux/Screen
 endif
-" set t_Co=256                " 256 color for terminal
+set t_Co=256                " 256 color for terminal
 
 if exists('$TMUX')
   set clipboard=
@@ -97,12 +86,17 @@ set background=dark        " Make the background color to dark
 " colorscheme base16-railscasts " Cool and pretty colorscheme
 colorscheme dracula
 " colorscheme spacegray
-highlight Normal ctermbg=None
 
-" highlight clear SignColumn
-highlight VertSplit    ctermbg=233 ctermfg=4
-highlight IncSearch    ctermbg=233   ctermfg=3
-highlight Search       ctermbg=233   ctermfg=1
+highlight Normal ctermbg=None
+highlight clear SignColumn
+highlight clear SignWarning
+highlight clear SignSWarning
+highlight clear SignSError
+highlight clear Conceal
+
+highlight VertSplit    guibg=NONE guifg=#bd93f9 ctermbg=233 ctermfg=4
+highlight IncSearch    guibg=red ctermbg=233   ctermfg=3
+highlight Search       guibg=red ctermbg=233   ctermfg=1
 " highlight Visual       ctermbg=3   ctermfg=0
 " highlight Pmenu        ctermbg=240 ctermfg=12
 " highlight PmenuSel     ctermbg=0   ctermfg=3
@@ -123,7 +117,7 @@ hi SpellBad cterm=underline,bold ctermfg=red " Highlight bad spell words to unde
 "                             Vim UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set number                " Show line numbers
+" set number                " Show line numbers
 " set relativenumber        " Show line with relative number
 
 set hlsearch              " Highlight search
@@ -169,12 +163,19 @@ noremap <leader>ss :call StripWhitespace ()<CR>
 "                        Plugin Customization
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" vim expand-region
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
 " vim commentary
 autocmd FileType blade set commentstring={{--%s--}}
-autocmd FileType blade.php set tabstop=2 shiftwidth=2  softtabstop=2
+" autocmd FileType blade.php set tabstop=2 shiftwidth=2  softtabstop=2
+
+" php.vim
+let php_var_selector_is_identifier=1
 
 " Php CS Fixer
-let g:php_cs_fixer_level = "all"                  " which level ?
+let g:php_cs_fixer_level = "psr2"                  " which level ?
 let g:php_cs_fixer_config = "default"             " configuration
 " If you want to define specific fixers:
 "let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
@@ -188,7 +189,7 @@ let g:gist_clip_command = 'pbcopy'
 " Status line: Vim-airline
 let g:airline_powerline_fonts=1
 let g:airline#extensions#whitespace#enabled = 1
-" let g:airline_theme='raven'
+" let g:airline_theme='bubblegum'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline#extensions#tabline#enabled = 1
@@ -250,7 +251,7 @@ let g:syntastic_enable_signs=1
 let g:syntastic_style_error_symbol = '✗'
 let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_php_checkers = ['php', 'phpcs']
-let g:syntastic_php_phpcs_args = "--standard=psr1,psr2"
+let g:syntastic_php_phpcs_args = "--standard=psr2"
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
 " rainbow
@@ -286,6 +287,8 @@ autocmd BufRead,BufNewFile *.md,*.txt set filetype=markdown " Highlight Markdown
 
 autocmd BufRead,BufNewFile *.go  set tabstop=4 shiftwidth=4  softtabstop=4
 autocmd BufRead,BufNewFile *.php set tabstop=4 shiftwidth=4 tabstop=4
+autocmd BufRead,BufNewFile *.blade.php set filetype=html
+autocmd Filetype js set tabstop=2 shiftwidth=2 tabstop=2
 
 " Make sure Vim open in the same line when you reopen a file.
 augroup line_return
@@ -318,7 +321,7 @@ let s:orange = "215"
 " let s:red    = "231"
 
 call NERDTreeHighlightFile('ini', '', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('php', '', 'cyan', 'none', 'blue', '#151515')
+call NERDTreeHighlightFile('php', '', 'cyan', 'none', '#ff0000', '#ff0000')
 call NERDTreeHighlightFile('gulp', '', s:orange, 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('json', '', 'green', 'none', 'green', '#151515')
 call NERDTreeHighlightFile('js', '', 'yellow', 'none', 'yellow', '#151515')
