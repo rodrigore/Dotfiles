@@ -36,7 +36,8 @@ Plug 'junegunn/seoul256.vim'
 Plug 'morhetz/gruvbox'
 Plug 'vim-scripts/xoria256.vim'
 Plug 'jpo/vim-railscasts-theme'
-Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
+" Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
+Plug 'crusoexia/vim-dracula'
 Plug 'ajh17/Spacegray.vim'
 Plug 'trusktr/seti.vim'
 Plug 'jvehent/vim-ulfr'
