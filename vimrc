@@ -86,7 +86,6 @@ endif
 set background=dark        " Make the background color to dark
 " colorscheme base16-railscasts " Cool and pretty colorscheme
 colorscheme dracula
-" colorscheme spacegray
 
 highlight Normal ctermbg=None
 highlight clear SignColumn
@@ -172,6 +171,9 @@ vmap <C-v> <Plug>(expand_region_shrink)
 autocmd FileType blade set commentstring={{--%s--}}
 " autocmd FileType blade.php set tabstop=2 shiftwidth=2  softtabstop=2
 
+" make PHP conform to PSR-1 standards
+au FileType blade set textwidth=0
+
 " php.vim
 let php_var_selector_is_identifier=1
 
@@ -183,9 +185,6 @@ let g:php_cs_fixer_config = "default"             " configuration
 let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
 let g:php_cs_fixer_verbose = 1                    " Return the output of command if 1, else an inline information.
-
-" Gist-vim
-let g:gist_clip_command = 'pbcopy'
 
 " Status line: Vim-airline
 let g:airline_powerline_fonts=1
@@ -254,6 +253,7 @@ let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_php_checkers = ['php', 'phpcs']
 let g:syntastic_php_phpcs_args = "--standard=psr2"
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+let g:syntastic_html_checkers=['']
 
 " rainbow
 " au VimEnter * RainbowParenthesesToggle
