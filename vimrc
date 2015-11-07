@@ -20,32 +20,18 @@ Plug 'ryanoasis/vim-webdevicons'
 " Syntax and improvements
 Plug 'jelera/vim-javascript-syntax'           " Enhanced js syntax
 Plug 'pangloss/vim-javascript'                " Indentation and syntax improved for js files
-Plug 'othree/javascript-libraries-syntax.vim' " Syntax files for js libraries like jquery, angular
 Plug 'Raimondi/delimitMate'                   " Autocompletion for quotes, parens, brackets, etc.
 Plug 'tpope/vim-endwise'                      " Autocompletion the 'end' word in langs like ruby, lua
 Plug 'vim-scripts/camelcasemotion'            " Motion for CamelCaseWords and underscore_notation
 Plug 'stephpy/vim-php-cs-fixer'               " Run PHP CS Fixer
 Plug 'rodrigore/php.vim'                      " Modern PHP syntax 5.3, 5.4, 5.5
-Plug 'vim-scripts/PHP-correct-Indenting'
 
 " Colorschemes
-Plug 'chriskempson/vim-tomorrow-theme'
-Plug 'chriskempson/base16-vim'
-Plug 'w0ng/vim-hybrid'
-Plug 'junegunn/seoul256.vim'
-Plug 'morhetz/gruvbox'
-Plug 'vim-scripts/xoria256.vim'
-Plug 'jpo/vim-railscasts-theme'
-" Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
 Plug 'crusoexia/vim-dracula'
-Plug 'ajh17/Spacegray.vim'
-Plug 'trusktr/seti.vim'
-Plug 'jvehent/vim-ulfr'
-Plug 'jdkanani/vim-material-theme'
+Plug 'chriskempson/base16-vim'
+Plug 'jpo/vim-railscasts-theme'
 
 " Testing
-Plug 'terryma/vim-expand-region'
-Plug 'sheerun/vim-polyglot'
 Plug 'ktonga/vim-follow-my-lead'
 
 call plug#end()
@@ -63,7 +49,8 @@ set hidden                 " Open files without saving the current file
 set autoread               " Allow read files that changes outside vim
 set encoding=utf-8         " Set the encoding that is showing in the terminal
 set fileencoding=utf-8     " Set the encoding of the file that is written
-set backspace=2            " Make backspace work like other apps
+set backspace=indent,eol,start  " allow backspacing over everything in insert
+mode
 set visualbell             " Don't beep
 set noerrorbells           " Don't beep
 set autoread
@@ -97,6 +84,8 @@ highlight clear Conceal
 highlight VertSplit    guibg=NONE guifg=#bd93f9 ctermbg=233 ctermfg=4
 highlight IncSearch    guibg=red ctermbg=233   ctermfg=3
 highlight Search       guibg=red ctermbg=233   ctermfg=1
+highlight MatchParen   cterm=none ctermbg=1  ctermfg=0
+
 " highlight Visual       ctermbg=3   ctermfg=0
 " highlight Pmenu        ctermbg=240 ctermfg=12
 " highlight PmenuSel     ctermbg=0   ctermfg=3
@@ -126,12 +115,16 @@ set ignorecase            " Make search case-insensitive
 set lazyredraw            " Redraw only when we need to
                           " (do not redraw while running macros)
 
-set wrap                  " Wrap the text (windows size)
+set nowrap                " Don't Wrap the text (windows size)
 set linebreak             " Wrap at 'breakat' instead of the last character
-set tabstop=2             " The width of a tab is two spaces
-set shiftwidth=2          " Two spaces to use when (auto)indent.
-set softtabstop=2         " Set the number of column for a Tab
+set tabstop=4             " The width of a tab is four spaces
+set shiftwidth=4          " Spaces to use when (auto)indent.
+set softtabstop=4         " when hitting <BS>, pretend like a tab is removed, even if spaces"
 set expandtab             " Use spaces instead of Tabs
+set shiftround            " use multiple of shiftwidth when indenting with '<' and '>'
+set autoindent            " always set autoindenting on
+set copyindent            " copy the previous indentation on autoindenting
+
 set formatoptions-=o      " Don't auto-comment the next line when pressing 'o'
                           " Actually is not working for me :'(
 set laststatus=2          " Make visible the status bar
