@@ -408,8 +408,8 @@ vmap <C-c> :w !pbcopy<CR><CR>
 " Navigation
 nnoremap j gj
 nnoremap k gk
-nnoremap $ g$
-nnoremap 0 g0
+" nnoremap $ g$ "only with set wrap
+" nnoremap 0 g0 " only with set wrap
 
 " bind K to grep word under cursor
 nnoremap <leader>K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
