@@ -326,7 +326,6 @@ call NERDTreeHighlightFile('md', '', 'Magenta', 'none', '#ff00ff', '#151515')
 
 " CtrlP
 nnoremap <C-p> :CtrlP<CR>
-nnoremap <C-b> :CtrlPBuffer<CR>
 nnoremap <leader>m :CtrlPMRU<CR>
 
 " Commentary
@@ -400,6 +399,10 @@ nnoremap <leader>fef :normal! gg=G``<CR>
 
 " Set (No)Paste Toogle
 set pastetoggle=<leader>z
+
+" Fast Paste
+map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
+
 
 " pbcopy for OSX copy/paste
 vmap <C-x> :!pbcopy<CR>
