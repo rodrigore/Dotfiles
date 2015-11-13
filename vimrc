@@ -32,6 +32,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'jpo/vim-railscasts-theme'
 
 " Testing
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ktonga/vim-follow-my-lead'
 
 call plug#end()
