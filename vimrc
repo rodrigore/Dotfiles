@@ -16,6 +16,7 @@ Plug 'tpope/vim-fugitive'             " Nice Git wrapper(it should be ilegal)
 Plug 'tpope/vim-surround'             " Add/Remove/Change surrounding text
 Plug 'godlygeek/tabular'              " Line up text (like this comments)
 Plug 'ryanoasis/vim-webdevicons'
+Plug 'editorconfig/editorconfig-vim'
 
 " Syntax and improvements
 Plug 'jelera/vim-javascript-syntax'           " Enhanced js syntax
@@ -157,6 +158,10 @@ noremap <leader>ss :call StripWhitespace ()<CR>
 "                        Plugin Customization
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" editor config
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+let g:EditorConfig_core_mode = 'external_command'
+
 " vim expand-region
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -245,7 +250,7 @@ let g:syntastic_enable_signs=1
 let g:syntastic_style_error_symbol = '✗'
 let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_php_checkers = ['php', 'phpcs']
-let g:syntastic_php_phpcs_args = "--standard=psr2"
+let g:syntastic_php_phpcs_args = "--standard=psr2 -n --config-file"
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 let g:syntastic_html_checkers=['']
 
