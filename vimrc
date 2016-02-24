@@ -253,6 +253,7 @@ let g:syntastic_php_checkers = ['php', 'phpcs']
 let g:syntastic_php_phpcs_args = "--standard=psr2 -n --config-file"
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 let g:syntastic_html_checkers=['']
+let g:syntastic_javascript_checkers = ['jscs', 'jshint']
 
 " rainbow
 " au VimEnter * RainbowParenthesesToggle
