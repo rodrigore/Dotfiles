@@ -231,7 +231,7 @@ endif
 
 "CtrlP
 let g:ctrlp_max_height = 30
-let g:ctrlp_custom_ignore = '\.git$\|\.o$\|\.app$\|\.beam$\|\.dSYM\|\.ipa$\|\.csv\|tags\|public\/images$\|public\/uploads$\|log\|tmp$\|source_maps\|app\/assets\/images\|test\/reports\|node_modules\|bower_components'
+let g:ctrlp_custom_ignore = '\.git$\|public\/images$\|public\/uploads$\|log\|tmp$\|node_modules\|bower_components'
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_use_caching = 0
 
