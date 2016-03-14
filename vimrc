@@ -17,6 +17,7 @@ Plug 'tpope/vim-surround'             " Add/Remove/Change surrounding text
 Plug 'godlygeek/tabular'              " Line up text (like this comments)
 Plug 'ryanoasis/vim-webdevicons'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'craigemery/vim-autotag'
 
 " Syntax and improvements
 Plug 'jelera/vim-javascript-syntax'           " Enhanced js syntax
@@ -26,6 +27,9 @@ Plug 'tpope/vim-endwise'                      " Autocompletion the 'end' word in
 Plug 'vim-scripts/camelcasemotion'            " Motion for CamelCaseWords and underscore_notation
 Plug 'stephpy/vim-php-cs-fixer'               " Run PHP CS Fixer
 Plug 'rodrigore/php.vim'                      " Modern PHP syntax 5.3, 5.4, 5.5
+Plug 'msanders/snipmate.vim'
+Plug 'arnaud-lb/vim-php-namespace'
+
 
 " Colorschemes
 Plug 'crusoexia/vim-dracula'
@@ -34,7 +38,6 @@ Plug 'jpo/vim-railscasts-theme'
 
 " Testing
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'ktonga/vim-follow-my-lead'
 
 call plug#end()
 filetype plugin indent on               " [Vundle requirement]
@@ -181,9 +184,26 @@ let g:php_cs_fixer_level = "psr2"                  " which level ?
 let g:php_cs_fixer_config = "default"             " configuration
 " If you want to define specific fixers:
 "let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
-let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_enable_default_mapping = 0
+let g:phpfmt_php_path = "php"
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
 let g:php_cs_fixer_verbose = 1                    " Return the output of command if 1, else an inline information.
+nnoremap <silent><leader>pcf :w \| :call PhpCsFixerFixFile()<CR><CR>
+
+" php namespace
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php inoremap <Leader>pu <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>pu :call PhpInsertUse()<CR>
+
+function! IPhpExpandClass()
+    call PhpExpandClass()
+    call feedkeys('a', 'n')
+endfunction
+autocmd FileType php inoremap <Leader>pe <Esc>:call IPhpExpandClass()<CR>
+autocmd FileType php noremap <Leader>pe :call PhpExpandClass()<CR>
 
 " Status line: Vim-airline
 let g:airline_powerline_fonts=1
@@ -250,7 +270,7 @@ let g:syntastic_enable_signs=1
 let g:syntastic_style_error_symbol = '✗'
 let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_php_checkers = ['php', 'phpcs']
-let g:syntastic_php_phpcs_args = "--standard=psr2 -n --config-file"
+let g:syntastic_php_phpcs_args = "--standard=psr2 -n"
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 let g:syntastic_html_checkers=['']
 let g:syntastic_javascript_checkers = ['jscs', 'jshint']
@@ -482,6 +502,15 @@ function! s:NextTextObject(motion)
   let c = nr2char(getchar())
   exe "normal! f".c."v".a:motion.c
 endfunction
+
+"" Laravel
+nmap <leader>lv :CtrlP vendor/laravel/framework/src/<cr>
+vmap <Leader>su ! awk '{ print length(), $0 \| "sort -n \| cut -d\\  -f2-" }'<cr>
+
+" Allow gf to work with PHP namespaced classes.
+set includeexpr=substitute(v:fname,'\\\','/','g')
+set path+=**
+set suffixesadd+=.php
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             TEMP
