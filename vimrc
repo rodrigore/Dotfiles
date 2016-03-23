@@ -309,7 +309,7 @@ autocmd BufRead,BufNewFile *.md,*.txt set filetype=markdown " Highlight Markdown
 autocmd BufRead,BufNewFile *.go  set tabstop=4 shiftwidth=4  softtabstop=4
 autocmd BufRead,BufNewFile *.php set tabstop=4 shiftwidth=4 tabstop=4
 autocmd BufRead,BufNewFile *.blade.php set filetype=html
-autocmd Filetype js set tabstop=2 shiftwidth=2 tabstop=2
+autocmd BufRead,BufNewFile *.js set tabstop=2 shiftwidth=2 tabstop=2
 
 " Make sure Vim open in the same line when you reopen a file.
 augroup line_return
