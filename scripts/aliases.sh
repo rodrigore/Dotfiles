@@ -30,5 +30,9 @@ alias please='sudo $(fc -ln -1)'
 # Homestead
 alias vm='ssh vagrant@127.0.0.1 -p 2222'
 
+# neovim
+alias v='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
+
 #
 alias nyancat='telnet nyancat.dakko.us'
+
