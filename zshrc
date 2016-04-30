@@ -1,23 +1,12 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+# pure theme
+autoload -U promptinit && promptinit
+prompt pure
 
-# Set name of the theme to load.
-ZSH_THEME="pure"
-#"avit" "robbyrussell" "soliah" "tjkirch" "kafeitu" "intheloop" "dpoggi" "fino" "gentoo" "cloud" "Soliah" "smt"
+# syntax highlight
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Uncomment following line if you want to disable autosetting terminal title.
-DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-DISABLE_CORRECTION="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-plugins=(git vi-mode zsh-syntax-highlighting tmux)
-
-source $ZSH/oh-my-zsh.sh
+# cli colors
+export CLICOLOR=1
 
 # Vi key binding
 bindkey -v
@@ -26,16 +15,14 @@ KEYTIMEOUT=1
 # Vim as a default editor
 export EDITOR=vim
 
-# Customize to your needs...
-export PATH=/Applications/Firefox.app/Contents/MacOS/:/usr/local/php5/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/sbin
-
 ## aliases
-source $HOME/.aliases.sh
+source $HOME/dotfiles/scripts/aliases.sh
 
-# Theme shell
-# BASE16_SCHEME="railscasts"
-# BASE16_SCHEME="ocean"
-# BASE16_SHELL="$HOME/dotfiles/base16-shell/base16-$BASE16_SCHEME.dark.sh"
-# source $BASE16_SHELL
-# [[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
-#
+# EXPORT
+export PATH=/usr/local/php5/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/sbin
+
+# ANDROID PATH
+#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home
+#export ANT_HOME=/Users/rodri/Android/apache-ant-1.9.6
+#export PATH=${PATH}:/Users/rodri/Android/android-sdk-macosx/tools/:/users/rodri/Development/android-sdk-macosx/platforms:${ANT_HOME}/bin
+
