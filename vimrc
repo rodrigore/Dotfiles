@@ -32,7 +32,7 @@ Plug 'arnaud-lb/vim-php-namespace'
 
 
 " Colorschemes
-Plug 'crusoexia/vim-dracula'
+Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
 Plug 'chriskempson/base16-vim'
 Plug 'jpo/vim-railscasts-theme'
 
@@ -60,11 +60,6 @@ set visualbell             " Don't beep
 set noerrorbells           " Don't beep
 set autoread
 
-if !has("gui_running")
-    set term=screen-256color " Colourful and uniform behaviuor with Tmux/Screen
-endif
-set t_Co=256                " 256 color for terminal
-
 if exists('$TMUX')
   set clipboard=
 else
@@ -76,7 +71,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " let base16colorspace=256   " Make the base16-theme  look pretty in the terminal
 set background=dark        " Make the background color to dark
-" colorscheme base16-railscasts " Cool and pretty colorscheme
+"colorscheme base16-railscasts " Cool and pretty colorscheme
 colorscheme dracula
 
 highlight Normal ctermbg=None
@@ -90,6 +85,14 @@ highlight VertSplit    guibg=NONE guifg=#bd93f9 ctermbg=233 ctermfg=4
 highlight IncSearch    guibg=red ctermbg=233   ctermfg=3
 highlight Search       guibg=red ctermbg=233   ctermfg=1
 highlight MatchParen   cterm=none ctermbg=1  ctermfg=0
+
+hi CursorLine ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#2e3039 gui=NONE
+" hi Normal guifg=#f8f8f2 guibg=#1e1f29 gui=NONE
+hi NonText guifg=#f8f8f2 guibg=#1e1f29 gui=NONE
+
+hi TabLineFill  guifg=#333333 guibg=#1e1f29 gui=none
+hi TabLine      guifg=#666666 guibg=#1e1f29 gui=none
+hi TabLineSel   guifg=WHITE guibg=#1e1f29 gui=none
 
 " highlight Visual       ctermbg=3   ctermfg=0
 " highlight Pmenu        ctermbg=240 ctermfg=12
@@ -211,7 +214,7 @@ let g:airline#extensions#whitespace#enabled = 1
 " let g:airline_theme='bubblegum'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
@@ -326,31 +329,6 @@ augroup END
 " NERDtree
 nnoremap <leader>n :NERDTreeToggle<CR>
 
-function! NERDTreeHighlightFile(extension, symbol, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+\[' .  a:symbol .'\s\+\]#'
- exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- " exec 'autocmd filetype nerdtree highlight def link ' . a:extension .' Function'
-endfunction
-
-let s:orange = "215"
-" let s:pink   = "212"
-" let s:green  = "84"
-" let s:aqua   = "117"
-" let s:yellow = "228"
-" let s:orange = "215"
-" let s:purple = "141"
-" let s:red    = "231"
-
-call NERDTreeHighlightFile('ini', '', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('php', '', 'cyan', 'none', '#ff0000', '#ff0000')
-call NERDTreeHighlightFile('gulp', '', s:orange, 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('json', '', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('js', '', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('css', '', 'Magenta', 'none', '#ff00ff', '#151515')
-call NERDTreeHighlightFile('html', '', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('md', '', 'Magenta', 'none', '#ff00ff', '#151515')
-" source: https://github.com/scrooloose/nerdtree/issues/201#issuecomment-9954740
-
 " CtrlP
 nnoremap <C-p> :CtrlP<CR>
 nnoremap <leader>m :CtrlPMRU<CR>
@@ -368,21 +346,6 @@ sunmap w
 sunmap b
 sunmap e
 
-" tslime
-" vmap <C-c><C-c> <Plug>SendSelectionToTmux
-" nmap <C-c><C-c> <Plug>NormalModeSendToTmux
-
-" tmux-navigator
-let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <C-w>j :TmuxNavigateDown<cr>
-nnoremap <silent> <C-w>k :TmuxNavigateUp<cr>
-nnoremap <silent> <C-w>l :TmuxNavigateRight<cr>
-nnoremap <silent> <C-w>h :TmuxNavigateLeft<cr>
-
-"Vim-smooth-scroll
-" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 1, 7)<CR>
-" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 1, 7)<CR>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                         Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -394,15 +357,6 @@ nnoremap <Left> :vertical resize -5<CR>
 nnoremap <Right> :vertical resize +5<CR>
 nnoremap <Up> :resize -5<CR>
 nnoremap <Down> :resize +5<CR>
-
-" Erase the highlighting of a search
-nnoremap <space><space> :nohlsearch<cr>
-
-" Yank to clipboard OS
-vnoremap <leader>y "+y
-nnoremap <leader>y "+y
-" nnoremap p "+p
-" nnoremap P "+P
 
 " Delete buffer without losing the split window
 " http://stackoverflow.com/questions/1444322/how-can-i-close-a-buffer-without-closing-the-window
@@ -431,22 +385,13 @@ set pastetoggle=<leader>z
 map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 
 
-" pbcopy for OSX copy/paste
-vmap <C-x> :!pbcopy<CR>
-vmap <C-c> :w !pbcopy<CR><CR>
-
 " Navigation
 nnoremap j gj
 nnoremap k gk
 " nnoremap $ g$ "only with set wrap
 " nnoremap 0 g0 " only with set wrap
 
-" bind K to grep word under cursor
-nnoremap <leader>K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
 " Move between buffers
-nmap gn :bnext<cr>
-nmap go :bprevious<cr>
 map <Leader>t :bnext<Return>
 map <Leader>a :bprevious<Return>
 
@@ -474,8 +419,6 @@ cnoremap sudow w !sudo tee % >/dev/null
 
 " Fast access to frequent files
 map <Leader>vi :vsp $MYVIMRC<CR>  " Obviously :)
-map <Leader>cn :vsp ~/Documents/connections-data.txt<CR>
-map <Leader>pn :vsp ~/Documents/project-notes.txt<CR>
 
 " Bubble single lines
 nmap <C-k> ddkP
@@ -528,3 +471,4 @@ else
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
+" set guicolors

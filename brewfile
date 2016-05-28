@@ -3,29 +3,8 @@ upgrade
 install ack
 install ctags
 install git
-install reattach-to-user-namespace
 install ssh-copy-id
 install the_silver_searcher
 install tmux
 install trash
-install tree
-install vim --override-system-vi
-"install weechat --with-python --with-perl --with-ruby
-install wget
-
-# cask
-" tap phinze/homebrew-cask
-" install brew-cask
-"
-" cask install iterm2
-" cask install sequel-pro
-" cask install vagrant
-" cask install skype
-" cask install the-unarchiver
-" cask install firefox
-" cask install vlc
-" cask install airmail
-" cask install cyberduck
-" cask install dash
-" cask install sublime-text
-" cask install utorrent
+install vim --with-override-system-vi --with-lua
