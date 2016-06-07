@@ -24,7 +24,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
-Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
+Plug 'dracula/dracula-theme', {'rtp': 'vim/'}
 "delimitMate (inserta parentesis)
 "tabular
 
@@ -77,8 +77,8 @@ set termguicolors
 colo dracula
 
 highlight Normal ctermbg=None guibg=NONE
-highlight Visual ctermbg=4 ctermfg=0
 highlight NonText ctermbg=NONE ctermfg=234
+highlight Visual ctermbg=4 ctermfg=0
 highlight clear SignColumn
 highlight clear SignWarning
 highlight clear SignSWarning
@@ -265,5 +265,4 @@ nnoremap <leader>m :CtrlPMRU<CR>
 " Syntastyc
 nnoremap <leader>cs :SyntasticCheck<CR>
 " }}}
-set termguicolors
 
