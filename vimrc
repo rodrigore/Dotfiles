@@ -17,6 +17,7 @@ Plug 'junegunn/gv.vim'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
 Plug 'rking/ag.vim', { 'on': ['Ag']}
+Plug 'rodrigore/syntastic-local-semistandard.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'sheerun/vim-polyglot'
@@ -175,7 +176,7 @@ set pastetoggle=<leader>z
 " Plugins configuration {{{
 "syntastic
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_wq = 1
 let g:syntastic_enable_signs = 1
 let g:syntastic_style_error_symbol = '❌'
 let g:syntastic_error_symbol = '❌'
@@ -185,7 +186,7 @@ let g:syntastic_php_checkers = ['php', 'phpcs']
 let g:syntastic_php_phpcs_args = "--standard=psr2 -n"
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 let g:syntastic_html_checkers=['']
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['standard']
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
