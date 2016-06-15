@@ -11,7 +11,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'blueyed/vim-diminactive'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dracula/vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'junegunn/gv.vim'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
 Plug 'rking/ag.vim', { 'on': ['Ag']}
@@ -24,7 +26,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
-Plug 'dracula/dracula-theme', {'rtp': 'vim/'}
 "delimitMate (inserta parentesis)
 "tabular
 
@@ -75,10 +76,11 @@ set termguicolors
 " }}}
 " Colorscheme {{{
 colo dracula
+" set termguicolors
 
 highlight Normal ctermbg=None guibg=NONE
-highlight NonText ctermbg=NONE ctermfg=234
 highlight Visual ctermbg=4 ctermfg=0
+highlight NonText ctermbg=NONE ctermfg=234
 highlight clear SignColumn
 highlight clear SignWarning
 highlight clear SignSWarning
@@ -172,8 +174,8 @@ set pastetoggle=<leader>z
 " }}}
 " Plugins configuration {{{
 "syntastic
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_signs = 1
 let g:syntastic_style_error_symbol = '❌'
 let g:syntastic_error_symbol = '❌'
@@ -222,6 +224,7 @@ let g:ctrlp_max_height = 30
 let g:ctrlp_custom_ignore = '\.git$\|public\/images$\|public\/uploads$\|log\|tmp$\|node_modules\|bower_components\'
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_use_caching = 0
+let g:ctrlp_working_path_mode=0
 
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
@@ -250,7 +253,6 @@ let g:phpfmt_php_path = "php"
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
 let g:php_cs_fixer_verbose = 1                    " Return the output of command if 1, else an inline information.
 nnoremap <silent><leader>pcf :w \| :call PhpCsFixerFixFile()<CR><CR>
-
 
 " }}}
 " Plugins mappings {{{
