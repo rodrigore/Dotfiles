@@ -21,6 +21,8 @@ source $HOME/dotfiles/scripts/aliases.sh
 # EXPORT
 export PATH=/usr/local/php5/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/sbin
 
+export TERM=xterm-256color-italic
+
 # ANDROID PATH
 #export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home
 #export ANT_HOME=/Users/rodri/Android/apache-ant-1.9.6

@@ -82,6 +82,7 @@ colo dracula
 highlight Normal ctermbg=None guibg=NONE
 highlight Visual ctermbg=4 ctermfg=0
 highlight NonText ctermbg=NONE ctermfg=234
+highlight Comment cterm=italic gui=italic
 highlight clear SignColumn
 highlight clear SignWarning
 highlight clear SignSWarning
