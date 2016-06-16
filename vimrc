@@ -77,7 +77,7 @@ set termguicolors
 " }}}
 " Colorscheme {{{
 colo dracula
-" set termguicolors
+set termguicolors
 
 highlight Normal ctermbg=None guibg=NONE
 highlight Visual ctermbg=4 ctermfg=0
