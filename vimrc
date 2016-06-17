@@ -15,14 +15,14 @@ Plug 'dracula/vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/gv.vim'
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'pangloss/vim-javascript'
+Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'rking/ag.vim', { 'on': ['Ag']}
 Plug 'rodrigore/syntastic-local-semistandard.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'sheerun/vim-polyglot'
-Plug 'stanAngeloff/php.vim'
-Plug 'stephpy/vim-php-cs-fixer'
+Plug 'stanAngeloff/php.vim', { 'for': 'php' }
+Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -77,7 +77,6 @@ set termguicolors
 " }}}
 " Colorscheme {{{
 colo dracula
-set termguicolors
 
 highlight Normal ctermbg=None guibg=NONE
 highlight Visual ctermbg=4 ctermfg=0
@@ -92,7 +91,6 @@ highlight VertSplit    guibg=NONE guifg=#bd93f9 ctermbg=233 ctermfg=4
 highlight IncSearch    guibg=red ctermbg=233   ctermfg=3
 highlight Search       guibg=red ctermbg=233   ctermfg=1
 highlight MatchParen   cterm=none ctermbg=1  ctermfg=0
-highlight CursorLine ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#2e3039 gui=NONE
 syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii  ctermfg=NONE ctermbg=NONE
 " }}}
@@ -100,8 +98,11 @@ highlight nonascii  ctermfg=NONE ctermbg=NONE
 
 " php.vim
 function! PhpSyntaxOverride()
-    hi! def link phpType phpBoolean
-    hi! phpClass ctermfg=84
+    hi! def link phpType phpIdentifier
+    hi! def link phpSCKeyword phpIdentifier
+    hi! phpClass cterm=italic gui=italic guifg=#50fa7b
+    hi! phpStaticClasses cterm=italic gui=italic guifg=#8be9fd
+    hi! phpClTop gui=italic cterm=italic
 endfunction
 
 augroup phpSyntaxOverride
