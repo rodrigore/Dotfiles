@@ -23,6 +23,9 @@ export PATH=/usr/local/php5/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/b
 
 export TERM=xterm-256color-italic
 
+alias ssh='TERM=xterm-256color ssh'
+alias vssh='TERM=xterm-256color vssh'
+
 # ANDROID PATH
 #export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home
 #export ANT_HOME=/Users/rodri/Android/apache-ant-1.9.6
