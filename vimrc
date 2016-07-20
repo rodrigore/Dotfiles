@@ -14,6 +14,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dracula/vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/gv.vim'
+Plug 'mattn/emmet-vim'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'rking/ag.vim', { 'on': ['Ag']}
