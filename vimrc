@@ -102,7 +102,6 @@ function! PhpSyntaxOverride()
     hi! def link phpSCKeyword phpIdentifier
     hi! phpClass cterm=italic gui=italic guifg=#50fa7b
     hi! phpStaticClasses cterm=italic gui=italic guifg=#8be9fd
-    hi! phpClTop gui=italic cterm=italic
 endfunction
 
 augroup phpSyntaxOverride
