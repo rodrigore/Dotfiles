@@ -8,3 +8,5 @@ install the_silver_searcher
 install tmux
 install trash
 install vim --with-override-system-vi --with-lua
+install homebrew/php/php-code-sniffer
+install homebrew/php/php-cs-fixer

@@ -1,15 +1,16 @@
 [user]
-  name = rodrigore
-  email = rodrigopcg@gmail.com
+    name = rodrigore
+    email = rodrigopcg@gmail.com
 [diff]
-  tool = vimdiff
+    tool = vimdiff
+    compactionHeuristic = true
 [color]
-  ui = auto
+    ui = auto
 [alias]
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
-  ch = checkout -
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
+    ch = checkout -
 [core]
-  ignore = dirty
-  editor = vim
+    ignore = dirty
+    editor = vim
 [credential]
-	helper = osxkeychain
+    helper = osxkeychain

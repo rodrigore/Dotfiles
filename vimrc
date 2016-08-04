@@ -189,7 +189,7 @@ let g:syntastic_php_phpcs_args = "--standard=psr2 -n"
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 let g:syntastic_html_checkers=['']
 let g:syntastic_javascript_checkers = ['standard']
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['php'],'passive_filetypes': ['html'] }
 highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
 highlight link SyntasticStyleErrorSign SignColumn
