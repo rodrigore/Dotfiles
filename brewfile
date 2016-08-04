@@ -3,6 +3,7 @@ upgrade
 install ack
 install ctags
 install git
+install shkm/brew/vssh
 install ssh-copy-id
 install the_silver_searcher
 install tmux
