@@ -255,7 +255,7 @@ let g:php_cs_fixer_enable_default_mapping = 0
 let g:phpfmt_php_path = "php"
 let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
 let g:php_cs_fixer_verbose = 1                    " Return the output of command if 1, else an inline information.
-nnoremap <silent><leader>pcf :w \| :call PhpCsFixerFixFile()<CR><CR>
+nnoremap <silent><leader>pf :w \| :call PhpCsFixerFixFile()<CR><CR>
 
 " }}}
 " Plugins mappings {{{
