@@ -173,10 +173,15 @@ nnoremap <leader>fef :normal! gg=G``<CR>
 " Set (No)Paste Toogle
 set pastetoggle=<leader>z
 
+" Jump to next error and previous error
+map ]l :lnext<CR>
+map [l :lprevious<CR>
+
 
 " }}}
 " Plugins configuration {{{
 "syntastic
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_enable_signs = 1
