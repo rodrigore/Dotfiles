@@ -253,6 +253,7 @@ let g:ag_prg='ag -S --nocolor --nogroup --column --ignore public --ignore node_m
 let php_var_selector_is_identifier=1
 
 " Php CS Fixer
+let g:php_cs_fixer_fixers_list="-psr0"
 let g:php_cs_fixer_level = "psr2"                  " which level ?
 let g:php_cs_fixer_config = "default"             " configuration
 "let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
@@ -275,4 +276,3 @@ nnoremap <leader>m :CtrlPMRU<CR>
 " Syntastyc
 nnoremap <leader>cs :SyntasticCheck<CR>
 " }}}
-
