@@ -19,14 +19,17 @@ Plug 'nelstrom/vim-visual-star-search'
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'rking/ag.vim', { 'on': ['Ag']}
 Plug 'rodrigore/syntastic-local-semistandard.vim'
+Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'scrooloose/syntastic'
+Plug 'benekastah/neomake'
 Plug 'sheerun/vim-polyglot'
 Plug 'stanAngeloff/php.vim', { 'for': 'php' }
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'trevordmiller/nova-vim'
 Plug 'vim-airline/vim-airline'
 "delimitMate (inserta parentesis)
 "tabular
@@ -77,8 +80,11 @@ setg fixendofline         " EOL
 set termguicolors
 " }}}
 " Colorscheme {{{
-colo dracula
+" colo dracula
+colorscheme nova
 
+ hi link NERDTreeOpenable String
+ hi link NERDTreeClosable String
 highlight Normal ctermbg=None guibg=NONE
 highlight Visual ctermbg=4 ctermfg=0
 highlight NonText ctermbg=NONE ctermfg=234
@@ -141,6 +147,7 @@ autocmd BufRead,BufNewFile *.go  set tabstop=4 shiftwidth=4  softtabstop=4
 autocmd BufRead,BufNewFile *.php set tabstop=4 shiftwidth=4 tabstop=4
 autocmd BufRead,BufNewFile *.blade.php set filetype=blade.html
 autocmd BufRead,BufNewFile *.js set tabstop=2 shiftwidth=2 tabstop=2
+autocmd BufRead,BufNewFile *.rb set tabstop=2 shiftwidth=2 tabstop=2
 
 " }}}
 " Mappings {{{
@@ -181,24 +188,36 @@ map [l :lprevious<CR>
 " }}}
 " Plugins configuration {{{
 "syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_enable_signs = 1
-let g:syntastic_style_error_symbol = '❌'
-let g:syntastic_error_symbol = '❌'
-let g:syntastic_style_warning_symbol = '⚠️'
-let g:syntastic_warning_symbol = '⚠️'
-let g:syntastic_php_checkers = ['php', 'phpcs']
-let g:syntastic_php_phpcs_args = "--standard=psr2 -n"
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-let g:syntastic_html_checkers=['']
-let g:syntastic_javascript_checkers = ['standard']
-let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['php'],'passive_filetypes': ['html'] }
-highlight link SyntasticErrorSign SignColumn
-highlight link SyntasticWarningSign SignColumn
-highlight link SyntasticStyleErrorSign SignColumn
-highlight link SyntasticStyleWarningSign SignColumn
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 1
+" let g:syntastic_enable_signs = 1
+" let g:syntastic_style_error_symbol = '❌'
+" let g:syntastic_error_symbol = '❌'
+" let g:syntastic_style_warning_symbol = '⚠️'
+" let g:syntastic_warning_symbol = '⚠️'
+" let g:syntastic_php_checkers = ['php', 'phpcs']
+" let g:syntastic_php_phpcs_args = "--standard=psr2 -n"
+" let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+" let g:syntastic_html_checkers=['']
+" let g:syntastic_javascript_checkers = ['standard']
+" let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['php'],'passive_filetypes': ['html'] }
+" highlight link SyntasticErrorSign SignColumn
+" highlight link SyntasticWarningSign SignColumn
+" highlight link SyntasticStyleErrorSign SignColumn
+" highlight link SyntasticStyleWarningSign SignColumn
+
+" vim-devicon
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '-'
+
+"neomake
+autocmd! BufEnter,BufWritePost * Neomake
+
+let g:neomake_php_enabled_makers = ['phpcs']
+let g:neomake_php_phpcs_args_standard = 'psr2'                                  "Set phpcs to use PSR2 standard
+let g:neomake_javascript_enabled_makers = ['standard']                        "Enable these linters for js
 
 " airline
 let g:airline_powerline_fonts=1
