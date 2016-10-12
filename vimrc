@@ -214,6 +214,9 @@ let g:NERDTreeDirArrowCollapsible = '-'
 
 "neomake
 autocmd! BufEnter,BufWritePost * Neomake
+let g:neomake_error_sign = {'text':  '❌', 'texthl': 'NeomakeErrorSign'}
+let g:neomake_warning_sign = {'text': '⚠️', 'texthl': 'NeomakeWarningSign'}
+
 
 let g:neomake_php_enabled_makers = ['phpcs']
 let g:neomake_php_phpcs_args_standard = 'psr2'                                  "Set phpcs to use PSR2 standard
