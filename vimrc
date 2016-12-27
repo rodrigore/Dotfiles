@@ -31,6 +31,7 @@ Plug 'trevordmiller/nova-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'w0rp/ale'
 Plug 'arnaud-lb/vim-php-namespace'
+Plug 'junegunn/vim-emoji'
 "delimitMate (inserta parentesis)
 "tabular
 
@@ -104,8 +105,8 @@ syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii  ctermfg=NONE ctermbg=NONE
 "ale hi
 hi clear ALEError
-hi clear ALEWarning
 hi clear ALEErrorSign
+hi clear ALEWarning
 hi clear ALEWarningSign
 " }}}
 " Autocommands and functions {{{
@@ -205,8 +206,10 @@ map [l :lprevious<CR>
 " Plugins configuration {{{
 
 "ale
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
+" let g:ale_sign_error = '!'
+" let g:ale_sign_warning = '$'
+let g:ale_sign_error = emoji#for('boom')
+let g:ale_sign_warning = emoji#for('small_orange_diamond')
 let g:ale_php_phpcs_standard='psr2 -n'
 
 " vim-devicon
