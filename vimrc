@@ -201,6 +201,10 @@ set pastetoggle=<leader>z
 map ]l :lnext<CR>
 map [l :lprevious<CR>
 
+" move in visual mode
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
 
 " }}}
 " Plugins configuration {{{
@@ -211,6 +215,10 @@ map [l :lprevious<CR>
 let g:ale_sign_error = emoji#for('boom')
 let g:ale_sign_warning = emoji#for('small_orange_diamond')
 let g:ale_php_phpcs_standard='psr2 -n'
+
+let g:ale_linters = {
+      \   'javascript': ['eslint'],
+      \}
 
 " vim-devicon
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
