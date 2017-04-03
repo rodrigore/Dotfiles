@@ -17,6 +17,7 @@ Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'junegunn/gv.vim'
 Plug 'mattn/emmet-vim'
 Plug 'nelstrom/vim-visual-star-search'
+Plug 'posva/vim-vue'
 Plug 'rking/ag.vim', { 'on': ['Ag']}
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -24,7 +25,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'stanAngeloff/php.vim', { 'for': 'php' }
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'tpope/vim-commentary'
+Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'trevordmiller/nova-vim'
@@ -43,7 +44,7 @@ let mapleader=','
 set laststatus=2          " Make visible the status bar
 syntax on                  " Turn on syntax highlighting
 set grepprg='ag'           " Use the silver searcher instead of grep
-set cursorline            " Highlight the current line
+" set cursorline            " Highlight the current line
 set visualbell            " Don't beep
 set noerrorbells          " Don't beep
 set hlsearch              " Highlight search
@@ -164,6 +165,7 @@ autocmd BufRead,BufNewFile *.php set tabstop=4 shiftwidth=4 tabstop=4
 autocmd BufRead,BufNewFile *.blade.php set filetype=blade.html
 autocmd BufRead,BufNewFile *.js set tabstop=2 shiftwidth=2 tabstop=2
 autocmd BufRead,BufNewFile *.rb set tabstop=2 shiftwidth=2 tabstop=2
+autocmd FileType vue syntax sync fromstart
 
 " }}}
 " Mappings {{{
