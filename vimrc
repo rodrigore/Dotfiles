@@ -35,6 +35,8 @@ Plug 'arnaud-lb/vim-php-namespace'
 Plug 'junegunn/vim-emoji'
 "delimitMate (inserta parentesis)
 "tabular
+"
+Plug 'whatyouhide/vim-gotham'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -84,8 +86,9 @@ set termguicolors
 set tags+=tags,tags.vendors
 " }}}
 " Colorscheme {{{
-colo dracula
+" colo dracula
 " colorscheme nova
+colorscheme gotham
 
  hi link NERDTreeOpenable String
  hi link NERDTreeClosable String
@@ -116,8 +119,8 @@ hi clear ALEWarningSign
 function! PhpSyntaxOverride()
     hi! def link phpType phpIdentifier
     hi! def link phpSCKeyword phpIdentifier
-    hi! phpClass cterm=italic gui=italic guifg=#50fa7b
-    hi! phpStaticClasses cterm=italic gui=italic guifg=#8be9fd
+    hi! phpClass cterm=italic gui=italic guifg=#edb443
+    hi! phpStaticClasses cterm=italic gui=italic guifg=#edb443
 endfunction
 
 augroup phpSyntaxOverride
