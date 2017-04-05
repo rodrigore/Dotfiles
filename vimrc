@@ -13,8 +13,10 @@ Plug 'blueyed/vim-diminactive'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dracula/vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'godlygeek/tabular'
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'junegunn/gv.vim'
+Plug 'junegunn/vim-emoji'
 Plug 'mattn/emmet-vim'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'posva/vim-vue'
@@ -30,13 +32,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'trevordmiller/nova-vim'
 Plug 'vim-airline/vim-airline'
+Plug 'whatyouhide/vim-gotham'
 Plug 'w0rp/ale'
 Plug 'arnaud-lb/vim-php-namespace'
-Plug 'junegunn/vim-emoji'
 "delimitMate (inserta parentesis)
-"tabular
-"
-Plug 'whatyouhide/vim-gotham'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -223,6 +222,7 @@ let g:ale_php_phpcs_standard='psr2 -n'
 
 let g:ale_linters = {
       \   'javascript': ['eslint'],
+      \   'html': [''],
       \}
 
 " vim-devicon
