@@ -18,6 +18,7 @@ Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'mattn/emmet-vim'
+Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'posva/vim-vue'
 Plug 'rking/ag.vim', { 'on': ['Ag']}
@@ -30,12 +31,11 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'trevordmiller/nova-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'whatyouhide/vim-gotham'
 Plug 'w0rp/ale'
 Plug 'arnaud-lb/vim-php-namespace'
-"delimitMate (inserta parentesis)
+
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -85,15 +85,14 @@ set termguicolors
 set tags+=tags,tags.vendors
 " }}}
 " Colorscheme {{{
-" colo dracula
-" colorscheme nova
-colorscheme gotham
+set bg=dark
+colorscheme gruvbox
 
- hi link NERDTreeOpenable String
- hi link NERDTreeClosable String
+ hi link NERDTreeOpenable GruvboxYellow
+ hi link NERDTreeClosable GruvboxYellow
 highlight Normal ctermbg=None guibg=NONE
 highlight Visual ctermbg=4 ctermfg=0
-highlight NonText ctermbg=NONE ctermfg=234
+" highlight NonText ctermbg=NONE ctermfg=234
 highlight Comment cterm=italic gui=italic
 highlight clear SignColumn
 highlight clear SignWarning
