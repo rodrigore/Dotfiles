@@ -14,12 +14,13 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dracula/vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
-Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
+Plug 'laurentb/vim-cute-php'
+Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
 Plug 'rking/ag.vim', { 'on': ['Ag']}
 Plug 'ryanoasis/vim-devicons'
@@ -212,6 +213,12 @@ vnoremap K :m '<-2<CR>gv=gv
 " }}}
 " Plugins configuration {{{
 
+" pangloss/vim-javascript
+set conceallevel=1
+let g:javascript_conceal_function             = "ƒ"
+let g:javascript_conceal_null                 = "ø"
+let g:javascript_conceal_arrow_function       = "⇒"
+
 "ale
 " let g:ale_sign_error = '!'
 " let g:ale_sign_warning = '$'
@@ -308,3 +315,4 @@ nnoremap <leader>m :CtrlPMRU<CR>
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " }}}
+
