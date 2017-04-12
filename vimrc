@@ -53,6 +53,8 @@ set hlsearch              " Highlight search
 set incsearch             " Highlight while typing the search
 set ignorecase            " Make search case-insensitive
 set lazyredraw            " Redraw only when we need to
+set conceallevel=1
+set concealcursor=nc
 " (do not redraw while running macros)
 
 set noswapfile             " No swap files (I don't like files.swap)
@@ -214,7 +216,6 @@ vnoremap K :m '<-2<CR>gv=gv
 " Plugins configuration {{{
 
 " pangloss/vim-javascript
-set conceallevel=1
 let g:javascript_conceal_function             = "ƒ"
 let g:javascript_conceal_null                 = "ø"
 let g:javascript_conceal_arrow_function       = "⇒"
