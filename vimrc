@@ -54,7 +54,8 @@ set incsearch             " Highlight while typing the search
 set ignorecase            " Make search case-insensitive
 set lazyredraw            " Redraw only when we need to
 set conceallevel=1
-set concealcursor=nc
+" set concealcursor=nc
+set concealcursor=nvic
 " (do not redraw while running macros)
 
 set noswapfile             " No swap files (I don't like files.swap)
@@ -101,7 +102,6 @@ highlight clear SignColumn
 highlight clear SignWarning
 highlight clear SignSWarning
 highlight clear SignSError
-highlight clear Conceal
 highlight VertSplit    guibg=NONE guifg=#bd93f9 ctermbg=233 ctermfg=4
 highlight IncSearch    guibg=red ctermbg=233   ctermfg=3
 highlight Search       guibg=red ctermbg=233   ctermfg=1
