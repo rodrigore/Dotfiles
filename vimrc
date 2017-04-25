@@ -23,6 +23,7 @@ Plug 'laurentb/vim-cute-php'
 Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
 Plug 'rking/ag.vim', { 'on': ['Ag']}
+Plug 'rodrigore/vim-cute-php'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'sheerun/vim-polyglot'
