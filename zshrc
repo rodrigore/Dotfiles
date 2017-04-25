@@ -19,7 +19,10 @@ export EDITOR=vim
 source $HOME/dotfiles/scripts/aliases.sh
 
 # EXPORT
-export PATH=/usr/local/php5/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/sbin
+export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/sbin:~/dotfiles
+
+# composer
+export PATH=~/.composer/vendor/bin:$PATH
 
 export TERM=xterm-256color-italic
 

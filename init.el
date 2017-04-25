@@ -4,27 +4,68 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 
+(unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+      (package-install 'use-package))
+(eval-when-compile
+    (require 'use-package))
+
+; (when (memq window-system '(mac ns x))
+;   (exec-path-from-shell-initialize))
+
 ; (use-package flycheck
 ;   :ensure t
 ;   :init (global-flycheck-mode))
 
+; path
+(add-to-list 'exec-path "/usr/local/bin/")
+
+;; page scroll up like vim before call evil
+(setq evil-want-C-u-scroll t)
+
+(require 'web-mode)
 (require 'doom-themes)
 (require 'doom-neotree)
 (require 'evil)
+(require 'flycheck)
+(require 'flycheck-pos-tip)
 (require 'neotree)
 (require 'all-the-icons)
-(require 'ido)
+(require 'projectile)
+(require 'helm)
+(require 'helm-projectile)
 ; gruvbox-theme
 ; php-mode
-(ido-mode t)
+
+;; doom-theme brighter minibuffer when active
+(add-hook 'minibuffer-setup-hook 'doom-brighten-minibuffer)
+
+;disable backup
+(setq backup-inhibited t)
+
+;disable auto save
+(setq auto-save-default nil)
+
+;; web-mode
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+(setq web-mode-engines-alist
+    '(("php"    . "\\.phtml\\'")
+    ("blade"  . "\\.blade\\."))
+)
+
+;; php-mode
+(add-hook 'php-mode-hook 'php-enable-psr2-coding-style)
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ; flycheck
 (global-flycheck-mode)
 (with-eval-after-load 'flycheck
   (flycheck-pos-tip-mode))
 
-;; php-mode
-(add-hook 'php-mode-hook 'php-enable-psr2-coding-style)
+; psr2
+; (setq-local flycheck-phpcs-standard "PSR2")
+(setq flycheck-phpcs-standard "PSR2")
 
 ;; highlight current line
 (global-hl-line-mode 1)
@@ -49,10 +90,6 @@
 ;; hide welcome page
 (setq inhibit-startup-screen t)
 
-
-;; page scroll up like vim
-(setq evil-want-C-u-scroll t)
-
 ;; evil-mode
  (evil-mode 1)
 
@@ -62,7 +99,7 @@
 (setq-default neo-smart-open t)
 
 ;; theme
-(setq neo-theme (if window-system 'icons 'nerd)) ; 'classic, 'nerd, 'ascii, 'arrow
+;(setq neo-theme (if window-system 'icons 'nerd)) ; 'classic, 'nerd, 'ascii, 'arrow
 
 ;; neotree with evil
 (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
@@ -75,22 +112,20 @@
   ","  'other-window
   "."  'mode-line-other-buffer
   ":"  'eval-expression
-  "aa" 'align-regexp
-  "a=" 'my-align-single-equals
-  "b"  'helm-mini             ;; Switch to another buffer
-  "B"  'magit-blame-toggle
+  ; "B"  'magit-blame-toggle
   "c"  'comment-dwim
   "d"  'kill-this-buffer
-  "D"  'open-current-line-in-codebase-search
+  ;"D"  'open-current-line-in-codebase-search
   "f"  'helm-imenu            ;; Jump to function in buffer
-  "g"  'magit-status
+  ;"g"  'magit-status
   "h"  'fontify-and-browse    ;; HTML-ize the buffer and browse the result
   "l"  'whitespace-mode       ;; Show invisible characters
+  "m"  'helm-mini
   "n"  'neotree-toggle
   ; "nn" 'air-narrow-dwim       ;; Narrow to region and enter normal mode
   ; "nw" 'widen
-  "o"  'delete-other-windows  ;; C-w o
-  "p"  'helm-show-kill-ring
+  ; "o"  'delete-other-windows  ;; C-w o
+  "p"  'helm-projectile
   "s"  'ag-project            ;; Ag search from project's root
   "r"  'chrome-reload
   "R"  (lambda () (interactive) (font-lock-fontify-buffer) (redraw-display))
@@ -101,6 +136,13 @@
   "x"  'helm-M-x
   "y"  'yank-to-x-clipboard)
 
+(define-key evil-normal-state-map (kbd "C-p") 'helm-projectile)
+
+;; editor-config
+(use-package editorconfig
+    :ensure t
+    :config
+    (editorconfig-mode 1))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -109,7 +151,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (flycheck-pos-tip flycheck doom-themes fzf dracula-theme all-the-icons neotree evil-leader php-mode gruvbox-theme evil))))
+    (web-mode-edit-element vue-mode editorconfig spaceline-all-the-icons ## use-package-chords flycheck-color-mode-line php+-mode helm-ag helm-projectile helm projectile flycheck-pos-tip flycheck doom-themes fzf dracula-theme all-the-icons neotree evil-leader php-mode gruvbox-theme evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -117,12 +159,46 @@
  ;; If there is more than one, they won't work right.
  )
 
-(load-theme 'doom-one t)
-; (load-theme 'gruvbox t)
+;; load path themes
+(add-to-list 'load-path "themes")
+
+(load-theme 'thrush t)
+;(load-theme 'doom-one t)
+ ;(load-theme 'gruvbox t)
 ; (load-theme 'dracula t)
 
 ;; font
-(set-frame-font "Fira Mono 14")
+(set-frame-font "Fira Code 14")
 
 ;; line spacing
 (setq-default line-spacing 12)
+
+;; mode line
+(use-package anzu
+    :ensure t)
+
+(use-package spaceline
+    :ensure t
+    :init
+    (setq powerline-height 20)
+    (setq powerline-default-separator "slant")
+    :config
+    (require 'spaceline-config)
+    (spaceline-emacs-theme))
+
+;; enable y/n answers
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(use-package diminish
+    :ensure t
+    :config
+    (diminish 'auto-revert-mode)
+    (diminish 'rainbow-mode))
+
+(setq frame-title-format "%b")
+
+;; only emacs-osx
+(mac-auto-operator-composition-mode)
+;;;
+
+
