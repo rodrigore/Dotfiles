@@ -14,6 +14,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dracula/vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
+Plug 'janko-m/vim-test'
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'mattn/emmet-vim'
@@ -213,6 +214,13 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " }}}
 " Plugins configuration {{{
+
+" vim-test
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
 
 " pangloss/vim-javascript
 let g:javascript_conceal_function             = "ƒ"
