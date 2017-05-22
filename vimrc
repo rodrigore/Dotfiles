@@ -19,7 +19,6 @@ Plug 'junegunn/vim-emoji'
 Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'laurentb/vim-cute-php'
 Plug 'pangloss/vim-javascript'
 Plug 'posva/vim-vue'
 Plug 'rking/ag.vim', { 'on': ['Ag']}
@@ -56,7 +55,6 @@ set ignorecase            " Make search case-insensitive
 set lazyredraw            " Redraw only when we need to
 set conceallevel=1
 " set concealcursor=nc
-set concealcursor=nvic
 " (do not redraw while running macros)
 
 set noswapfile             " No swap files (I don't like files.swap)

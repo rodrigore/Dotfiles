@@ -32,10 +32,23 @@
 (require 'neotree)
 (require 'all-the-icons)
 (require 'projectile)
-(require 'helm)
-(require 'helm-projectile)
+(use-package helm
+    :ensure t)
+(use-package helm-projectile
+    :ensure t)
+(use-package helm-ag
+    :ensure t)
+(use-package php-mode
+    :ensure t)
+(use-package phpunit
+    :ensure t)
 ; gruvbox-theme
-; php-mode
+
+(require 'ansi-color)
+(defun my/ansi-colorize-buffer ()
+  (let ((buffer-read-only nil))
+    (ansi-color-apply-on-region (point-min) (point-max))))
+(add-hook 'compilation-filter-hook 'my/ansi-colorize-buffer)
 
 ;; doom-theme brighter minibuffer when active
 (add-hook 'minibuffer-setup-hook 'doom-brighten-minibuffer)
@@ -55,6 +68,9 @@
 
 ;; php-mode
 (add-hook 'php-mode-hook 'php-enable-psr2-coding-style)
+
+;; php-unit
+(add-to-list 'auto-mode-alist '("\\.php$'" . phpunit-mode))
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -105,6 +121,11 @@
 (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
 (evil-define-key 'normal neotree-mode-map (kbd "o") 'neotree-enter)
 
+;; phpunit with evil
+(evil-define-key 'normal php-mode-map (kbd "C-t t") 'phpunit-current-test)
+(evil-define-key 'normal web-mode-map (kbd "C-t c") 'phpunit-current-class)
+(evil-define-key 'normal web-mode-map (kbd "C-t p") 'phpunit-current-project)
+
 ;; evil-leader
 (global-evil-leader-mode)
 (evil-leader/set-leader ",")
@@ -151,7 +172,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (web-mode-edit-element vue-mode editorconfig spaceline-all-the-icons ## use-package-chords flycheck-color-mode-line php+-mode helm-ag helm-projectile helm projectile flycheck-pos-tip flycheck doom-themes fzf dracula-theme all-the-icons neotree evil-leader php-mode gruvbox-theme evil))))
+    (spaceline anzu web-mode-edit-element vue-mode editorconfig spaceline-all-the-icons ## use-package-chords flycheck-color-mode-line php+-mode helm-ag helm-projectile helm projectile flycheck-pos-tip flycheck doom-themes fzf dracula-theme all-the-icons neotree evil-leader php-mode gruvbox-theme evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,0 +1,3 @@
+
+
+chsh -s $(which zsh)
