@@ -33,7 +33,6 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
 Plug 'whatyouhide/vim-gotham'
 Plug 'w0rp/ale'
 Plug 'arnaud-lb/vim-php-namespace'
@@ -84,9 +83,15 @@ set scrolloff=999         " Keep the cursor vertically centered
 set ttyfast               " For better redrawing when scrolling
 set sidescroll=1          " Sensible Horizontal Scroll in Vim
 setg fixendofline         " EOL
-set termguicolors
+" set termguicolors
 
 set tags+=tags,tags.vendors
+
+" statusline
+set statusline=%=\ %f\ %m
+" set fillchars=vert:\ ,stl:\ ,stlnc:\
+set noshowmode
+
 " }}}
 " Colorscheme {{{
 set bg=dark
@@ -95,6 +100,9 @@ colorscheme gruvbox
  hi link NERDTreeOpenable GruvboxYellow
  hi link NERDTreeClosable GruvboxYellow
 highlight Normal ctermbg=None guibg=NONE
+hi Default ctermfg=1
+hi StatusLine ctermfg=235 ctermbg=245
+hi StatusLineNC ctermfg=235 ctermbg=237
 highlight Visual ctermbg=4 ctermfg=0
 " highlight NonText ctermbg=NONE ctermfg=234
 highlight Comment cterm=italic gui=italic
@@ -102,17 +110,20 @@ highlight clear SignColumn
 highlight clear SignWarning
 highlight clear SignSWarning
 highlight clear SignSError
-highlight VertSplit    guibg=NONE guifg=#bd93f9 ctermbg=233 ctermfg=4
+highlight vertsplit ctermfg=238 ctermbg=235
 highlight IncSearch    guibg=red ctermbg=233   ctermfg=3
-highlight Search       guibg=red ctermbg=233   ctermfg=1
+" highlight Search       guibg=red ctermbg=233   ctermfg=1
+highlight Search ctermbg=58 ctermfg=15
 highlight MatchParen   cterm=none ctermbg=1  ctermfg=0
 syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii  ctermfg=NONE ctermbg=NONE
+hi EndOfBuffer ctermfg=237 ctermbg=235
 "ale hi
 hi clear ALEError
 hi clear ALEErrorSign
 hi clear ALEWarning
 hi clear ALEWarningSign
+
 " }}}
 " Autocommands and functions {{{
 
@@ -120,8 +131,8 @@ hi clear ALEWarningSign
 function! PhpSyntaxOverride()
     hi! def link phpType phpIdentifier
     hi! def link phpSCKeyword phpIdentifier
-    hi! phpClass cterm=italic gui=italic guifg=#edb443
-    hi! phpStaticClasses cterm=italic gui=italic guifg=#edb443
+    hi! phpClass cterm=italic ctermfg=106 gui=italic guifg=#edb443
+    hi! phpStaticClasses cterm=italic ctermfg=172 gui=italic guifg=#edb443
 endfunction
 
 augroup phpSyntaxOverride
@@ -243,33 +254,6 @@ let g:ale_linters = {
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
-
-" airline
-let g:airline_powerline_fonts=1
-let g:airline#extensions#whitespace#enabled = 1
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#show_tab_type = 0
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#right_sep = ''
-let g:airline#extensions#tabline#right_alt_sep = ''
-let g:airline_mode_map = {
-            \ '__' : '-',
-            \ 'n'  : 'N',
-            \ 'i'  : 'I',
-            \ 'R'  : 'R',
-            \ 'c'  : 'C',
-            \ 'v'  : 'V',
-            \ 'V'  : 'V',
-            \ '^V' : 'V',
-            \ 's'  : 'S',
-            \ 'S'  : 'S',
-            \ '^S' : 'S',
-            \ }
 
 " CtrlP
 let g:ctrlp_max_height = 30
