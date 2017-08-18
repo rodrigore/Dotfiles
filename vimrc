@@ -54,6 +54,8 @@ set incsearch             " Highlight while typing the search
 set ignorecase            " Make search case-insensitive
 set lazyredraw            " Redraw only when we need to
 set conceallevel=1
+set undofile               " Maintain undo history between sessions
+set undodir=~/.vim/undodir "set dir for persistent undo
 " set concealcursor=nc
 " (do not redraw while running macros)
 
@@ -94,7 +96,7 @@ set noshowmode
 
 " }}}
 " Colorscheme {{{
-set bg=dark
+set background=dark
 colorscheme gruvbox
 
  hi link NERDTreeOpenable GruvboxYellow
@@ -110,7 +112,7 @@ highlight clear SignColumn
 highlight clear SignWarning
 highlight clear SignSWarning
 highlight clear SignSError
-highlight vertsplit ctermfg=238 ctermbg=235
+highlight vertsplit ctermfg=235 ctermbg=NONE
 highlight IncSearch    guibg=red ctermbg=233   ctermfg=3
 " highlight Search       guibg=red ctermbg=233   ctermfg=1
 highlight Search ctermbg=58 ctermfg=15
@@ -249,6 +251,10 @@ let g:ale_linters = {
       \   'javascript': ['eslint'],
       \   'html': [''],
       \}
+
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fixers['vue'] = ['prettier']
 
 " vim-devicon
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
