@@ -34,9 +34,8 @@ Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'whatyouhide/vim-gotham'
+Plug 'wincent/terminus'
 Plug 'w0rp/ale'
-Plug 'arnaud-lb/vim-php-namespace'
-
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -93,6 +92,7 @@ set tags+=tags,tags.vendors
 set statusline=%=\ %f\ %m
 " set fillchars=vert:\ ,stl:\ ,stlnc:\
 set noshowmode
+set clipboard=unnamed
 
 " }}}
 " Colorscheme {{{
