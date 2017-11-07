@@ -10,19 +10,22 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'blueyed/vim-diminactive'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dracula/vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
 Plug 'janko-m/vim-test'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
+Plug 'pbogut/fzf-mru.vim'
 Plug 'posva/vim-vue'
-Plug 'rking/ag.vim', { 'on': ['Ag']}
+" Plug 'rking/ag.vim', { 'on': ['Ag']}
 Plug 'rodrigore/vim-cute-php'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -114,8 +117,8 @@ highlight clear SignSWarning
 highlight clear SignSError
 highlight vertsplit ctermfg=235 ctermbg=NONE
 highlight IncSearch    guibg=red ctermbg=233   ctermfg=3
-" highlight Search       guibg=red ctermbg=233   ctermfg=1
-highlight Search ctermbg=58 ctermfg=15
+highlight Search       guibg=red ctermbg=233   ctermfg=1
+" highlight Search ctermbg=58 ctermfg=15
 highlight MatchParen   cterm=none ctermbg=1  ctermfg=0
 syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii  ctermfg=NONE ctermbg=NONE
@@ -262,15 +265,15 @@ let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
 
 " CtrlP
-let g:ctrlp_max_height = 30
-let g:ctrlp_custom_ignore = '\.git$\|public\/images$\|public\/uploads$\|log\|tmp$\|node_modules\|bower_components\'
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_use_caching = 0
-let g:ctrlp_working_path_mode=0
+" let g:ctrlp_max_height = 30
+" let g:ctrlp_custom_ignore = '\.git$\|public\/images$\|public\/uploads$\|log\|tmp$\|node_modules\|bower_components\'
+" let g:ctrlp_show_hidden = 1
+" let g:ctrlp_use_caching = 0
+" let g:ctrlp_working_path_mode=0
 
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
 " vim-javascript
@@ -305,9 +308,10 @@ let g:php_namespace_sort_after_insert = 1
 " NerdTree
 nnoremap <leader>n :NERDTreeToggle<CR>
 
-" CtrlP
-nnoremap <C-p> :CtrlP<CR>
-nnoremap <leader>m :CtrlPMRU<CR>
+" FZF
+let g:fzf_layout = { 'down': '~50%' }
+nnoremap <C-p> :FZF<CR>
+nnoremap <leader>m :FZFMru<cr>
 
 " Ale
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
