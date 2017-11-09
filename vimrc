@@ -25,10 +25,9 @@ Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'posva/vim-vue'
-" Plug 'rking/ag.vim', { 'on': ['Ag']}
 Plug 'rodrigore/vim-cute-php'
 Plug 'ryanoasis/vim-devicons'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'stanAngeloff/php.vim', { 'for': 'php' }
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
@@ -39,7 +38,6 @@ Plug 'tpope/vim-surround'
 Plug 'whatyouhide/vim-gotham'
 Plug 'wincent/terminus'
 Plug 'w0rp/ale'
-
 " Add plugins to &runtimepath
 call plug#end()
 " }}}
