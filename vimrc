@@ -15,6 +15,7 @@ Plug 'dracula/vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
 Plug 'janko-m/vim-test'
+Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
@@ -38,6 +39,8 @@ Plug 'tpope/vim-surround'
 Plug 'whatyouhide/vim-gotham'
 Plug 'wincent/terminus'
 Plug 'w0rp/ale'
+
+
 " Add plugins to &runtimepath
 call plug#end()
 " }}}
