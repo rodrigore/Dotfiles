@@ -26,7 +26,7 @@ Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'posva/vim-vue'
-Plug 'rodrigore/vim-cute-php'
+Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'vue', 'css', 'scss', 'json'] }
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
@@ -132,6 +132,9 @@ hi clear ALEWarningSign
 
 " }}}
 " Autocommands and functions {{{
+
+" vue (fix highlight when stop working)
+autocmd FileType vue syntax sync fromstart
 
 " php.vim
 function! PhpSyntaxOverride()
