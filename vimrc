@@ -20,11 +20,11 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-emoji'
+Plug 'lvht/fzf-mru'
 Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
-Plug 'pbogut/fzf-mru.vim'
 Plug 'posva/vim-vue'
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'vue', 'css', 'scss', 'json'] }
 Plug 'ryanoasis/vim-devicons'
