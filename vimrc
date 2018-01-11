@@ -26,7 +26,7 @@ Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'posva/vim-vue'
-Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'vue', 'css', 'scss', 'json'] }
+Plug 'prettier/vim-prettier', { 'do': 'npm install'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
@@ -234,6 +234,12 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " }}}
 " Plugins configuration {{{
+
+" vim prettier
+let g:prettier#config#parser = 'babylon'
+let g:prettier#quickfix_enabled = 0
+let g:prettier#exec_cmd_async = 1
+" autocmd BufWritePre *.vue Prettier
 
 " vim-test
 nmap <silent> <leader>t :TestNearest<CR>
