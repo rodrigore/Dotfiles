@@ -13,13 +13,13 @@ Plug 'blueyed/vim-diminactive'
 " Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dracula/vim'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'godlygeek/tabular'
 Plug 'janko-m/vim-test'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-emoji'
+Plug 'junegunn/vim-easy-align'
 Plug 'lvht/fzf-mru'
 Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
@@ -234,6 +234,13 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " }}}
 " Plugins configuration {{{
+
+" vim easy align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " vim prettier
 let g:prettier#config#parser = 'babylon'
