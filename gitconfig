@@ -12,5 +12,6 @@
 [core]
     ignore = dirty
     editor = vim
+	excludesfile = ~/.gitignore_global
 [credential]
     helper = osxkeychain
