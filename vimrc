@@ -33,6 +33,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'stanAngeloff/php.vim', { 'for': 'php' }
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -49,7 +50,7 @@ let mapleader=','
 set laststatus=2          " Make visible the status bar
 syntax on                  " Turn on syntax highlighting
 set grepprg='ag'           " Use the silver searcher instead of grep
-" set cursorline            " Highlight the current line
+set cursorline            " Highlight the current line
 set visualbell            " Don't beep
 set noerrorbells          " Don't beep
 set hlsearch              " Highlight search
@@ -125,16 +126,17 @@ syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii  ctermfg=NONE ctermbg=NONE
 hi EndOfBuffer ctermfg=237 ctermbg=235
 "ale hi
-hi clear ALEError
-hi clear ALEErrorSign
-hi clear ALEWarning
-hi clear ALEWarningSign
+highlight CursorLine ctermbg=236
+
+" hi ALEError guibg=re
+hi link ALEErrorSign GruvboxYellow
 
 " }}}
 " Autocommands and functions {{{
 
 " vue (fix highlight when stop working)
 autocmd FileType vue syntax sync fromstart
+let g:vue_disable_pre_processors = 1
 
 " php.vim
 function! PhpSyntaxOverride()
@@ -261,10 +263,10 @@ let g:javascript_conceal_null                 = "ø"
 let g:javascript_conceal_arrow_function       = "⇒"
 
 "ale
-" let g:ale_sign_error = '!'
-" let g:ale_sign_warning = '$'
-let g:ale_sign_error = emoji#for('boom')
-let g:ale_sign_warning = emoji#for('small_orange_diamond')
+let g:ale_sign_error = ''
+let g:ale_sign_warning = ''
+" let g:ale_sign_error =  emoji#for('boom')
+" let g:ale_sign_warning = emoji#for(small_orange_diamond')
 let g:ale_php_phpcs_standard='psr2 -n'
 
 let g:ale_linters = {
