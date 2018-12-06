@@ -10,21 +10,19 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'blueyed/vim-diminactive'
-" Plug 'ctrlpvim/ctrlp.vim'
-Plug 'dracula/vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'janko-m/vim-test'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/gv.vim'
-Plug 'junegunn/vim-emoji'
 Plug 'junegunn/vim-easy-align'
-Plug 'lvht/fzf-mru'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'pbogut/fzf-mru.vim'
 Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
+Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
 Plug 'posva/vim-vue'
 Plug 'prettier/vim-prettier', { 'do': 'npm install'}
 Plug 'ryanoasis/vim-devicons'
@@ -37,10 +35,16 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'whatyouhide/vim-gotham'
 Plug 'wincent/terminus'
 Plug 'w0rp/ale'
 
+"Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+
+" Plug 'autozimu/LanguageClient-neovim', {
+"             \ 'branch': 'next',
+"             \ 'do': 'bash install.sh',
+"             \ }
+" Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -104,14 +108,12 @@ set clipboard=unnamed
 set background=dark
 colorscheme gruvbox
 
- hi link NERDTreeOpenable GruvboxYellow
- hi link NERDTreeClosable GruvboxYellow
 highlight Normal ctermbg=None guibg=NONE
 hi Default ctermfg=1
 hi StatusLine ctermfg=235 ctermbg=245
 hi StatusLineNC ctermfg=235 ctermbg=237
 highlight Visual ctermbg=4 ctermfg=0
-" highlight NonText ctermbg=NONE ctermfg=234
+highlight NonText ctermbg=NONE ctermfg=234
 highlight Comment cterm=italic gui=italic
 highlight clear SignColumn
 highlight clear SignWarning
@@ -125,11 +127,32 @@ highlight MatchParen   cterm=none ctermbg=1  ctermfg=0
 syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii  ctermfg=NONE ctermbg=NONE
 hi EndOfBuffer ctermfg=237 ctermbg=235
+hi link NERDTreeOpenable GruvboxYellow
+hi link NERDTreeClosable GruvboxYellow
+
+" hi vertsplit ctermfg=238 ctermbg=235
+" hi LineNr ctermfg=237
+" hi StatusLine ctermfg=235 ctermbg=245
+" hi StatusLineNC ctermfg=235 ctermbg=237
+" hi Search ctermbg=58 ctermfg=15
+" hi Default ctermfg=1
+" hi clear SignColumn
+" hi SignColumn ctermbg=235
+" hi GitGutterAdd ctermbg=235 ctermfg=245
+" hi GitGutterChange ctermbg=235 ctermfg=245
+" hi GitGutterDelete ctermbg=235 ctermfg=245
+" hi GitGutterChangeDelete ctermbg=235 ctermfg=245
+" hi EndOfBuffer ctermfg=237 ctermbg=235
+
+
 "ale hi
 highlight CursorLine ctermbg=236
 
 " hi ALEError guibg=re
 hi link ALEErrorSign GruvboxYellow
+hi ALEError  ctermfg=245
+hi ALEWarning  ctermfg=245
+hi ALEWarningSign  ctermfg=245
 
 " }}}
 " Autocommands and functions {{{
@@ -195,6 +218,8 @@ autocmd FileType vue syntax sync fromstart
 
 " }}}
 " Mappings {{{
+"nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+
 " Fast save
 nmap <leader>w :w!<CR>
 imap <leader>w <esc>:w<CR>
@@ -237,6 +262,37 @@ vnoremap K :m '<-2<CR>gv=gv
 " }}}
 " Plugins configuration {{{
 
+" gutentags
+let g:gutentags_ctags_extra_args = [
+            \ '--recurse=yes',
+            \ '--tag-relative=yes',
+            \ '--exclude=.git',
+            \ '--languages=php',
+            \ '--PHP-kinds=+cdfint-av',
+            \ '--langmap=php:.engine.inc.module.theme.install.php',
+            \ '--PHP-kinds=+cf-v'
+            \]
+let g:gutentags_ctags_exclude = [
+            \ '*.css', '*.html', '*.js', '*.json', '*.xml',
+            \ '*.phar', '*.ini', '*.rst', '*.md',
+            \ '*var/cache*', '*var/log*'
+            \]
+
+"php pactor
+" Include use statement
+nmap <Leader>u :call phpactor#UseAdd()<CR>
+
+" Invoke the context menu
+nmap <Leader>cm :call phpactor#ContextMenu()<CR>
+
+" php server
+au User lsp_setup call lsp#register_server({
+            \ 'name': 'php-language-server',
+            \ 'cmd': {server_info->['php', expand('~/.vim/plugged/php-language-server/bin/php-language-server.php')]},
+            \ 'whitelist': ['php'],
+            \ })
+
+
 " vim easy align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -245,6 +301,8 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " vim prettier
+let g:prettier#config#tab_width = 2
+let g:prettier#exec_cmd_async = 1
 let g:prettier#config#parser = 'babylon'
 let g:prettier#quickfix_enabled = 0
 let g:prettier#exec_cmd_async = 1
@@ -265,9 +323,10 @@ let g:javascript_conceal_arrow_function       = "⇒"
 "ale
 let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
-" let g:ale_sign_error =  emoji#for('boom')
-" let g:ale_sign_warning = emoji#for(small_orange_diamond')
+let g:ale_sign_error = ''
+let g:ale_sign_warning = ''
 let g:ale_php_phpcs_standard='psr2 -n'
+"let g:ale_php_phpcs_use_global=1
 
 let g:ale_linters = {
       \   'javascript': ['eslint'],
@@ -330,7 +389,22 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 " FZF
 let g:fzf_layout = { 'down': '~50%' }
 nnoremap <C-p> :FZF<CR>
-nnoremap <leader>m :FZFMru<cr>
+nnoremap <leader>m :FZFFreshMru<cr>
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let g:fzf_colors = {
+			\ 'fg':      ['fg', 'GruvboxGray'],
+			\ 'bg':      ['bg', 'Normal'],
+			\ 'hl':      ['fg', 'GruvboxRed'],
+			\ 'fg+':     ['fg', 'GruvboxGreen'],
+			\ 'bg+':     ['bg', 'GruvboxBg1'],
+			\ 'hl+':     ['fg', 'GruvboxRed'],
+			\ 'info':    ['fg', 'GruvboxOrange'],
+			\ 'prompt':  ['fg', 'GruvboxBlue'],
+			\ 'header':  ['fg', 'GruvboxBlue'],
+			\ 'pointer': ['fg', 'Error'],
+			\ 'marker':  ['fg', 'Error'],
+			\ 'spinner': ['fg', 'Statement'],
+            \ }
 
 " Ale
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
