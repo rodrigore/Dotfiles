@@ -264,6 +264,9 @@ vnoremap K :m '<-2<CR>gv=gv
 " }}}
 " Plugins configuration {{{
 
+" splitjoin
+let splitjoin_php_method_chain_full=1
+
 " gutentags
 let g:gutentags_ctags_extra_args = [
             \ '--recurse=yes',
