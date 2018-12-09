@@ -16,6 +16,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'kana/vim-repeat'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'mattn/emmet-vim'
@@ -28,12 +29,13 @@ Plug 'prettier/vim-prettier', { 'do': 'npm install'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
+Plug 'Shougo/context_filetype.vim'
 Plug 'stanAngeloff/php.vim', { 'for': 'php' }
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tyru/caw.vim'      " comment
 Plug 'wincent/terminus'
 Plug 'w0rp/ale'
 
