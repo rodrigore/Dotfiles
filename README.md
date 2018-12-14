@@ -1,18 +1,19 @@
+![](https://raw.githubusercontent.com/rodrigore/Dotfiles/master/screenshot.png)
+
 # Rodri dotfiles
 
 ## Requirements
-* Vim 7.4
-* Tmux 2.1
+* Vim 8
+* Tmux 2
 * ZSH
 
 ## Current Vim-Colorscheme
-* Dracula
+* Palenight
 
 ## Current Iterm Theme
-* Dracula
+* Palenight
 
 ## Italic ITerm step
-
 ```
 tic xterm-256color-italic.terminfo
 

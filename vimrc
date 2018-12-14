@@ -11,10 +11,12 @@ call plug#begin('~/.vim/plugged')
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'blueyed/vim-diminactive'
 Plug 'cohama/lexima.vim'   " auto close parentheses
+Plug 'drewtempelmeyer/palenight.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-slash'
 Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-repeat'
 Plug 'ludovicchabant/vim-gutentags'
@@ -56,7 +58,7 @@ let mapleader=','
 set laststatus=2          " Make visible the status bar
 syntax on                  " Turn on syntax highlighting
 set grepprg='ag'           " Use the silver searcher instead of grep
-set cursorline            " Highlight the current line
+" set cursorline            " Highlight the current line
 set visualbell            " Don't beep
 set noerrorbells          " Don't beep
 set hlsearch              " Highlight search
@@ -95,69 +97,67 @@ set scrolloff=999         " Keep the cursor vertically centered
 set ttyfast               " For better redrawing when scrolling
 set sidescroll=1          " Sensible Horizontal Scroll in Vim
 setg fixendofline         " EOL
-" set termguicolors
+set termguicolors
 
 set tags+=tags,tags.vendors
 
 " statusline
 set statusline=%=\ %f\ %m
-" set fillchars=vert:\ ,stl:\ ,stlnc:\
+set fillchars=vert:\ ,stl:\ ,stlnc:\ ,
 set noshowmode
 set clipboard=unnamed
 
 " }}}
 " Colorscheme {{{
 set background=dark
-colorscheme gruvbox
+colorscheme palenight
+let g:palenight_terminal_italics=1
+hi StatusLine ctermfg=235 ctermbg=245 guibg=NONE
+hi Vertsplit ctermfg=235 ctermbg=NONE guibg=NONE guifg=NONE
+hi Comment cterm=italic gui=italic
+hi def link NERDTreeDirSlash Folded
+hi def link NERDTreeRO Statement
+hi def link NERDTreeBookmark Statement
+hi def link NERDTreeFlags Statement
+hi def link NERDTreeDir Folded
+hi def link NERDTreeUp Folded
+hi def link NERDTreeFile Folded
+hi def link NERDTreeCWD Folded
+hi def link NERDTreeOpenable Folded
+hi def link NERDTreeClosable Folded
+hi def link NERDTreeIgnore Folded
 
-highlight Normal ctermbg=None guibg=NONE
-hi Default ctermfg=1
-hi StatusLine ctermfg=235 ctermbg=245
-hi StatusLineNC ctermfg=235 ctermbg=237
-highlight Visual ctermbg=4 ctermfg=0
-highlight NonText ctermbg=NONE ctermfg=234
-highlight Comment cterm=italic gui=italic
-highlight clear SignColumn
-highlight clear SignWarning
-highlight clear SignSWarning
-highlight clear SignSError
-highlight vertsplit ctermfg=235 ctermbg=NONE
-highlight IncSearch    guibg=red ctermbg=233   ctermfg=3
-highlight Search       guibg=red ctermbg=233   ctermfg=1
-" highlight Search ctermbg=58 ctermfg=15
-highlight MatchParen   cterm=none ctermbg=1  ctermfg=0
-syntax match nonascii "[^\x00-\x7F]"
-highlight nonascii  ctermfg=NONE ctermbg=NONE
-hi EndOfBuffer ctermfg=237 ctermbg=235
-hi link NERDTreeOpenable GruvboxYellow
-hi link NERDTreeClosable GruvboxYellow
-
-" hi vertsplit ctermfg=238 ctermbg=235
-" hi LineNr ctermfg=237
-" hi StatusLine ctermfg=235 ctermbg=245
-" hi StatusLineNC ctermfg=235 ctermbg=237
-" hi Search ctermbg=58 ctermfg=15
+" hi Normal ctermbg=None guibg=NONE
 " hi Default ctermfg=1
-" hi clear SignColumn
-" hi SignColumn ctermbg=235
-" hi GitGutterAdd ctermbg=235 ctermfg=245
-" hi GitGutterChange ctermbg=235 ctermfg=245
-" hi GitGutterDelete ctermbg=235 ctermfg=245
-" hi GitGutterChangeDelete ctermbg=235 ctermfg=245
+" hi Visual ctermbg=4 ctermfg=0
+" hi MatchParen   cterm=none ctermbg=1  ctermfg=0
+hi Nonascii  ctermfg=NONE ctermbg=NONE  guibg=NONE guifg=NONE
 " hi EndOfBuffer ctermfg=237 ctermbg=235
-
-
-"ale hi
-highlight CursorLine ctermbg=236
-
-" hi ALEError guibg=re
-hi link ALEErrorSign GruvboxYellow
-hi ALEError  ctermfg=245
-hi ALEWarning  ctermfg=245
-hi ALEWarningSign  ctermfg=245
+" hi clear SignColumn
+" hi clear SignWarning
+" hi clear SignSWarning
+" hi clear SignSError
+" syntax match nonascii "[^\x00-\x7F]"
+"
+" "ale hi
+" highlight CursorLine ctermbg=236
+"
+" " hi ALEError guibg=re
+" hi link ALEErrorSign GruvboxYellow
+" hi ALEError  ctermfg=245
+" hi ALEWarning  ctermfg=245
+" hi ALEWarningSign  ctermfg=245
 
 " }}}
 " Autocommands and functions {{{
+
+" call macro in visual region
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
 
 " vue (fix highlight when stop working)
 autocmd FileType vue syntax sync fromstart
@@ -165,10 +165,23 @@ let g:vue_disable_pre_processors = 1
 
 " php.vim
 function! PhpSyntaxOverride()
-    hi! def link phpType phpIdentifier
-    hi! def link phpSCKeyword phpIdentifier
-    hi! phpClass cterm=italic ctermfg=106 gui=italic guifg=#edb443
-    hi! phpStaticClasses cterm=italic ctermfg=172 gui=italic guifg=#edb443
+    hi! def link phpInclude Statement       "namespace use ...
+    hi! def link phpClass Type              "class ...
+    hi! def link phpClasses Type            "class ...
+    hi! def link phpFunction Special
+	hi! def link phpType  Statement         "private function int ...
+    hi! def link phpKeyword Statement       "class, if, return ...
+    hi! def link phpVarSelector None        "$ symbol
+    hi! def link phpIdentifier None
+    hi! def link phpMethod Special
+    hi! def link phpBoolean Special
+    hi! def link phpParent None
+
+    hi! def link phpOperator Statement
+    hi! def link phpSpecialChar Statement
+    hi! def link phpRegion Statement
+    hi! def link phpUseNamespaceSeparator None
+    hi! def link phpClassNamespaceSeparator None
 endfunction
 
 augroup phpSyntaxOverride
@@ -263,6 +276,15 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " }}}
 " Plugins configuration {{{
+" hi ColorColumn  term=reverse ctermbg=1 guibg=#3E4452
+hi! link ColorColumn Comment
+
+
+"vim slash
+if has('timers')
+  " Blink 2 times with 50ms interval
+  noremap <expr> <plug>(slash-after) slash#blink(2, 50)
+endif
 
 " splitjoin
 let splitjoin_php_method_chain_full=1
@@ -397,17 +419,17 @@ nnoremap <C-p> :FZF<CR>
 nnoremap <leader>m :FZFFreshMru<cr>
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let g:fzf_colors = {
-			\ 'fg':      ['fg', 'GruvboxGray'],
+			\ 'fg':      ['fg', 'Fold'],
 			\ 'bg':      ['bg', 'Normal'],
-			\ 'hl':      ['fg', 'GruvboxRed'],
-			\ 'fg+':     ['fg', 'GruvboxGreen'],
-			\ 'bg+':     ['bg', 'GruvboxBg1'],
-			\ 'hl+':     ['fg', 'GruvboxRed'],
-			\ 'info':    ['fg', 'GruvboxOrange'],
-			\ 'prompt':  ['fg', 'GruvboxBlue'],
-			\ 'header':  ['fg', 'GruvboxBlue'],
-			\ 'pointer': ['fg', 'Error'],
-			\ 'marker':  ['fg', 'Error'],
+			\ 'hl':      ['fg', 'Error'],
+			\ 'fg+':     ['fg', 'String'],
+			\ 'bg+':     ['bg', 'Normal'],
+			\ 'hl+':     ['fg', 'Error'],
+			\ 'info':    ['fg', 'Type'],
+			\ 'prompt':  ['fg', 'Special'],
+			\ 'header':  ['fg', 'Special'],
+			\ 'pointer': ['fg', 'Statement'],
+			\ 'marker':  ['fg', 'Statemetn'],
 			\ 'spinner': ['fg', 'Statement'],
             \ }
 
@@ -415,4 +437,3 @@ let g:fzf_colors = {
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " }}}
-
