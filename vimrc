@@ -28,6 +28,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
 Plug 'posva/vim-vue'
 Plug 'prettier/vim-prettier', { 'do': 'npm install'}
+Plug 'reisub0/hot-reload.vim' " flutter hot-reload
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
@@ -178,7 +179,7 @@ function! PhpSyntaxOverride()
     hi! def link phpParent None
 
     hi! def link phpOperator Statement
-    hi! def link phpSpecialChar Statement
+    " hi! def link phpSpecialChar Statement
     hi! def link phpRegion Statement
     hi! def link phpUseNamespaceSeparator None
     hi! def link phpClassNamespaceSeparator None
