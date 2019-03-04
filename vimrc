@@ -9,6 +9,7 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'AndrewRadev/undoquit.vim'
 Plug 'blueyed/vim-diminactive'
 Plug 'cohama/lexima.vim'   " auto close parentheses
 Plug 'drewtempelmeyer/palenight.vim'
