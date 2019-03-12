@@ -12,6 +12,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/undoquit.vim'
 Plug 'blueyed/vim-diminactive'
 Plug 'cohama/lexima.vim'   " auto close parentheses
+Plug 'dart-lang/dart-vim-plugin'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'janko-m/vim-test'
@@ -281,6 +282,9 @@ vnoremap K :m '<-2<CR>gv=gv
 " hi ColorColumn  term=reverse ctermbg=1 guibg=#3E4452
 hi! link ColorColumn Comment
 
+" dart-vim
+let dart_style_guide = 2
+let dart_format_on_save = 1
 
 "vim slash
 if has('timers')
