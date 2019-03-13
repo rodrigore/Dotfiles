@@ -25,6 +25,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
 Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
