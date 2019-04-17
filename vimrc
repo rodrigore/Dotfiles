@@ -10,7 +10,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/undoquit.vim'
-Plug 'blueyed/vim-diminactive'
 Plug 'cohama/lexima.vim'   " auto close parentheses
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'drewtempelmeyer/palenight.vim'
@@ -20,10 +19,11 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-slash'
 Plug 'junegunn/vim-easy-align'
+Plug 'itchyny/lightline.vim'
 Plug 'kana/vim-repeat'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'pbogut/fzf-mru.vim'
-Plug 'mattn/emmet-vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'nelstrom/vim-visual-star-search'
@@ -38,8 +38,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/context_filetype.vim'
 Plug 'stanAngeloff/php.vim', { 'for': 'php' }
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
+Plug 'TaDaa/vimade'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'      " comment
@@ -101,6 +103,11 @@ set scrolloff=999         " Keep the cursor vertically centered
 set ttyfast               " For better redrawing when scrolling
 set sidescroll=1          " Sensible Horizontal Scroll in Vim
 setg fixendofline         " EOL
+set updatetime=300
+
+if (has("nvim"))
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
 set termguicolors
 
 set tags+=tags,tags.vendors
@@ -116,6 +123,35 @@ set clipboard=unnamed
 set background=dark
 colorscheme palenight
 let g:palenight_terminal_italics=1
+let g:lightline = {
+      \ 'colorscheme': 'palenight',
+      \ 'active': {
+            \ 'left': [[ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ], [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]],
+            \ 'right' : [[]],
+      \},
+        \ 'component_function': {
+        \   'cocstatus': 'coc#status',
+        \   'gitbranch': 'fugitive#head'
+        \ },
+        \ 'component_expand': {
+        \  'linter_checking': 'lightline#ale#checking',
+        \  'linter_warnings': 'lightline#ale#warnings',
+        \  'linter_errors': 'lightline#ale#errors',
+        \  'linter_ok': 'lightline#ale#ok',
+        \ },
+        \ 'component_type': {
+        \     'linter_checking': 'left',
+        \     'linter_warnings': 'warning',
+        \     'linter_errors': 'error',
+        \     'linter_ok': 'left',
+        \ },
+\}
+
+let g:lightline#ale#indicator_checking = "\uf110 "
+let g:lightline#ale#indicator_warnings = "\uf071 "
+let g:lightline#ale#indicator_errors = "\uf05e "
+let g:lightline#ale#indicator_ok = "\uf00c "
+
 hi StatusLine ctermfg=235 ctermbg=245 guibg=NONE
 hi Vertsplit ctermfg=235 ctermbg=NONE guibg=NONE guifg=NONE
 hi Comment cterm=italic gui=italic
@@ -283,6 +319,10 @@ vnoremap K :m '<-2<CR>gv=gv
 " hi ColorColumn  term=reverse ctermbg=1 guibg=#3E4452
 hi! link ColorColumn Comment
 
+"eleline
+let g:eleline_powerline_fonts = 1
+let g:eleline_slim = 1
+
 " dart-vim
 let dart_style_guide = 2
 let dart_format_on_save = 1
@@ -326,7 +366,6 @@ au User lsp_setup call lsp#register_server({
             \ 'whitelist': ['php'],
             \ })
 
-
 " vim easy align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -343,6 +382,13 @@ let g:prettier#exec_cmd_async = 1
 " autocmd BufWritePre *.vue Prettier
 
 " vim-test
+"
+if has('nvim')
+   let test#strategy = "neovim"
+   tmap <C-o> <C-\><C-n>
+else
+   let test#strategy = "vimterminal"
+endif
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
@@ -433,11 +479,12 @@ let g:fzf_colors = {
 			\ 'bg+':     ['bg', 'Normal'],
 			\ 'hl+':     ['fg', 'Error'],
 			\ 'info':    ['fg', 'Type'],
+            \ 'border':  ['fg', 'Ignore'],
 			\ 'prompt':  ['fg', 'Special'],
-			\ 'header':  ['fg', 'Special'],
 			\ 'pointer': ['fg', 'Statement'],
 			\ 'marker':  ['fg', 'Statemetn'],
 			\ 'spinner': ['fg', 'Statement'],
+			\ 'header':  ['fg', 'Special'],
             \ }
 
 " Ale
