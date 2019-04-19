@@ -406,7 +406,10 @@ let g:ale_sign_warning = ''
 let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
 let g:ale_php_phpcs_standard='psr2 -n'
-"let g:ale_php_phpcs_use_global=1
+let g:ale_php_phpcs_use_global=1
+" let g:ale_php_langserver_executable = 'intelephense'
+" let g:ale_php_langserver_executable = expand('~/.composer/vendor/bin/php-language-server.php')
+let g:ale_php_langserver_use_global = 1
 
 let g:ale_linters = {
       \   'javascript': ['eslint'],
@@ -470,7 +473,7 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 let g:fzf_layout = { 'down': '~50%' }
 nnoremap <C-p> :FZF<CR>
 nnoremap <leader>m :FZFFreshMru<cr>
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!{.git,node_modules,vendor}/*"'
 let g:fzf_colors = {
 			\ 'fg':      ['fg', 'Fold'],
 			\ 'bg':      ['bg', 'Normal'],
