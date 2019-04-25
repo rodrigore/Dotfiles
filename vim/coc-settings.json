@@ -1,0 +1,30 @@
+{
+   "suggest.enablePreview": true,
+   "diagnostic.displayByAle": true,
+    // make vim select first item on completion
+  "suggest.noselect": false,
+  // when snippet activated and pumvisible, prefer complete completion.
+  "suggest.preferCompleteThanJumpPlaceholder": true,
+  //"suggest.triggerAfterInsertEnter": true,
+  "suggest.timeout": 500,
+  "suggest.snippetIndicator": "►",
+  "languageserver": {
+    "dart": {
+      "command": "dart_language_server",
+      "args": [],
+      "trace.server": "verbose",
+      "filetypes": ["dart"],
+      "initializationOptions": {},
+      "settings": {
+        "dart": {
+          "validation": {},
+          "completion": {}
+        }
+      }
+    }
+  },
+  //tailwind
+  "tailwind.enable": true,
+  "tailwind.shortcut": "TWCSS",
+  "tailwind.priority": 99
+}
