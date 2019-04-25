@@ -373,7 +373,7 @@
 	<key>HideMenuBarInFullscreen</key>
 	<false/>
 	<key>HideScrollbar</key>
-	<false/>
+	<true/>
 	<key>HideTab</key>
 	<true/>
 	<key>HideTabCloseButton</key>
@@ -474,7 +474,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>661 125 644 165 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 277 680 803 0 0 1920 1080 </string>
+	<string>127 59 1711 948 0 0 1920 1080 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1249,7 +1249,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>828E20AE-FADA-47C2-A5BA-49339753D4B1</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>68</integer>
+	<integer>69</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
