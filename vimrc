@@ -63,7 +63,7 @@ call plug#end()
 let mapleader=','
 set laststatus=2          " Make visible the status bar
 syntax on                  " Turn on syntax highlighting
-set grepprg='ag'           " Use the silver searcher instead of grep
+set grepprg='rg'           " Use ripgrep instead of grep
 " set cursorline            " Highlight the current line
 set visualbell            " Don't beep
 set noerrorbells          " Don't beep
@@ -79,6 +79,7 @@ set undodir=~/.vim/undodir "set dir for persistent undo
 
 set noswapfile             " No swap files (I don't like files.swap)
 set nobackup               " No backup files
+set nowritebackup
 set hidden                 " Open files without saving the current file
 set autoread               " Allow read files that changes outside vim
 set encoding=utf-8         " Set the encoding that is showing in the terminal
@@ -103,7 +104,10 @@ set scrolloff=999         " Keep the cursor vertically centered
 set ttyfast               " For better redrawing when scrolling
 set sidescroll=1          " Sensible Horizontal Scroll in Vim
 setg fixendofline         " EOL
-set updatetime=300
+set cmdheight=2           " Better display for messages
+set updatetime=300        " Smaller updatetime for CursorHold & CursorHoldI
+set shortmess+=c          " don't give |ins-completion-menu| messages.
+
 
 if (has("nvim"))
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -151,6 +155,12 @@ let g:lightline#ale#indicator_checking = "\uf110 "
 let g:lightline#ale#indicator_warnings = "\uf071 "
 let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c "
+
+" Pmenu palenight
+hi Pmenu guibg=#212333
+hi PmenuSel guibg=#6A3EB5 guifg=#bfc7d5
+hi PmenuSbar guibg=#352B59 guifg=#352B59
+hi PmenuThumb guibg=#352B59 guifg=#352B59
 
 hi StatusLine ctermfg=235 ctermbg=245 guibg=NONE
 hi Vertsplit ctermfg=235 ctermbg=NONE guibg=NONE guifg=NONE
@@ -202,32 +212,6 @@ endfunction
 " vue (fix highlight when stop working)
 autocmd FileType vue syntax sync fromstart
 let g:vue_disable_pre_processors = 1
-
-" php.vim
-function! PhpSyntaxOverride()
-    hi! def link phpInclude Statement       "namespace use ...
-    hi! def link phpClass Type              "class ...
-    hi! def link phpClasses Type            "class ...
-    hi! def link phpFunction Special
-	hi! def link phpType  Statement         "private function int ...
-    hi! def link phpKeyword Statement       "class, if, return ...
-    hi! def link phpVarSelector None        "$ symbol
-    hi! def link phpIdentifier None
-    hi! def link phpMethod Special
-    hi! def link phpBoolean Special
-    hi! def link phpParent None
-
-    hi! def link phpOperator Statement
-    " hi! def link phpSpecialChar Statement
-    hi! def link phpRegion Statement
-    hi! def link phpUseNamespaceSeparator None
-    hi! def link phpClassNamespaceSeparator None
-endfunction
-
-augroup phpSyntaxOverride
-    autocmd!
-    autocmd FileType php call PhpSyntaxOverride()
-augroup END
 
 " vim-php-namespace
 function! IPhpInsertUse()
@@ -318,6 +302,135 @@ vnoremap K :m '<-2<CR>gv=gv
 " Plugins configuration {{{
 " hi ColorColumn  term=reverse ctermbg=1 guibg=#3E4452
 hi! link ColorColumn Comment
+
+" coc-nvim
+ let g:coc_global_extensions = [
+\  'coc-json',
+"\  'coc-eslint',
+\  'coc-css',
+\  'coc-emmet',
+\  'coc-html',
+\  'coc-diagnostic',
+\  'coc-vetur',
+\  'coc-phpls',
+\  'coc-snippets'
+\ ]
+
+" User configuration.
+let g:coc_user_config = {
+	\ 'suggest': {
+		\ 'enablePreview': v:true,
+		\ 'noselect': v:false,
+		\ 'timeout': 500,
+		\ 'preferCompleteThanJumpPlaceholder': v:true,
+		\ 'minTriggerInputLength': 3,
+		\ 'snippetIndicator': ' ',
+	\ },
+	\ 'diagnostic': {
+		\ 'displayByAle': v:false,
+		\ 'errorSign': '•',
+		\ 'warningSign': '•',
+		\ 'infoSign': '•',
+		\ 'hintSign': '•',
+	\ }
+\ }
+
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <Tab> and <S-Tab> for navigate completion list:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+nnoremap <silent> <c-s>  :exe 'CocList -I --normal --input='.expand('<cword>').' symbols'<CR>
+
 
 "eleline
 let g:eleline_powerline_fonts = 1
