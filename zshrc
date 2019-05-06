@@ -34,3 +34,10 @@ alias vssh='TERM=xterm-256color vssh'
 #export ANT_HOME=/Users/rodri/Android/apache-ant-1.9.6
 #export PATH=${PATH}:/Users/rodri/Android/android-sdk-macosx/tools/:/users/rodri/Development/android-sdk-macosx/platforms:${ANT_HOME}/bin
 
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+export PATH=$HOME/flutter/bin:$PATH
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

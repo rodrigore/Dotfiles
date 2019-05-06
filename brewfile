@@ -12,3 +12,4 @@ install trash
 install vim --with-override-system-vi --with-lua
 install homebrew/php/php-code-sniffer
 install homebrew/php/php-cs-fixer
+install zsh-syntax-highlighting
