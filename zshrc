@@ -13,7 +13,10 @@ bindkey -v
 KEYTIMEOUT=1
 
 # Vim as a default editor
-export EDITOR=vim
+export EDITOR=nvim
+alias vim="nvim"
+alias vi="nvim"
+alias oldvim="vim"
 
 ## aliases
 source $HOME/dotfiles/scripts/aliases.sh
