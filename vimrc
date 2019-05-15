@@ -10,6 +10,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/undoquit.vim'
+Plug 'andymass/vim-matchup'
 Plug 'cohama/lexima.vim'   " auto close parentheses
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'drewtempelmeyer/palenight.vim'
@@ -26,7 +27,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'morhetz/gruvbox'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
 Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
@@ -303,6 +304,9 @@ vnoremap K :m '<-2<CR>gv=gv
 " Plugins configuration {{{
 " hi ColorColumn  term=reverse ctermbg=1 guibg=#3E4452
 hi! link ColorColumn Comment
+
+" vim-matchup
+let g:loaded_matchit = 1
 
 " coc-nvim
  let g:coc_global_extensions = [
