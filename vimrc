@@ -11,6 +11,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/undoquit.vim'
 Plug 'andymass/vim-matchup'
+Plug 'chrisbra/Colorizer'
 Plug 'cohama/lexima.vim'   " auto close parentheses
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'drewtempelmeyer/palenight.vim'
@@ -24,7 +25,6 @@ Plug 'junegunn/vim-slash'
 Plug 'junegunn/vim-easy-align'
 Plug 'itchyny/lightline.vim'
 Plug 'kana/vim-repeat'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'morhetz/gruvbox'
@@ -44,9 +44,11 @@ Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
 Plug 'TaDaa/vimade'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'tyru/caw.vim'      " comment
+" Plug 'tyru/caw.vim'      " comment
 Plug 'wincent/terminus'
 Plug 'w0rp/ale'
 
@@ -255,7 +257,6 @@ autocmd BufRead,BufNewFile *.php set tabstop=4 shiftwidth=4 tabstop=4
 autocmd BufRead,BufNewFile *.blade.php set filetype=blade.html
 autocmd BufRead,BufNewFile *.js set tabstop=2 shiftwidth=2 tabstop=2
 autocmd BufRead,BufNewFile *.rb set tabstop=2 shiftwidth=2 tabstop=2
-autocmd FileType vue syntax sync fromstart
 
 " }}}
 " Mappings {{{
@@ -305,6 +306,14 @@ vnoremap K :m '<-2<CR>gv=gv
 " hi ColorColumn  term=reverse ctermbg=1 guibg=#3E4452
 hi! link ColorColumn Comment
 
+" Colorizer
+" let g:colorizer_use_virtual_text = 0
+" let g:colorizer_colornames = 0
+" let g:colorizer_syntax = 1
+let g:colorizer_auto_filetype='css,scss'
+au BufNewFile,BufRead *.css,*.scss :ColorHighlight!
+
+
 " vim-matchup
 let g:loaded_matchit = 1
 
@@ -328,8 +337,7 @@ let g:coc_user_config = {
 		\ 'noselect': v:false,
 		\ 'timeout': 500,
 		\ 'preferCompleteThanJumpPlaceholder': v:true,
-		\ 'minTriggerInputLength': 3,
-		\ 'snippetIndicator': ' 🌈',
+		\ 'minTriggerInputLength': 2,
 	\ },
 	\ 'diagnostic': {
 		\ 'displayByAle': v:false,
@@ -469,20 +477,20 @@ endif
 let splitjoin_php_method_chain_full=1
 
 " gutentags
-let g:gutentags_ctags_extra_args = [
-            \ '--recurse=yes',
-            \ '--tag-relative=yes',
-            \ '--exclude=.git',
-            \ '--languages=php',
-            \ '--PHP-kinds=+cdfint-av',
-            \ '--langmap=php:.engine.inc.module.theme.install.php',
-            \ '--PHP-kinds=+cf-v'
-            \]
-let g:gutentags_ctags_exclude = [
-            \ '*.css', '*.html', '*.js', '*.json', '*.xml',
-            \ '*.phar', '*.ini', '*.rst', '*.md',
-            \ '*var/cache*', '*var/log*'
-            \]
+" let g:gutentags_ctags_extra_args = [
+"             \ '--recurse=yes',
+"             \ '--tag-relative=yes',
+"             \ '--exclude=.git',
+"             \ '--languages=php',
+"             \ '--PHP-kinds=+cdfint-av',
+"             \ '--langmap=php:.engine.inc.module.theme.install.php',
+"             \ '--PHP-kinds=+cf-v'
+"             \]
+" let g:gutentags_ctags_exclude = [
+"             \ '*.css', '*.html', '*.js', '*.json', '*.xml',
+"             \ '*.phar', '*.ini', '*.rst', '*.md',
+"             \ '*var/cache*', '*var/log*'
+"             \]
 
 "php pactor
 " Include use statement
@@ -556,6 +564,12 @@ let g:ale_fixers['vue'] = ['prettier']
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
+let g:DevIconsEnableFoldersOpenClose = v:true
+" Use one space after a glyph instead of two.
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+" Set default file and directory icons.
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+let g:DevIconsDefaultFolderOpenSymbol = ''
 
 " CtrlP
 " let g:ctrlp_max_height = 30
@@ -602,8 +616,7 @@ let g:php_namespace_sort_after_insert = 1
 nnoremap <leader>n :NERDTreeToggle<CR>
 
 " FZF
-let g:fzf_layout = { 'down': '~50%' }
-nnoremap <C-p> :FZF<CR>
+nnoremap <C-p> :call Fzf_files_with_dev_icons()<CR>
 nnoremap <leader>m :FZFFreshMru<cr>
 let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!{.git,node_modules,vendor}/*"'
 let g:fzf_colors = {
@@ -621,6 +634,38 @@ let g:fzf_colors = {
 			\ 'spinner': ['fg', 'Statement'],
 			\ 'header':  ['fg', 'Special'],
             \ }
+" fzf + devicons
+function! Fzf_files_with_dev_icons()
+  let l:fzf_files_options = ' -m --bind ctrl-d:preview-page-down,ctrl-u:preview-page-up --preview "bat --theme=base16 --color always --style numbers {2..}"'
+
+  function! s:files()
+    let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
+    return s:prepend_icon(l:files)
+  endfunction
+
+  function! s:prepend_icon(candidates)
+    let l:result = []
+    for l:candidate in a:candidates
+      let l:filename = fnamemodify(l:candidate, ':p:t')
+      let l:icon = WebDevIconsGetFileTypeSymbol(l:filename, isdirectory(l:filename))
+      call add(l:result, printf('%s %s', l:icon, l:candidate))
+    endfor
+
+    return l:result
+  endfunction
+
+  function! s:edit_file(item)
+    let l:pos = stridx(a:item, ' ')
+    let l:file_path = a:item[pos+1:-1]
+    execute 'silent e' l:file_path
+  endfunction
+
+  call fzf#run({
+        \ 'source': <sid>files(),
+        \ 'sink':   function('s:edit_file'),
+        \ 'options': '-m ' . l:fzf_files_options,
+        \ 'down':    '40%' })
+endfunction
 
 " Ale
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
