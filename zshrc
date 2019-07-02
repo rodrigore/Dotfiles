@@ -47,3 +47,7 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 #anacona
 export PATH="$PATH":"/anaconda3/bin"
+
+# avr
+export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
+
