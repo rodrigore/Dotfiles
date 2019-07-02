@@ -15,6 +15,7 @@ Plug 'dart-lang/dart-vim-plugin'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'honza/vim-snippets'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -42,7 +43,6 @@ Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
 Plug 'TaDaa/vimade'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'      " comment
@@ -325,7 +325,7 @@ let g:coc_user_config = {
 		\ 'timeout': 500,
 		\ 'preferCompleteThanJumpPlaceholder': v:true,
 		\ 'minTriggerInputLength': 3,
-		\ 'snippetIndicator': ' ',
+		\ 'snippetIndicator': ' 🌈',
 	\ },
 	\ 'diagnostic': {
 		\ 'displayByAle': v:false,
@@ -363,7 +363,7 @@ nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> <leader>gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -443,6 +443,7 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+" jump to symbol under cursor (go to definition)
 nnoremap <silent> <c-s>  :exe 'CocList -I --normal --input='.expand('<cword>').' symbols'<CR>
 
 
