@@ -12,6 +12,9 @@
 
 ## Current Iterm Theme
 * Palenight
+<h1>
+<img width="256" src="iterm-palenight-icon.png" />
+</h1>
 
 ## Italic ITerm step
 ```
