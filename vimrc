@@ -254,7 +254,7 @@ autocmd BufRead,BufNewFile *.md,*.txt set filetype=markdown " Highlight Markdown
 
 autocmd BufRead,BufNewFile *.go  set tabstop=4 shiftwidth=4  softtabstop=4
 autocmd BufRead,BufNewFile *.php set tabstop=4 shiftwidth=4 tabstop=4
-autocmd BufRead,BufNewFile *.blade.php set filetype=blade.html
+" autocmd BufRead,BufNewFile *.blade.php set filetype=blade.html
 autocmd BufRead,BufNewFile *.js set tabstop=2 shiftwidth=2 tabstop=2
 autocmd BufRead,BufNewFile *.rb set tabstop=2 shiftwidth=2 tabstop=2
 
@@ -327,7 +327,8 @@ let g:loaded_matchit = 1
 \  'coc-diagnostic',
 \  'coc-vetur',
 \  'coc-phpls',
-\  'coc-snippets'
+\  'coc-snippets',
+\  'coc-tailwindcss'
 \ ]
 
 " User configuration.
@@ -351,7 +352,7 @@ let g:coc_user_config = {
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
+" inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
@@ -384,11 +385,11 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " snippets with tab
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? coc#_select_confirm() :
+"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -456,8 +457,13 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " jump to symbol under cursor (go to definition)
-nnoremap <silent> <c-s>  :exe 'CocList -I --normal --input='.expand('<cword>').' symbols'<CR>
+nnoremap <silent> <C-s>  :exe 'CocList -I --normal --input='.expand('<cword>').' symbols'<CR>
 
+" add current to selection and go to next
+hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+
+nmap <silent> <C-e> <Plug>(coc-cursors-word)*
+xmap <silent> <C-e> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
 
 "eleline
 let g:eleline_powerline_fonts = 1
