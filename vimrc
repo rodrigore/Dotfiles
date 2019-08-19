@@ -25,14 +25,15 @@ Plug 'junegunn/vim-slash'
 Plug 'junegunn/vim-easy-align'
 Plug 'itchyny/lightline.vim'
 Plug 'kana/vim-repeat'
+Plug 'liuchengxu/vista.vim'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'morhetz/gruvbox'
-Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
 Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
-Plug 'posva/vim-vue'
+Plug 'leafOfTree/vim-vue-plugin'
 Plug 'prettier/vim-prettier', { 'do': 'npm install'}
 Plug 'reisub0/hot-reload.vim' " flutter hot-reload
 Plug 'ryanoasis/vim-devicons'
@@ -127,80 +128,220 @@ set noshowmode
 set clipboard=unnamed
 
 " }}}
-" Colorscheme {{{
+" colorscheme {{{
 set background=dark
 colorscheme palenight
 let g:palenight_terminal_italics=1
-let g:lightline = {
-      \ 'colorscheme': 'palenight',
-      \ 'active': {
-            \ 'left': [[ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ], [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]],
-            \ 'right' : [[]],
-      \},
-        \ 'component_function': {
-        \   'cocstatus': 'coc#status',
-        \   'gitbranch': 'fugitive#head'
-        \ },
-        \ 'component_expand': {
-        \  'linter_checking': 'lightline#ale#checking',
-        \  'linter_warnings': 'lightline#ale#warnings',
-        \  'linter_errors': 'lightline#ale#errors',
-        \  'linter_ok': 'lightline#ale#ok',
-        \ },
-        \ 'component_type': {
-        \     'linter_checking': 'left',
-        \     'linter_warnings': 'warning',
-        \     'linter_errors': 'error',
-        \     'linter_ok': 'left',
-        \ },
-\}
+" let g:lightline = {
+"       \ 'colorscheme': 'palenight',
+"       \ 'active': {
+"             \ 'left': [[ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified'], [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]],
+"             \ 'right' : [[]],
+"       \},
+"         \ 'component_function': {
+"         \   'cocstatus': 'coc#status',
+"         \   'gitbranch': 'fugitive#head',
+"         \ },
+"         \ 'component_expand': {
+"         \  'linter_checking': 'lightline#ale#checking',
+"         \  'linter_warnings': 'lightline#ale#warnings',
+"         \  'linter_errors': 'lightline#ale#errors',
+"         \  'linter_ok': 'lightline#ale#ok',
+"         \ },
+"         \ 'component_type': {
+"         \     'linter_checking': 'left',
+"         \     'linter_warnings': 'warning',
+"         \     'linter_errors': 'error',
+"         \     'linter_ok': 'left',
+"         \ },
+" \}
 
-let g:lightline#ale#indicator_checking = "\uf110 "
-let g:lightline#ale#indicator_warnings = "\uf071 "
-let g:lightline#ale#indicator_errors = "\uf05e "
-let g:lightline#ale#indicator_ok = "\uf00c "
+" ====================================================================
+set noshowmode
 
-" Pmenu palenight
-hi Pmenu guibg=#212333
-hi PmenuSel guibg=#6A3EB5 guifg=#bfc7d5
-hi PmenuSbar guibg=#352B59 guifg=#352B59
-hi PmenuThumb guibg=#352B59 guifg=#352B59
+let NERDTreeStatusline="%8*%=%7*NERD%8*%="
 
-hi StatusLine ctermfg=235 ctermbg=245 guibg=NONE
-hi Vertsplit ctermfg=235 ctermbg=NONE guibg=NONE guifg=NONE
-hi Comment cterm=italic gui=italic
-hi def link NERDTreeDirSlash Folded
-hi def link NERDTreeRO Statement
-hi def link NERDTreeBookmark Statement
-hi def link NERDTreeFlags Statement
-hi def link NERDTreeDir Folded
-hi def link NERDTreeUp Folded
-hi def link NERDTreeFile Folded
-hi def link NERDTreeCWD Folded
-hi def link NERDTreeOpenable Folded
-hi def link NERDTreeClosable Folded
-hi def link NERDTreeIgnore Folded
+set laststatus=2
+let g:lightline = {}
+let g:lightline.enable = {
+  \  'statusline': 0
+  \ }
+" ~~~~ Statusline configuration ~~~~
+function! RedrawModeColors(mode) " {{{
+  " Normal mode
+  if a:mode == 'n'
+    hi MyStatuslineAccent guifg=#565575
+    hi MyStatuslineAccentBody guifg=#cbe3e7 guibg=#565575
+    hi MyStatuslineAccentLabel guifg=#cbe3e7 guibg=#565575
+    hi MyStatuslineFilename guifg=#91ddff guibg=#3E3859
+    hi MyStatuslineSeparator guifg=#3E3859 guibg=#1e1c31
+    hi MyStatuslineModified guifg=#3E3859
+    hi MyStatuslineFiletype guifg=#3E3859
+    hi MyStatuslineFiletypeBody guibg=#3E3859 guifg=#c991e1
 
-" hi Normal ctermbg=None guibg=NONE
-" hi Default ctermfg=1
-" hi Visual ctermbg=4 ctermfg=0
-" hi MatchParen   cterm=none ctermbg=1  ctermfg=0
-hi Nonascii  ctermfg=NONE ctermbg=NONE  guibg=NONE guifg=NONE
-" hi EndOfBuffer ctermfg=237 ctermbg=235
-" hi clear SignColumn
-" hi clear SignWarning
-" hi clear SignSWarning
-" hi clear SignSError
-" syntax match nonascii "[^\x00-\x7F]"
+    hi MyStatuslinePercentage guifg=#3E3859
+    hi MyStatuslinePercentageBody guibg=#3E3859 guifg=#95ffa4
+
+    hi MyStatuslineLineCol guifg=#3E3859
+    hi MyStatuslineLineColBody guifg=#aaffe4 guibg=#3E3859
+    hi MyStatuslineTestStatus guibg=#3E3859 guifg=#ffe9aa
+    hi MyStatuslineLangServer guibg=#3E3859
+
+    hi MyStatuslineReset guibg=#1e1c31 guifg=#1e1c31
+  " Insert mode
+  elseif a:mode == 'i'
+    hi MyStatuslineAccentBody guifg=#ff8080
+  " Replace mode
+  elseif a:mode == 'R'
+    hi MyStatuslineAccent ctermfg=8
+    hi MyStatuslineFilename ctermfg=3
+    hi MyStatuslineAccentBody ctermbg=8
+  " Visual mode
+  elseif a:mode == 'v' || a:mode == 'V' || a:mode == '^V'
+    hi MyStatuslineAccentBody guifg=#ffe9aa
+  " Command mode
+  elseif a:mode == 'c'
+    hi MyStatuslineAccent ctermfg=8
+    hi MyStatuslineFilename ctermfg=6
+    hi MyStatuslineAccentBody ctermbg=8
+  " Terminal mode
+  elseif a:mode == 't'
+    hi MyStatuslineAccent ctermfg=8
+    hi MyStatuslineFilename ctermfg=1
+    hi MyStatuslineAccentBody ctermbg=8
+  endif
+  " Return empty string so as not to display anything in the statusline
+  return ''
+endfunction
+" }}}
+function! SetModifiedSymbol(modified) " {{{
+    if a:modified == 1
+        hi MyStatuslineModifiedBody guibg=#3E3859 guifg=#ff8080
+    else
+        hi MyStatuslineModifiedBody guibg=#3E3859 guifg=#aaffe4
+    endif
+    return "\u25CF"
+endfunction
+" }}}
+function! SetFiletype(filetype) " {{{
+  if a:filetype == ''
+      return '-'
+  else
+    return  WebDevIconsGetFileTypeSymbol() . ' ' . a:filetype
+  endif
+endfunction
+" }}}
+
+function! TestStatus() abort
+  if g:TESTING_STATUS == 'passing'
+    return "  "
+  elseif g:TESTING_STATUS == 'running'
+    return "   "
+  elseif g:TESTING_STATUS == 'failing'
+    return "   "
+  endif
+endfunction
+
+function! LSDiagnostic()
+  let info = get(b:, 'coc_diagnostic_info', {})
+
+  if get(info, 'error', 0)
+    return "   "
+  endif
+
+  if get(info, 'warning', 0)
+    return info['warning'] . "   "
+  endif
+
+  return "   "
+endfunction
+
+" Statusbar items
+" ====================================================================
+
+" This will not be displayed, but the function RedrawModeColors will be
+" called every time the mode changes, thus updating the colors used for the
+" components.
+set statusline=%{RedrawModeColors(mode())}
+" " Left side items
+" " =======================
+set statusline+=%#MyStatuslineAccent#
+set statusline+=%#MyStatuslineAccentBody#
+set statusline+=\ "
+" " Filename
+set statusline+=%#MyStatuslineFilename#\ %t
+set statusline+=%#MyStatuslineModified#\ "
+
+" " Modified status
+set statusline+=%#MyStatuslineModified#
+set statusline+=%#MyStatuslineModifiedBody#%{SetModifiedSymbol(&modified)}
+set statusline+=%#MyStatuslineModified#
+" " Right side items
+" " =======================
+set statusline+=%=
+set statusline+=%#MyStatuslineAccent#
+set statusline+=%#MyStatuslineAccentLabel#LS\ "
+set statusline+=%#MyStatuslineLangServer#%{LSDiagnostic()}
+set statusline+=%#MyStatuslineLineCol#\ "
+" Test status
+" set statusline+=%#MyStatuslineAccent#
+" set statusline+=%#MyStatuslineAccentLabel#Tests\
+" set statusline+=%#MyStatuslineTestStatus#%{TestStatus()}
+" set statusline+=%#MyStatuslineLineCol#\
+" " Line and Column
+set statusline+=%#MyStatuslineLineCol#
+set statusline+=%#MyStatuslineLineColBody#%2l
+set statusline+=\/%#MyStatuslineLineColBody#%2c
+set statusline+=%#MyStatuslineLineCol#
+" " Padding
+set statusline+=\ "
+" " Filetype
+set statusline+=%#MyStatuslineFiletype#
+set statusline+=%#MyStatuslineFiletypeBody#%{SetFiletype(&filetype)}
+set statusline+=%#MyStatuslineFiletype#\ "
+set statusline+=%#MyStatuslineReset#
+
+" pmenu palenight
+hi pmenu guibg=#212333
+hi pmenusel guibg=#6a3eb5 guifg=#bfc7d5
+hi pmenusbar guibg=#352b59 guifg=#352b59
+hi pmenuthumb guibg=#352b59 guifg=#352b59
+
+hi statusline ctermfg=235 ctermbg=245 guibg=none
+hi vertsplit ctermfg=235 ctermbg=none guibg=none guifg=none
+hi comment cterm=italic gui=italic
+hi def link nerdtreedirslash folded
+hi def link nerdtreero statement
+hi def link nerdtreebookmark statement
+hi def link nerdtreeflags statement
+hi def link nerdtreedir folded
+hi def link nerdtreeup folded
+hi def link nerdtreefile folded
+hi def link nerdtreecwd folded
+hi def link nerdtreeopenable folded
+hi def link nerdtreeclosable folded
+hi def link nerdtreeignore folded
+
+" hi normal ctermbg=none guibg=none
+" hi default ctermfg=1
+" hi visual ctermbg=4 ctermfg=0
+" hi matchparen   cterm=none ctermbg=1  ctermfg=0
+hi nonascii  ctermfg=none ctermbg=none  guibg=none guifg=none
+" hi endofbuffer ctermfg=237 ctermbg=235
+" hi clear signcolumn
+" hi clear signwarning
+" hi clear signswarning
+" hi clear signserror
+" syntax match nonascii "[^\x00-\x7f]"
 "
 " "ale hi
-" highlight CursorLine ctermbg=236
+" highlight cursorline ctermbg=236
 "
-" " hi ALEError guibg=re
-" hi link ALEErrorSign GruvboxYellow
-" hi ALEError  ctermfg=245
-" hi ALEWarning  ctermfg=245
-" hi ALEWarningSign  ctermfg=245
+" " hi aleerror guibg=re
+" hi link aleerrorsign gruvboxyellow
+" hi aleerror  ctermfg=245
+" hi alewarning  ctermfg=245
+" hi alewarningsign  ctermfg=245
 
 " }}}
 " Autocommands and functions {{{
@@ -214,8 +355,10 @@ function! ExecuteMacroOverVisualRange()
 endfunction
 
 " vue (fix highlight when stop working)
-autocmd FileType vue syntax sync fromstart
-let g:vue_disable_pre_processors = 1
+" autocmd FileType vue syntax sync fromstart
+" autocmd BufReadPost,BufNewFile *.vue setlocal filetype=vue
+"
+" let g:vue_disable_pre_processors = 1
 
 " vim-php-namespace
 function! IPhpInsertUse()
@@ -306,6 +449,29 @@ vnoremap K :m '<-2<CR>gv=gv
 " hi ColorColumn  term=reverse ctermbg=1 guibg=#3E4452
 hi! link ColorColumn Comment
 
+" vim vue
+let g:vim_vue_plugin_load_full_syntax = 1
+let g:vim_vue_plugin_use_foldexpr = 0
+
+" Vista
+map <leader>vv :Vista!!<CR>
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+let g:vista#renderer#enable_icon=1
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+" let g:vista_icon_indent = ["▸ ", ""]
+
+" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
+" https://github.com/liuchengxu/vista.vim/blob/master/autoload/vista/renderer.vim
+let g:vista#renderer#icons = {
+\   "function": "ƒ",
+\   "var": "",
+\   "variable": "",
+\   "variables": "",
+\   "class": " ",
+\   "namespaces": "",
+\   "default": ""
+\  }
+
 " Colorizer
 " let g:colorizer_use_virtual_text = 0
 " let g:colorizer_colornames = 0
@@ -318,9 +484,17 @@ au BufNewFile,BufRead *.css,*.scss :ColorHighlight!
 let g:loaded_matchit = 1
 
 " coc-nvim
+" let $COC_NO_PLUGINS=1
+" let $NODE_CLIENT_LOG_LEVEL = 'debug'
+" let $NVIM_COC_LOG_LEVEL = 'debug'
+" let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
+" let g:node_client_debug = 1
+ let g:coc_global_extensions = []
+let g:coc_watch_extensions = []
+let g:coc_node_path = '/usr/local/bin/node'
  let g:coc_global_extensions = [
 \  'coc-json',
-"\  'coc-eslint',
+\  'coc-eslint',
 \  'coc-css',
 \  'coc-emmet',
 \  'coc-html',
@@ -352,7 +526,7 @@ let g:coc_user_config = {
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-" inoremap <silent><expr> <TAB>
+inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
@@ -506,11 +680,11 @@ nmap <Leader>u :call phpactor#UseAdd()<CR>
 nmap <Leader>cm :call phpactor#ContextMenu()<CR>
 
 " php server
-au User lsp_setup call lsp#register_server({
-            \ 'name': 'php-language-server',
-            \ 'cmd': {server_info->['php', expand('~/.vim/plugged/php-language-server/bin/php-language-server.php')]},
-            \ 'whitelist': ['php'],
-            \ })
+" au User lsp_setup call lsp#register_server({
+"             \ 'name': 'php-language-server',
+"             \ 'cmd': {server_info->['php', expand('~/.vim/plugged/php-language-server/bin/php-language-server.php')]},
+"             \ 'whitelist': ['php'],
+"             \ })
 
 " vim easy align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -547,6 +721,7 @@ let g:javascript_conceal_null                 = "ø"
 let g:javascript_conceal_arrow_function       = "⇒"
 
 "ale
+let g:ale_disable_lsp = 1
 let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
 let g:ale_sign_error = ''
