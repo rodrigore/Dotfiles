@@ -130,6 +130,7 @@ set clipboard=unnamed
 " }}}
 " colorscheme {{{
 set background=dark
+
 colorscheme palenight
 let g:palenight_terminal_italics=1
 " let g:lightline = {
@@ -267,7 +268,9 @@ set statusline=%{RedrawModeColors(mode())}
 " " =======================
 set statusline+=%#MyStatuslineAccent#
 set statusline+=%#MyStatuslineAccentBody#
-set statusline+=\ "
+set statusline+=\   "
+set statusline+=\   "
+
 " " Filename
 set statusline+=%#MyStatuslineFilename#\ %t
 set statusline+=%#MyStatuslineModified#\ "
@@ -307,8 +310,9 @@ hi pmenusel guibg=#6a3eb5 guifg=#bfc7d5
 hi pmenusbar guibg=#352b59 guifg=#352b59
 hi pmenuthumb guibg=#352b59 guifg=#352b59
 
-hi statusline ctermfg=235 ctermbg=245 guibg=none
-hi vertsplit ctermfg=235 ctermbg=none guibg=none guifg=none
+" hi statusline ctermfg=235 ctermbg=245 guibg=none
+" hi vertsplit ctermfg=235 ctermbg=none guibg=none guifg=none
+" hi nonascii  ctermfg=none ctermbg=none  guibg=none guifg=none
 hi comment cterm=italic gui=italic
 hi def link nerdtreedirslash folded
 hi def link nerdtreero statement
@@ -322,26 +326,6 @@ hi def link nerdtreeopenable folded
 hi def link nerdtreeclosable folded
 hi def link nerdtreeignore folded
 
-" hi normal ctermbg=none guibg=none
-" hi default ctermfg=1
-" hi visual ctermbg=4 ctermfg=0
-" hi matchparen   cterm=none ctermbg=1  ctermfg=0
-hi nonascii  ctermfg=none ctermbg=none  guibg=none guifg=none
-" hi endofbuffer ctermfg=237 ctermbg=235
-" hi clear signcolumn
-" hi clear signwarning
-" hi clear signswarning
-" hi clear signserror
-" syntax match nonascii "[^\x00-\x7f]"
-"
-" "ale hi
-" highlight cursorline ctermbg=236
-"
-" " hi aleerror guibg=re
-" hi link aleerrorsign gruvboxyellow
-" hi aleerror  ctermfg=245
-" hi alewarning  ctermfg=245
-" hi alewarningsign  ctermfg=245
 
 " }}}
 " Autocommands and functions {{{
@@ -456,8 +440,11 @@ let g:vim_vue_plugin_use_foldexpr = 0
 " Vista
 map <leader>vv :Vista!!<CR>
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-let g:vista#renderer#enable_icon=1
+let g:vista#renderer#enable_icon = 1
+let g:vista_disable_statusline = 1
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_default_executive = 'coc'
+let g:vista_fzf_preview = ['right:50%']
 " let g:vista_icon_indent = ["▸ ", ""]
 
 " The default icons can't be suitable for all the filetypes, you can extend it as you wish.
@@ -470,7 +457,7 @@ let g:vista#renderer#icons = {
 \   "class": " ",
 \   "namespaces": "",
 \   "default": ""
-\  }
+\ }
 
 " Colorizer
 " let g:colorizer_use_virtual_text = 0
@@ -852,3 +839,5 @@ endfunction
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " }}}
+
+hi Normal guibg=none
