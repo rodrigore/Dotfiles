@@ -267,7 +267,7 @@ set statusline=%{RedrawModeColors(mode())}
 " " Left side items
 " " =======================
 set statusline+=%#MyStatuslineAccent#
-set statusline+=%#MyStatuslineAccentBody#
+set statusline+=%#MyStatuslineAccentBody#
 set statusline+=\   "
 set statusline+=\   "
 
