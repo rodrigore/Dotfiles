@@ -1,7 +1,7 @@
 update
 upgrade
 install ack
-install ctags
+install --HEAD --with-jansson universal-ctags/universal-ctags/universal-ctags
 install git
 install ripgrep
 install shkm/brew/vssh
