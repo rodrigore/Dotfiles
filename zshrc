@@ -51,3 +51,9 @@ export PATH="$PATH":"/anaconda3/bin"
 # avr
 export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
 
+# php 7.2
+export PATH="/usr/local/opt/php@7.2/bin:$PATH"
+export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
+
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8

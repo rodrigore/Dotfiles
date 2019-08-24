@@ -6,8 +6,8 @@ alias hidehidden="defaults write com.apple.finder AppleShowAllFiles FALSE && kil
 alias hidedesktop="defaults write com.apple.finder CreateDesktop FALSE && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop TRUE && killall Finder"
 
-# 256 color and special chars(work nice with powerline chars)
-alias tmux="TERM=screen-256color tmux -u2"
+# utf 8, work nice with powerline chars
+alias tmux="TERM=xterm-256color-italic tmux -u"
 
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
