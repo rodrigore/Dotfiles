@@ -30,6 +30,7 @@ Plug 'pbogut/fzf-mru.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neomake/neomake'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
 Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
@@ -287,10 +288,10 @@ set statusline+=%#MyStatuslineAccentLabel#LS\ "
 set statusline+=%#MyStatuslineLangServer#%{LSDiagnostic()}
 set statusline+=%#MyStatuslineLineCol#\ "
 " Test status
-" set statusline+=%#MyStatuslineAccent#
-" set statusline+=%#MyStatuslineAccentLabel#Tests\
-" set statusline+=%#MyStatuslineTestStatus#%{TestStatus()}
-" set statusline+=%#MyStatuslineLineCol#\
+set statusline+=%#MyStatuslineAccent#
+set statusline+=%#MyStatuslineAccentLabel#Tests\ "
+set statusline+=%#MyStatuslineTestStatus#%{TestStatus()}
+set statusline+=%#MyStatuslineLineCol#\ "
 " " Line and Column
 set statusline+=%#MyStatuslineLineCol#
 set statusline+=%#MyStatuslineLineColBody#%2l
@@ -688,10 +689,42 @@ let g:prettier#quickfix_enabled = 0
 let g:prettier#exec_cmd_async = 1
 " autocmd BufWritePre *.vue Prettier
 
+" neomake
+let g:neomake_open_list = 1
+let g:neomake_warning_sign = {
+  \   'text': '◉'
+  \ }
+let g:neomake_error_sign = {
+  \   'text': '◉'
+  \ }
+
+" Show message that tests have started
+function! MyOnNeomakeJobStarted() abort
+  let g:TESTING_STATUS = 'running'
+endfunction
+
+" Show message when all tests are passing
+function! MyOnNeomakeJobFinished() abort
+  let context = g:neomake_hook_context
+  if context.jobinfo.exit_code == 0
+    let g:TESTING_STATUS = 'passing'
+  endif
+  if context.jobinfo.exit_code == 1
+    let g:TESTING_STATUS = 'failing'
+  endif
+endfunction
+
+augroup my_neomake_hooks
+  au!
+  autocmd User NeomakeJobFinished call MyOnNeomakeJobFinished()
+  autocmd User NeomakeJobStarted call MyOnNeomakeJobStarted()
+augroup END
+
 " vim-test
-"
+let g:TESTING_STATUS = 'passing'
+let g:test#preserve_screen = 0
 if has('nvim')
-   let test#strategy = "neovim"
+   let test#strategy = "neomake"
    tmap <C-o> <C-\><C-n>
 else
    let test#strategy = "vimterminal"
