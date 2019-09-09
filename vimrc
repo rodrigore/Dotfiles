@@ -34,7 +34,7 @@ Plug 'neomake/neomake'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
 Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
-Plug 'leafOfTree/vim-vue-plugin'
+Plug 'posva/vim-vue'
 Plug 'prettier/vim-prettier', { 'do': 'npm install'}
 Plug 'reisub0/hot-reload.vim' " flutter hot-reload
 Plug 'ryanoasis/vim-devicons'
@@ -236,10 +236,12 @@ endfunction
 
 function! TestStatus() abort
   if g:TESTING_STATUS == 'passing'
+      hi MyStatuslineTestStatus guifg=#AAFFE4
     return "  "
   elseif g:TESTING_STATUS == 'running'
     return "   "
   elseif g:TESTING_STATUS == 'failing'
+    hi MyStatuslineTestStatus guifg=#ff5370
     return "   "
   endif
 endfunction
