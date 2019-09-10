@@ -733,6 +733,7 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
 let g:DevIconsEnableFoldersOpenClose = v:true
+let g:DevIconsEnableFolderExtensionPatternMatching = 1
 " Use one space after a glyph instead of two.
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 " Set default file and directory icons.
