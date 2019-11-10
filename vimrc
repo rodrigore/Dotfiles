@@ -11,7 +11,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/undoquit.vim'
 Plug 'andymass/vim-matchup'
-Plug 'chrisbra/Colorizer'
 Plug 'cohama/lexima.vim'   " auto close parentheses
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'drewtempelmeyer/palenight.vim'
@@ -39,6 +38,7 @@ Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
 Plug 'posva/vim-vue'
 Plug 'prettier/vim-prettier', { 'do': 'npm install'}
 Plug 'reisub0/hot-reload.vim' " flutter hot-reload
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
