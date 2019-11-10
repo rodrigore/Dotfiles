@@ -25,7 +25,9 @@ Plug 'junegunn/vim-slash'
 Plug 'junegunn/vim-easy-align'
 Plug 'itchyny/lightline.vim'
 Plug 'kana/vim-repeat'
+Plug 'Lenovsky/nuake'
 Plug 'liuchengxu/vista.vim'
+Plug 'liuchengxu/vim-clap'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'morhetz/gruvbox'
@@ -820,55 +822,53 @@ let g:php_namespace_sort_after_insert = 1
 nnoremap <leader>n :NERDTreeToggle<CR>
 
 " FZF
-nnoremap <C-p> :call Fzf_files_with_dev_icons()<CR>
+nnoremap <C-p> :Files<CR>
 nnoremap <leader>m :FZFFreshMru<cr>
 let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!{.git,node_modules,vendor}/*"'
-let g:fzf_colors = {
-			\ 'fg':      ['fg', 'Fold'],
-			\ 'bg':      ['bg', 'Normal'],
-			\ 'hl':      ['fg', 'Error'],
-			\ 'fg+':     ['fg', 'String'],
-			\ 'bg+':     ['bg', 'Normal'],
-			\ 'hl+':     ['fg', 'Error'],
-			\ 'info':    ['fg', 'Type'],
-            \ 'border':  ['fg', 'Ignore'],
-			\ 'prompt':  ['fg', 'Special'],
-			\ 'pointer': ['fg', 'Statement'],
-			\ 'marker':  ['fg', 'Statemetn'],
-			\ 'spinner': ['fg', 'Statement'],
-			\ 'header':  ['fg', 'Special'],
-            \ }
-" fzf + devicons
-function! Fzf_files_with_dev_icons()
-  let l:fzf_files_options = ' -m --bind ctrl-d:preview-page-down,ctrl-u:preview-page-up --preview "bat --theme=base16 --color always --style numbers {2..}"'
+" let $FZF_DEFAULT_OPTS=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4'
 
-  function! s:files()
-    let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
-    return s:prepend_icon(l:files)
-  endfunction
+let g:preview_width = float2nr(&columns * 0.7)
+" let $FZF_DEFAULT_OPTS=" --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4 --preview 'if file -i {}|grep -q binary; then file -b {}; else bat --style=changes --color always --line-range :40 {}; fi' --preview-window right:" . g:preview_width
+let $FZF_DEFAULT_OPTS=" --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4"
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
-  function! s:prepend_icon(candidates)
-    let l:result = []
-    for l:candidate in a:candidates
-      let l:filename = fnamemodify(l:candidate, ':p:t')
-      let l:icon = WebDevIconsGetFileTypeSymbol(l:filename, isdirectory(l:filename))
-      call add(l:result, printf('%s %s', l:icon, l:candidate))
-    endfor
+" let g:fzf_colors = {
+" 			\ 'fg':      ['fg', 'Fold'],
+" 			\ 'bg':      ['bg', 'Normal'],
+" 			\ 'hl':      ['fg', 'Error'],
+" 			\ 'fg+':     ['fg', 'String'],
+" 			\ 'bg+':     ['bg', 'Normal'],
+" 			\ 'hl+':     ['fg', 'Error'],
+" 			\ 'info':    ['fg', 'Type'],
+"             \ 'border':  ['fg', 'Ignore'],
+" 			\ 'prompt':  ['fg', 'Special'],
+" 			\ 'pointer': ['fg', 'Statement'],
+" 			\ 'marker':  ['fg', 'Statemetn'],
+" 			\ 'spinner': ['fg', 'Statement'],
+" 			\ 'header':  ['fg', 'Special'],
+"             \ }
 
-    return l:result
-  endfunction
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
 
-  function! s:edit_file(item)
-    let l:pos = stridx(a:item, ' ')
-    let l:file_path = a:item[pos+1:-1]
-    execute 'silent e' l:file_path
-  endfunction
+  " let height = float2nr(10)
+  " let width = float2nr(80)
+  let height = float2nr(&lines * 0.85)
+  let width = float2nr(&columns * 0.9)
+  let horizontal = float2nr((&columns - width) / 2)
+  let vertical = 1
 
-  call fzf#run({
-        \ 'source': <sid>files(),
-        \ 'sink':   function('s:edit_file'),
-        \ 'options': '-m ' . l:fzf_files_options,
-        \ 'down':    '40%' })
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': vertical,
+        \ 'col': horizontal,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'style': 'minimal'
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
 endfunction
 
 " Ale
