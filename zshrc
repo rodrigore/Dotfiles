@@ -45,7 +45,7 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#anacona
+#anaconda
 export PATH="$PATH":"/anaconda3/bin"
 
 # avr

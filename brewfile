@@ -4,7 +4,6 @@ install ack
 install --HEAD --with-jansson universal-ctags/universal-ctags/universal-ctags
 install git
 install ripgrep
-install shkm/brew/vssh
 install ssh-copy-id
 install the_silver_searcher
 install tmux
