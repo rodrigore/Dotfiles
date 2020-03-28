@@ -37,3 +37,9 @@ alias nyancat='telnet nyancat.dakko.us'
 
 # remove .DS_Store from a git repo
 alias banish-ds= 'find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch'
+
+# trash
+alias rm=trash
+
+# fix postgresql
+alias fixpostgres= 'rm -f /usr/local/var/postgres/postmaster.pid && brew services stop postgresql && brew services start postgresql'

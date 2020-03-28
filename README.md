@@ -3,14 +3,14 @@
 # Rodri dotfiles
 
 ## Requirements
-* Vim 8
+* Neovim 0.4
 * Tmux 2
 * ZSH
 
 ## Current Vim-Colorscheme
 * Palenight
 
-## Current Iterm Theme
+## Current Kitty Theme
 * Palenight
 <h1>
 <img width="256" src="iterm-palenight-icon.png" />

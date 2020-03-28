@@ -10,12 +10,14 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/undoquit.vim'
+Plug 'arzg/vim-colors-xcode'
 Plug 'andymass/vim-matchup'
+Plug 'benmills/vimux'
 Plug 'cohama/lexima.vim'   " auto close parentheses
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'honza/vim-snippets'
+Plug 'enricobacis/paste.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -24,12 +26,11 @@ Plug 'junegunn/vim-slash'
 Plug 'junegunn/vim-easy-align'
 Plug 'itchyny/lightline.vim'
 Plug 'kana/vim-repeat'
-Plug 'Lenovsky/nuake'
 Plug 'liuchengxu/vista.vim'
 Plug 'liuchengxu/vim-clap'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'maximbaz/lightline-ale'
-Plug 'morhetz/gruvbox'
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neomake/neomake'
 Plug 'nelstrom/vim-visual-star-search'
@@ -52,17 +53,17 @@ Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-" Plug 'tyru/caw.vim'      " comment
+Plug 'tyru/caw.vim'      " comment
 Plug 'wincent/terminus'
 Plug 'w0rp/ale'
 
-"Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 
-" Plug 'autozimu/LanguageClient-neovim', {
-"             \ 'branch': 'next',
-"             \ 'do': 'bash install.sh',
-"             \ }
-" Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+Plug 'autozimu/LanguageClient-neovim', {
+             \ 'branch': 'next',
+             \ 'do': 'bash install.sh',
+            \ }
+Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -136,6 +137,7 @@ set background=dark
 
 colorscheme palenight
 let g:palenight_terminal_italics=1
+
 " let g:lightline = {
 "       \ 'colorscheme': 'palenight',
 "       \ 'active': {
@@ -315,21 +317,42 @@ hi pmenusel guibg=#6a3eb5 guifg=#bfc7d5
 hi pmenusbar guibg=#352b59 guifg=#352b59
 hi pmenuthumb guibg=#352b59 guifg=#352b59
 
-" hi statusline ctermfg=235 ctermbg=245 guibg=none
-" hi vertsplit ctermfg=235 ctermbg=none guibg=none guifg=none
-" hi nonascii  ctermfg=none ctermbg=none  guibg=none guifg=none
+" nerdree palenight
 hi comment cterm=italic gui=italic
-hi def link nerdtreedirslash folded
 hi def link nerdtreero statement
 hi def link nerdtreebookmark statement
 hi def link nerdtreeflags statement
-hi def link nerdtreedir folded
-hi def link nerdtreeup folded
-hi def link nerdtreefile folded
-hi def link nerdtreecwd folded
-hi def link nerdtreeopenable folded
-hi def link nerdtreeclosable folded
-hi def link nerdtreeignore folded
+hi def link nerdtreedirslash StatusLineNC
+hi def link nerdtreedir StatusLineNC
+hi def link nerdtreeup StatusLineNC
+hi def link nerdtreefile StatusLineNC
+hi def link nerdtreecwd StatusLineNC
+hi def link nerdtreeopenable StatusLineNC
+hi def link nerdtreeclosable StatusLineNC
+hi def link nerdtreeignore StatusLineNC
+
+" hi nerdtreedirslash guifg=s:colors.comment_grey
+" hi nerdtreedir guifg=s:colors.comment_grey
+" hi nerdtreeup guifg=s:colors.comment_grey
+" hi nerdtreefile guifg=s:colors.comment_grey
+" hi nerdtreecwd guifg=s:colors.comment_grey
+" hi nerdtreeopenable guifg=s:colors.comment_grey
+" hi nerdtreeclosable guifg=s:colors.comment_grey
+" hi nerdtreeignore guifg=s:colors.comment_grey
+
+
+" hi def link nerdtreeflags statement
+" hi def link nerdtreedir colorcolumn
+" hi def link nerdtreefile colorcolumn
+" hi def link nerdtreeup colorcolumn
+" hi def link nerdtreecwd colorcolumn
+" hi def link nerdtreeopenable colorcolumn
+" hi def link nerdtreeclosable colorcolumn
+" hi def link nerdtreeignore colorcolumn
+
+hi Typedef guifg=#6bdfff guibg=NONE guisp=NONE gui=NONE cterm=NONE
+hi LocalType guifg=#acf2e4 guibg=NONE guisp=NONE gui=NONE cterm=NONE
+hi LibraryType guifg=#dabaff guibg=NONE guisp=NONE gui=NONE cterm=NONE
 
 
 " }}}
@@ -435,6 +458,7 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " }}}
 " Plugins configuration {{{
+
 " hi ColorColumn  term=reverse ctermbg=1 guibg=#3E4452
 hi! link ColorColumn Comment
 
@@ -728,7 +752,11 @@ augroup END
 let g:TESTING_STATUS = 'passing'
 let g:test#preserve_screen = 0
 if has('nvim')
-   let test#strategy = "neomake"
+   let test#strategy = {
+    \ 'nearest': 'neovim',
+    \ 'file':    'neomake',
+    \ 'suite':   'neomake',
+    \}
    tmap <C-o> <C-\><C-n>
 else
    let test#strategy = "vimterminal"
