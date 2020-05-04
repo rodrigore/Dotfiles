@@ -11,7 +11,7 @@
     ch = checkout -
 [core]
     ignore = dirty
-    editor = vim
+    editor = nvim
 	excludesfile = ~/.gitignore_global
 [credential]
 	helper = osxkeychain

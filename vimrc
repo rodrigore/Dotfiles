@@ -31,6 +31,7 @@ Plug 'liuchengxu/vim-clap'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'mg979/vim-visual-multi'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neomake/neomake'
 Plug 'nelstrom/vim-visual-star-search'
@@ -39,6 +40,7 @@ Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
 Plug 'posva/vim-vue'
 Plug 'prettier/vim-prettier', { 'do': 'npm install'}
 Plug 'reisub0/hot-reload.vim' " flutter hot-reload
+Plug 'rodrigore/nuake'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
@@ -57,7 +59,7 @@ Plug 'tyru/caw.vim'      " comment
 Plug 'wincent/terminus'
 Plug 'w0rp/ale'
 
-Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+" Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 
 Plug 'autozimu/LanguageClient-neovim', {
              \ 'branch': 'next',
@@ -137,6 +139,10 @@ set background=dark
 
 colorscheme palenight
 let g:palenight_terminal_italics=1
+" colorscheme xcodedarkhc
+" let g:xcodedarkhc_emph_types = 0
+" let g:xcodedarkhc_emph_funcs = 1
+" let g:xcodedarkhc_emph_idents = 0
 
 " let g:lightline = {
 "       \ 'colorscheme': 'palenight',
@@ -164,8 +170,6 @@ let g:palenight_terminal_italics=1
 
 " ====================================================================
 set noshowmode
-
-let NERDTreeStatusline="%8*%=%7*NERD%8*%="
 
 set laststatus=2
 let g:lightline = {}
@@ -290,21 +294,10 @@ set statusline+=%#MyStatuslineModified#
 " " =======================
 set statusline+=%=
 set statusline+=%#MyStatuslineAccent#
-set statusline+=%#MyStatuslineAccentLabel#LS\ "
-set statusline+=%#MyStatuslineLangServer#%{LSDiagnostic()}
-set statusline+=%#MyStatuslineLineCol#\ "
-" Test status
-set statusline+=%#MyStatuslineAccent#
 set statusline+=%#MyStatuslineAccentLabel#Tests\ "
 set statusline+=%#MyStatuslineTestStatus#%{TestStatus()}
 set statusline+=%#MyStatuslineLineCol#\ "
-" " Line and Column
-set statusline+=%#MyStatuslineLineCol#
-set statusline+=%#MyStatuslineLineColBody#%2l
-set statusline+=\/%#MyStatuslineLineColBody#%2c
-set statusline+=%#MyStatuslineLineCol#
-" " Padding
-set statusline+=\ "
+
 " " Filetype
 set statusline+=%#MyStatuslineFiletype#
 set statusline+=%#MyStatuslineFiletypeBody#%{SetFiletype(&filetype)}
@@ -331,29 +324,18 @@ hi def link nerdtreeopenable StatusLineNC
 hi def link nerdtreeclosable StatusLineNC
 hi def link nerdtreeignore StatusLineNC
 
-" hi nerdtreedirslash guifg=s:colors.comment_grey
-" hi nerdtreedir guifg=s:colors.comment_grey
-" hi nerdtreeup guifg=s:colors.comment_grey
-" hi nerdtreefile guifg=s:colors.comment_grey
-" hi nerdtreecwd guifg=s:colors.comment_grey
-" hi nerdtreeopenable guifg=s:colors.comment_grey
-" hi nerdtreeclosable guifg=s:colors.comment_grey
-" hi nerdtreeignore guifg=s:colors.comment_grey
-
-
-" hi def link nerdtreeflags statement
-" hi def link nerdtreedir colorcolumn
-" hi def link nerdtreefile colorcolumn
-" hi def link nerdtreeup colorcolumn
-" hi def link nerdtreecwd colorcolumn
-" hi def link nerdtreeopenable colorcolumn
-" hi def link nerdtreeclosable colorcolumn
-" hi def link nerdtreeignore colorcolumn
-
+" visual palenight ctrlp_custom
+hi Visual guibg=#3A3C5B guifg=NONE gui=NONE
 hi Typedef guifg=#6bdfff guibg=NONE guisp=NONE gui=NONE cterm=NONE
 hi LocalType guifg=#acf2e4 guibg=NONE guisp=NONE gui=NONE cterm=NONE
 hi LibraryType guifg=#dabaff guibg=NONE guisp=NONE gui=NONE cterm=NONE
 
+" sh variable palenight (.env files)
+hi def link shVariable statement
+hi shNumber guifg=#bfc7d5
+
+" Make status line without color and dont show on nerdtree
+hi StatusLine guibg=NONE guifg=NONE gui=NONE
 
 " }}}
 " Autocommands and functions {{{
@@ -458,6 +440,35 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " }}}
 " Plugins configuration {{{
+
+" Nuake
+let g:start_insert = 1 " Disable insert mode when opening Nuake.
+let g:nuake_size = 0.4
+" disable status line
+autocmd FileType,BufEnter *
+            \ if &filetype == 'nuake' && (g:nuake_start_insert == 1) |
+            \ execute 'silent! normal i' |
+            \ execute 'set laststatus=0 noshowmode noruler' |
+            \ endif
+nnoremap <C-t> :Nuake<CR>
+inoremap <C-t> <C-\><C-n>:Nuake<CR>
+tnoremap <C-t> <C-\><C-n>:Nuake<CR>
+
+" vim-visual-multi
+let g:VM_maps = {}
+let g:VM_maps["Select Cursor Down"] = '<C-j>'
+let g:VM_maps["Select Cursor Up"]   = '<C-k>'
+
+"indent lines
+" let g:indentLine_char = '│'
+" let g:indentLine_first_char = g:indentLine_char
+" let g:indentLine_showFirstIndentLevel = 1
+" let g:indentLine_color_gui = '#2C323C'
+" let g:indentLine_bgcolor_gui = 'NONE'
+" let g:indentLine_setConceal = 0
+" let g:indentLine_fileTypeExclude = ['help', 'defx', 'vimwiki']
+" let g:indentLine_autoResetWidth = 0
+" let g:indent_blankline_space_char = ' '
 
 " hi ColorColumn  term=reverse ctermbg=1 guibg=#3E4452
 hi! link ColorColumn Comment
@@ -690,10 +701,10 @@ let splitjoin_php_method_chain_full=1
 
 "php pactor
 " Include use statement
-nmap <Leader>u :call phpactor#UseAdd()<CR>
+nmap <Leader>u :PhpactorImportClass<CR>
 
 " Invoke the context menu
-nmap <Leader>cm :call phpactor#ContextMenu()<CR>
+nmap <Leader>cm :PhpactorContextMenu()<CR>
 
 " php server
 " au User lsp_setup call lsp#register_server({
@@ -749,11 +760,18 @@ augroup my_neomake_hooks
 augroup END
 
 " vim-test
+" nuake strategy
+function! NuakeStrategy(cmd)
+  call nuake#ToggleWindowCMD(a:cmd)
+endfunction
+
+let g:test#custom_strategies = {'nuake': function('NuakeStrategy')}
+
 let g:TESTING_STATUS = 'passing'
 let g:test#preserve_screen = 0
 if has('nvim')
    let test#strategy = {
-    \ 'nearest': 'neovim',
+    \ 'nearest': 'nuake',
     \ 'file':    'neomake',
     \ 'suite':   'neomake',
     \}
@@ -766,11 +784,6 @@ nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
-
-" pangloss/vim-javascript
-let g:javascript_conceal_function             = "ƒ"
-let g:javascript_conceal_null                 = "ø"
-let g:javascript_conceal_arrow_function       = "⇒"
 
 "ale
 let g:ale_disable_lsp = 1
@@ -792,11 +805,13 @@ let g:ale_linters = {
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['vue'] = ['prettier']
+let g:ale_virtualtext_cursor= 0
+let g:ale_set_highlights = 0
 
 " vim-devicon
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:NERDTreeDirArrowExpandable = '+'
-let g:NERDTreeDirArrowCollapsible = '-'
+let NERDTreeDirArrowExpandable = "\u00a0" "non-breaking space to make the arrows appear to have been removed. Regular spaces won't work, as they causes keypresses on lower-level directories to not be recognized
+let NERDTreeDirArrowCollapsible = "\u00a0"
 let g:DevIconsEnableFoldersOpenClose = v:true
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
 " Use one space after a glyph instead of two.
@@ -829,6 +844,24 @@ let g:ag_prg='ag -S --nocolor --nogroup --column --ignore public --ignore node_m
 
 " php.vim
 let php_var_selector_is_identifier=1
+hi phpClass gui=bold
+hi phpClasses gui=bold
+hi phpClassExtends gui=bold
+hi phpClassImplements gui=bold
+hi def link phpFunctionCall phpMethod
+hi def link phpLastUseClass phpClass
+" hi def link phpStart phpMethod
+
+function! PhpSyntaxOverride()
+  syn match phpFunctionCall /\v\h\w*\ze(\s?\()/ containedin=phpRegion,phpIdentifier " highlight function names like global or laravel helpers
+  syn match phpLastUseClass /.*\zs\<\w\+/ containedin=phpRegion,phpUseClass         " highlight class from namespace
+  " syn match phpStart /<?php/ containedin=phpRegion,Delimiter
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
 
 " Php CS Fixer
 let g:php_cs_fixer_fixers_list="-psr0"
@@ -848,17 +881,40 @@ let g:php_namespace_sort_after_insert = 1
 
 " NerdTree
 nnoremap <leader>n :NERDTreeToggle<CR>
+let g:NERDTreeStatusline = '%#NonText#'
+let NERDTreeMinimalUI=1
 
 " FZF
 nnoremap <C-p> :Files<CR>
 nnoremap <leader>m :FZFFreshMru<cr>
 let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!{.git,node_modules,vendor}/*"'
-" let $FZF_DEFAULT_OPTS=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4'
 
-let g:preview_width = float2nr(&columns * 0.7)
-" let $FZF_DEFAULT_OPTS=" --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4 --preview 'if file -i {}|grep -q binary; then file -b {}; else bat --style=changes --color always --line-range :40 {}; fi' --preview-window right:" . g:preview_width
-let $FZF_DEFAULT_OPTS=" --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4"
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+" let $FZF_DEFAULT_OPTS="--color=bg+:#212333,bg:#262337,spinner:#89DDFF,hl:#82AAFF --color=fg:#8796B0,header:#C792EA,info:#FFCB6B,pointer:#89DDFF --color=marker:#89DDFF,fg+:#959DCB,prompt:#FFCB6B,hl+:#C792EA --layout=reverse --margin=1,2"
+let $FZF_DEFAULT_OPTS="--color=bg+:#212333,bg:#262337,spinner:#89DDFF,hl:#82AAFF --color=fg:#8796B0,header:#C792EA,info:#FFCB6B,pointer:#89DDFF --color=marker:#89DDFF,fg+:#959DCB,prompt:#FFCB6B,hl+:#C792EA --layout=reverse --preview 'bat --theme=base16 --color always --line-range :40 {};'"
+
+" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
+
+" function! FloatingFZF()
+"   let buf = nvim_create_buf(v:false, v:true)
+"   call setbufvar(buf, '&signcolumn', 'no')
+"
+"   let height = float2nr(10)
+"   let width = float2nr(80)
+"   let horizontal = float2nr((&columns - width) / 2)
+"   let vertical = 1
+"
+"   let opts = {
+"         \ 'relative': 'editor',
+"         \ 'row': vertical,
+"         \ 'col': horizontal,
+"         \ 'width': width,
+"         \ 'height': height,
+"         \ 'style': 'minimal'
+"         \ }
+"
+"   call nvim_open_win(buf, v:true, opts)
+" endfunction
 
 " let g:fzf_colors = {
 " 			\ 'fg':      ['fg', 'Fold'],
@@ -899,9 +955,40 @@ function! FloatingFZF()
   call nvim_open_win(buf, v:true, opts)
 endfunction
 
+function! CreateCenteredFloatingWindow()
+    let width = min([&columns - 4, max([80, &columns - 20])])
+    let height = min([&lines - 4, max([20, &lines - 10])])
+    let top = ((&lines - height) / 2) - 1
+    let left = (&columns - width) / 2
+    let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
+
+    let top = "╭" . repeat("─", width - 2) . "╮"
+    let mid = "│" . repeat(" ", width - 2) . "│"
+    let bot = "╰" . repeat("─", width - 2) . "╯"
+    let lines = [top] + repeat([mid], height - 2) + [bot]
+    let s:buf = nvim_create_buf(v:false, v:true)
+    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+    call nvim_open_win(s:buf, v:true, opts)
+    set winhl=Normal:Floating
+    let opts.row += 1
+    let opts.height -= 2
+    let opts.col += 2
+    let opts.width -= 4
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    au BufWipeout <buffer> exe 'bw '.s:buf
+endfunction
+
 " Ale
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <M-C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <M-C-j> <Plug>(ale_next_wrap)
 " }}}
 
 hi Normal guibg=none
+
+" Debug: Show the stack of syntax highlighting classes affecting whatever is under the cursor.
+function! SynStack()
+  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
+endfunc
+
+" nnoremap <leader>m :call SynStack()<CR>
+
