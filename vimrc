@@ -10,6 +10,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/undoquit.vim'
+Plug 'arnaud-lb/vim-php-namespace'
 Plug 'arzg/vim-colors-xcode'
 Plug 'andymass/vim-matchup'
 Plug 'benmills/vimux'
@@ -18,7 +19,7 @@ Plug 'dart-lang/dart-vim-plugin'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'enricobacis/paste.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -356,12 +357,9 @@ endfunction
 " let g:vue_disable_pre_processors = 1
 
 " vim-php-namespace
-function! IPhpInsertUse()
-    call PhpInsertUse()
-    call feedkeys('a',  'n')
-endfunction
-autocmd FileType php inoremap <Leader>i <Esc>:call IPhpInsertUse()<CR>
-autocmd FileType php noremap <Leader>i :call PhpInsertUse()<CR>
+autocmd FileType php inoremap <Leader>s <Esc>:call PhpSortUse()<CR>
+autocmd FileType php noremap <Leader>s :call PhpSortUse()<CR>
+let g:php_namespace_sort = "'{,'}-1!awk '{print length, $0}' | sort -n -s | cut -d' ' -f2-"
 
 " Make sure Vim open in the same line when you reopen a file.
 augroup line_return
@@ -706,6 +704,8 @@ nmap <Leader>u :PhpactorImportClass<CR>
 
 " Invoke the context menu
 nmap <Leader>cm :PhpactorContextMenu()<CR>
+
+nmap <Leader>o :call phpactor#GotoDefinition()<CR>
 
 " php server
 " au User lsp_setup call lsp#register_server({
