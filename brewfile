@@ -2,10 +2,10 @@ update
 upgrade
 install ack
 install --HEAD --with-jansson universal-ctags/universal-ctags/universal-ctags
+install diff-so-fancy
 install git
 install ripgrep
 install ssh-copy-id
-install the_silver_searcher
 install tmux
 install trash
 install vim --with-override-system-vi --with-lua
