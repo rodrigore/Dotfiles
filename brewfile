@@ -1,14 +1,17 @@
 update
 upgrade
 install ack
+install bat
 install --HEAD --with-jansson universal-ctags/universal-ctags/universal-ctags
 install diff-so-fancy
+install exa
 install git
+install jq
+install neovim
 install ripgrep
 install ssh-copy-id
 install tmux
 install trash
-install vim --with-override-system-vi --with-lua
 install homebrew/php/php-code-sniffer
 install homebrew/php/php-cs-fixer
 install zsh-syntax-highlighting

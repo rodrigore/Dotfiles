@@ -19,6 +19,7 @@ Plug 'dart-lang/dart-vim-plugin'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'enricobacis/paste.vim'
+Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -52,7 +53,6 @@ Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
 Plug 'TaDaa/vimade'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
@@ -440,6 +440,13 @@ vnoremap K :m '<-2<CR>gv=gv
 " }}}
 " Plugins configuration {{{
 
+" caw-------------------------
+" let g:caw_operator_keymappings = 0
+" nmap gcc <Plug>(caw:hatpos:toggle)
+" vmap gcc <Plug>(caw:hatpos:toggle)
+" nmap gcC <Plug>(caw:zeropos:uncomment)
+" vmap gcC <Plug>(caw:zeropos:uncomment)
+
 " Nuake
 let g:start_insert = 1 " Disable insert mode when opening Nuake.
 let g:nuake_size = 0.4
@@ -528,7 +535,8 @@ let g:coc_node_path = '/usr/local/bin/node'
 \  'coc-vetur',
 \  'coc-phpls',
 \  'coc-snippets',
-\  'coc-tailwindcss'
+\  'coc-tailwindcss',
+\  'coc-flutter'
 \ ]
 
 " User configuration.
@@ -548,7 +556,6 @@ let g:coc_user_config = {
 		\ 'hintSign': '•',
 	\ }
 \ }
-
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -585,11 +592,11 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " snippets with tab
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? coc#_select_confirm() :
-"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -882,11 +889,25 @@ let g:php_namespace_sort_after_insert = 1
 
 " NerdTree
 nnoremap <leader>n :NERDTreeToggle<CR>
+" nnoremap <leader>f :NERDTreeFind<CR>
 let g:NERDTreeStatusline = '%#NonText#'
 let NERDTreeMinimalUI=1
 
+" Hide NERDTree folder trailing slashes
+augroup nerdtreehidetirslashes
+	autocmd!
+	autocmd FileType nerdtree syntax match NERDTreeDirSlash #/$# containedin=NERDTreeDir conceal contained
+augroup end
+
+augroup nerdtreehidecwd
+	autocmd!
+	autocmd FileType nerdtree  syntax match NERDTreeHideCWD #</# conceal cchar=
+	" autocmd FileType nerdtree  syntax match NERDTreeHideCWD #^[</].*$# conceal cchar=@
+	" autocmd FileType nerdtree  syntax match NERDTreeHideCWD contained </conceal cchar=
+augroup end
+
 " FZF
-nnoremap <C-p> :Files<CR>
+nnoremap <C-p> :FZF<CR>
 nnoremap <leader>m :FZFFreshMru<cr>
 let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!{.git,node_modules,vendor}/*"'
 
@@ -992,4 +1013,3 @@ function! SynStack()
 endfunc
 
 " nnoremap <leader>m :call SynStack()<CR>
-

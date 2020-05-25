@@ -43,3 +43,9 @@ alias rm=trash
 
 # fix postgresql
 alias fixpostgres= 'rm -f /usr/local/var/postgres/postmaster.pid && brew services stop postgresql && brew services start postgresql'
+
+# ls improved
+alias ls='exa'
+
+# cat improved
+alias cat='bat'

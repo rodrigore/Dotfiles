@@ -1,22 +1,15 @@
 ![](https://raw.githubusercontent.com/rodrigore/Dotfiles/master/screenshot.png)
+<p align="center">
+<img class="center" width="64" src="iterm-palenight-icon.png" />
+</p>
 
-# Rodri dotfiles
+## [Rodri](http://twitter.com/rodrigore) dotfiles
 
-## Requirements
-* Neovim 0.4
-* Tmux 2
-* ZSH
+* Neovim
+* Tmux
+* zsh
 
-## Current Vim-Colorscheme
-* Palenight
-
-## Current Kitty Theme
-* Palenight
-<h1>
-<img width="256" src="iterm-palenight-icon.png" />
-</h1>
-
-## Italic ITerm step
+## Italic font setup
 ```
 tic xterm-256color-italic.terminfo
 

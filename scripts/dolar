@@ -1,1 +1,0 @@
-wget -q -O  - http://indicadoresdeldia.cl/webservice/indicadores.json | jq '.moneda.dolar' | tr -d '"'

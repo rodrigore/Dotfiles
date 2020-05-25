@@ -1,0 +1,9 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["vue", "json", "php", "blade.php", "blade"],
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "vetur.format.options.tabSize": 2,
+  "vetur.format.options.useTabs": false,
+  "diagnostic.virtualText": false,
+  "emmet.includeLanguages": {"blade": "html"}
+}
+
