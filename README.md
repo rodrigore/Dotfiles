@@ -3,7 +3,7 @@
 <img class="center" width="64" src="iterm-palenight-icon.png" />
 </p>
 
-## [Rodri](http://twitter.com/rodrigore) dotfiles
+## [Rodri](http://twitter.com/rodri_gore) dotfiles
 
 * Neovim
 * Tmux
