@@ -45,13 +45,11 @@ Plug 'reisub0/hot-reload.vim' " flutter hot-reload
 Plug 'rodrigore/nuake'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'ryanoasis/vim-devicons'
-Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/context_filetype.vim'
 Plug 'stanAngeloff/php.vim', { 'for': 'php' }
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
 Plug 'TaDaa/vimade'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
@@ -60,14 +58,7 @@ Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'      " comment
 Plug 'wincent/terminus'
 Plug 'w0rp/ale'
-
 " Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
-
-Plug 'autozimu/LanguageClient-neovim', {
-             \ 'branch': 'next',
-             \ 'do': 'bash install.sh',
-            \ }
-Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -117,7 +108,7 @@ set scrolloff=999         " Keep the cursor vertically centered
 set ttyfast               " For better redrawing when scrolling
 set sidescroll=1          " Sensible Horizontal Scroll in Vim
 setg fixendofline         " EOL
-set cmdheight=2           " Better display for messages
+set cmdheight=1           " Better display for messages
 set updatetime=300        " Smaller updatetime for CursorHold & CursorHoldI
 set shortmess+=c          " don't give |ins-completion-menu| messages.
 
@@ -312,19 +303,28 @@ hi pmenusel guibg=#6a3eb5 guifg=#bfc7d5
 hi pmenusbar guibg=#352b59 guifg=#352b59
 hi pmenuthumb guibg=#352b59 guifg=#352b59
 
-" nerdree palenight
+" CocExplorer palenight
 hi comment cterm=italic gui=italic
-hi def link nerdtreero statement
-hi def link nerdtreebookmark statement
-hi def link nerdtreeflags statement
-hi def link nerdtreedirslash StatusLineNC
-hi def link nerdtreedir StatusLineNC
-hi def link nerdtreeup StatusLineNC
-hi def link nerdtreefile StatusLineNC
-hi def link nerdtreecwd StatusLineNC
-hi def link nerdtreeopenable StatusLineNC
-hi def link nerdtreeclosable StatusLineNC
-hi def link nerdtreeignore StatusLineNC
+highlight def link CocExplorerFileFullpath StatusLineNC
+highlight def link CocExplorerFileDirectory StatusLineNC
+highlight def link CocExplorerFileGitStage StatusLineNC
+highlight def link CocExplorerFileGitUnstage StatusLineNC
+highlight def link CocExplorerFileSize StatusLineNC
+highlight def link CocExplorerTimeAccessed StatusLineNC
+highlight def link CocExplorerTimeCreated StatusLineNC
+highlight def link CocExplorerTimeModified StatusLineNC
+highlight def link CocExplorerFileRootName StatusLineNC
+highlight def link CocExplorerFileExpandIcon StatusLineNC
+
+highlight def link CocExplorerIndentLine LineNR
+
+highlight def link CocExplorerFileDirectoryExpanded statement
+highlight def link CocExplorerFileDirectoryCollapsed statement
+highlight def link CocExplorerBufferRoot statement
+highlight def link CocExplorerBufferExpandIcon statement
+highlight def link CocExplorerFileRoot statement
+highlight def link CocExplorerFileExpandIcon statement
+highlight def link CocExplorerSelectUI statement
 
 " visual palenight ctrlp_custom
 hi Visual guibg=#3A3C5B guifg=NONE gui=NONE
@@ -336,7 +336,7 @@ hi LibraryType guifg=#dabaff guibg=NONE guisp=NONE gui=NONE cterm=NONE
 hi def link shVariable statement
 hi shNumber guifg=#bfc7d5
 
-" Make status line without color and dont show on nerdtree
+" Make status line without color
 hi StatusLine guibg=NONE guifg=NONE gui=NONE
 
 " }}}
@@ -517,15 +517,10 @@ au BufNewFile,BufRead *.css,*.scss :ColorHighlight!
 let g:loaded_matchit = 1
 
 " coc-nvim
-" let $COC_NO_PLUGINS=1
-" let $NODE_CLIENT_LOG_LEVEL = 'debug'
-" let $NVIM_COC_LOG_LEVEL = 'debug'
-" let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
-" let g:node_client_debug = 1
- let g:coc_global_extensions = []
+let g:coc_global_extensions = []
 let g:coc_watch_extensions = []
 let g:coc_node_path = '/usr/local/bin/node'
- let g:coc_global_extensions = [
+let g:coc_global_extensions = [
 \  'coc-json',
 \  'coc-eslint',
 \  'coc-css',
@@ -705,7 +700,7 @@ let splitjoin_php_method_chain_full=1
 "             \ '*var/cache*', '*var/log*'
 "             \]
 
-"php pactor
+"php actor
 " Include use statement
 nmap <Leader>u :PhpactorImportClass<CR>
 
@@ -713,13 +708,6 @@ nmap <Leader>u :PhpactorImportClass<CR>
 nmap <Leader>cm :PhpactorContextMenu()<CR>
 
 nmap <Leader>o :call phpactor#GotoDefinition()<CR>
-
-" php server
-" au User lsp_setup call lsp#register_server({
-"             \ 'name': 'php-language-server',
-"             \ 'cmd': {server_info->['php', expand('~/.vim/plugged/php-language-server/bin/php-language-server.php')]},
-"             \ 'whitelist': ['php'],
-"             \ })
 
 " vim easy align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -801,8 +789,6 @@ let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
 let g:ale_php_phpcs_standard='psr2 -n'
 let g:ale_php_phpcs_use_global=1
-" let g:ale_php_langserver_executable = 'intelephense'
-" let g:ale_php_langserver_executable = expand('~/.composer/vendor/bin/php-language-server.php')
 let g:ale_php_langserver_use_global = 1
 
 let g:ale_linters = {
@@ -818,26 +804,13 @@ let g:ale_set_highlights = 0
 
 " vim-devicon
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let NERDTreeDirArrowExpandable = "\u00a0" "non-breaking space to make the arrows appear to have been removed. Regular spaces won't work, as they causes keypresses on lower-level directories to not be recognized
-let NERDTreeDirArrowCollapsible = "\u00a0"
 let g:DevIconsEnableFoldersOpenClose = v:true
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
-" Use one space after a glyph instead of two.
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
-" Set default file and directory icons.
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
 let g:DevIconsDefaultFolderOpenSymbol = ''
 
-" CtrlP
-" let g:ctrlp_max_height = 30
-" let g:ctrlp_custom_ignore = '\.git$\|public\/images$\|public\/uploads$\|log\|tmp$\|node_modules\|bower_components\'
-" let g:ctrlp_show_hidden = 1
-" let g:ctrlp_use_caching = 0
-" let g:ctrlp_working_path_mode=0
-
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
-  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
 " vim-javascript
@@ -887,24 +860,13 @@ let g:php_namespace_sort_after_insert = 1
 " }}}
 " Plugins mappings {{{
 
-" NerdTree
-nnoremap <leader>n :NERDTreeToggle<CR>
-" nnoremap <leader>f :NERDTreeFind<CR>
-let g:NERDTreeStatusline = '%#NonText#'
-let NERDTreeMinimalUI=1
-
-" Hide NERDTree folder trailing slashes
-augroup nerdtreehidetirslashes
-	autocmd!
-	autocmd FileType nerdtree syntax match NERDTreeDirSlash #/$# containedin=NERDTreeDir conceal contained
-augroup end
-
-augroup nerdtreehidecwd
-	autocmd!
-	autocmd FileType nerdtree  syntax match NERDTreeHideCWD #</# conceal cchar=
-	" autocmd FileType nerdtree  syntax match NERDTreeHideCWD #^[</].*$# conceal cchar=@
-	" autocmd FileType nerdtree  syntax match NERDTreeHideCWD contained </conceal cchar=
-augroup end
+" coc explorer
+nmap <leader>n :CocCommand explorer --file-root-template=[icon][1][root] --sources=file+<CR>
+" hide statusbar on coc-explorer
+augroup CocExplorerCustom
+  autocmd!
+  autocmd User CocExplorerOpenPost setl statusline=%#NonText#
+augroup END
 
 " FZF
 nnoremap <C-p> :FZF<CR>
@@ -916,43 +878,6 @@ let $FZF_DEFAULT_OPTS="--color=bg+:#212333,bg:#262337,spinner:#89DDFF,hl:#82AAFF
 
 " let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
-
-" function! FloatingFZF()
-"   let buf = nvim_create_buf(v:false, v:true)
-"   call setbufvar(buf, '&signcolumn', 'no')
-"
-"   let height = float2nr(10)
-"   let width = float2nr(80)
-"   let horizontal = float2nr((&columns - width) / 2)
-"   let vertical = 1
-"
-"   let opts = {
-"         \ 'relative': 'editor',
-"         \ 'row': vertical,
-"         \ 'col': horizontal,
-"         \ 'width': width,
-"         \ 'height': height,
-"         \ 'style': 'minimal'
-"         \ }
-"
-"   call nvim_open_win(buf, v:true, opts)
-" endfunction
-
-" let g:fzf_colors = {
-" 			\ 'fg':      ['fg', 'Fold'],
-" 			\ 'bg':      ['bg', 'Normal'],
-" 			\ 'hl':      ['fg', 'Error'],
-" 			\ 'fg+':     ['fg', 'String'],
-" 			\ 'bg+':     ['bg', 'Normal'],
-" 			\ 'hl+':     ['fg', 'Error'],
-" 			\ 'info':    ['fg', 'Type'],
-"             \ 'border':  ['fg', 'Ignore'],
-" 			\ 'prompt':  ['fg', 'Special'],
-" 			\ 'pointer': ['fg', 'Statement'],
-" 			\ 'marker':  ['fg', 'Statemetn'],
-" 			\ 'spinner': ['fg', 'Statement'],
-" 			\ 'header':  ['fg', 'Special'],
-"             \ }
 
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)

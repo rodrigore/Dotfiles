@@ -1,9 +1,45 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["vue", "json", "php", "blade.php", "blade"],
-  "vetur.format.defaultFormatter.html": "js-beautify-html",
-  "vetur.format.options.tabSize": 2,
-  "vetur.format.options.useTabs": false,
-  "diagnostic.virtualText": false,
-  "emmet.includeLanguages": {"blade": "html"}
+    "coc.preferences.formatOnSaveFiletypes": [
+        "vue",
+        "json",
+        "php",
+        "blade.php",
+        "blade"
+    ],
+    "vetur.format.defaultFormatter.html": "js-beautify-html",
+    "vetur.format.options.tabSize": 2,
+    "vetur.format.options.useTabs": false,
+    "diagnostic.virtualText": false,
+    "emmet.includeLanguages": {
+        "blade": "html"
+    },
+    "explorer.width": 30,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.previewAction.onHover": false,
+    "explorer.icon.enableVimDevicons": false,
+    "explorer.buffer.tabOnly": true,
+    "explorer.file.column.git.icon.untracked": "ﱪ",
+    "explorer.file.column.git.icon.ignored": "ﱥ",
+    "explorer.file.column.git.icon.modified": "ﱥ",
+    "explorer.icon.expanded": "",
+    "explorer.icon.collapsed": "",
+    "explorer.file.column.indent.indentLine": false,
+    "explorer.icon.customIcons": {
+        "icons": {
+            "folderClosed": {
+                "code": ""
+            },
+            "folderOpened": {
+                "code": ""
+            }
+        }
+    },
+    "explorer.keyMappings": {
+        "<cr>": [
+            "expandable?",
+            "expand",
+            "open"
+        ],
+        "v": "open:vsplit"
+    }
 }
-
