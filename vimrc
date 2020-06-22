@@ -28,12 +28,12 @@ Plug 'junegunn/vim-slash'
 Plug 'junegunn/vim-easy-align'
 Plug 'itchyny/lightline.vim'
 Plug 'kana/vim-repeat'
-Plug 'liuchengxu/vista.vim'
 Plug 'liuchengxu/vim-clap'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'mg979/vim-visual-multi'
+Plug 'mhinz/vim-signify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neomake/neomake'
 Plug 'nelstrom/vim-visual-star-search'
@@ -339,6 +339,12 @@ hi shNumber guifg=#bfc7d5
 " Make status line without color
 hi StatusLine guibg=NONE guifg=NONE gui=NONE
 
+" hi ColorColumn  term=reverse ctermbg=1 guibg=#3E4452
+hi! link ColorColumn Comment
+
+hi! link VertSplit StatusLineNC
+hi! link Split StatusLineNC
+
 " }}}
 " Autocommands and functions {{{
 
@@ -439,6 +445,16 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " }}}
 " Plugins configuration {{{
+" vim-signify
+" Disable showing counts next to signs.
+let g:signify_sign_show_count = v:false
+
+" Define symbols for signs.
+let g:signify_sign_add = '│' " U+2502
+let g:signify_sign_delete = '│' " U+2502
+let g:signify_sign_delete_first_line = '│' " U+2502
+let g:signify_sign_change = '│' " U+2502
+let g:signify_sign_changedelete = '│' " U+2502
 
 " caw-------------------------
 " let g:caw_operator_keymappings = 0
@@ -449,7 +465,7 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " Nuake
 let g:start_insert = 1 " Disable insert mode when opening Nuake.
-let g:nuake_size = 0.4
+let g:nuake_size = 0.6
 " disable status line
 autocmd FileType,BufEnter *
             \ if &filetype == 'nuake' && (g:nuake_start_insert == 1) |
@@ -476,34 +492,9 @@ let g:VM_maps["Select Cursor Up"]   = '<C-k>'
 " let g:indentLine_autoResetWidth = 0
 " let g:indent_blankline_space_char = ' '
 
-" hi ColorColumn  term=reverse ctermbg=1 guibg=#3E4452
-hi! link ColorColumn Comment
-
 " vim vue
 let g:vim_vue_plugin_load_full_syntax = 1
 let g:vim_vue_plugin_use_foldexpr = 0
-
-" Vista
-map <leader>vv :Vista!!<CR>
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-let g:vista#renderer#enable_icon = 1
-let g:vista_disable_statusline = 1
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-let g:vista_default_executive = 'coc'
-let g:vista_fzf_preview = ['right:50%']
-" let g:vista_icon_indent = ["▸ ", ""]
-
-" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
-" https://github.com/liuchengxu/vista.vim/blob/master/autoload/vista/renderer.vim
-let g:vista#renderer#icons = {
-\   "function": "ƒ",
-\   "var": "",
-\   "variable": "",
-\   "variables": "",
-\   "class": " ",
-\   "namespaces": "",
-\   "default": ""
-\ }
 
 " Colorizer
 " let g:colorizer_use_virtual_text = 0
@@ -511,7 +502,6 @@ let g:vista#renderer#icons = {
 " let g:colorizer_syntax = 1
 let g:colorizer_auto_filetype='css,scss'
 au BufNewFile,BufRead *.css,*.scss :ColorHighlight!
-
 
 " vim-matchup
 let g:loaded_matchit = 1
@@ -531,7 +521,8 @@ let g:coc_global_extensions = [
 \  'coc-phpls',
 \  'coc-snippets',
 \  'coc-tailwindcss',
-\  'coc-flutter'
+\  'coc-flutter',
+\  'coc-explorer'
 \ ]
 
 " User configuration.
@@ -639,6 +630,9 @@ command! -nargs=0 Format :call CocAction('format')
 
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 Or   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Using CocList
 " Show all diagnostics
@@ -874,7 +868,7 @@ nnoremap <leader>m :FZFFreshMru<cr>
 let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!{.git,node_modules,vendor}/*"'
 
 " let $FZF_DEFAULT_OPTS="--color=bg+:#212333,bg:#262337,spinner:#89DDFF,hl:#82AAFF --color=fg:#8796B0,header:#C792EA,info:#FFCB6B,pointer:#89DDFF --color=marker:#89DDFF,fg+:#959DCB,prompt:#FFCB6B,hl+:#C792EA --layout=reverse --margin=1,2"
-let $FZF_DEFAULT_OPTS="--color=bg+:#212333,bg:#262337,spinner:#89DDFF,hl:#82AAFF --color=fg:#8796B0,header:#C792EA,info:#FFCB6B,pointer:#89DDFF --color=marker:#89DDFF,fg+:#959DCB,prompt:#FFCB6B,hl+:#C792EA --layout=reverse --preview 'bat --theme=base16 --color always --line-range :40 {};'"
+let $FZF_DEFAULT_OPTS="--color=bg+:#212333,bg:#262337,spinner:#89DDFF,hl:#82AAFF --color=fg:#8796B0,header:#C792EA,info:#FFCB6B,pointer:#89DDFF --color=marker:#89DDFF,fg+:#959DCB,prompt:#FFCB6B,hl+:#C792EA --layout=reverse;'"
 
 " let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
@@ -933,8 +927,8 @@ nmap <silent> <M-C-j> <Plug>(ale_next_wrap)
 hi Normal guibg=none
 
 " Debug: Show the stack of syntax highlighting classes affecting whatever is under the cursor.
-function! SynStack()
-  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
-endfunc
-
-" nnoremap <leader>m :call SynStack()<CR>
+" function! SynStack()
+"   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
+" endfunc
+"
+" nnoremap <leader>; :call SynStack()<CR>
