@@ -27,10 +27,12 @@
     "explorer.icon.customIcons": {
         "icons": {
             "folderClosed": {
-                "code": ""
+                "code": "",
+                "color": "#00afaf"
             },
             "folderOpened": {
-                "code": ""
+                "code": "",
+                "color": "#00afaf"
             }
         }
     },
