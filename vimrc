@@ -14,7 +14,6 @@ Plug 'arnaud-lb/vim-php-namespace'
 Plug 'arzg/vim-colors-xcode'
 Plug 'andymass/vim-matchup'
 Plug 'benmills/vimux'
-Plug 'cohama/lexima.vim'   " auto close parentheses
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'editorconfig/editorconfig-vim'
@@ -49,6 +48,7 @@ Plug 'stanAngeloff/php.vim', { 'for': 'php' }
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
 Plug 'TaDaa/vimade'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'tmsvg/pear-tree'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -387,6 +387,12 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " }}}
 " Plugins configuration {{{
+
+" pear-tree
+" Smart pairs are disabled by default:
+let g:pear_tree_smart_openers = 1
+let g:pear_tree_smart_closers = 1
+let g:pear_tree_smart_backspace = 1
 
 " vim-signify
 " Disable showing counts next to signs.
