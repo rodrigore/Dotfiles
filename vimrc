@@ -31,11 +31,9 @@ Plug 'kana/vim-repeat'
 Plug 'liuchengxu/vim-clap'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'maximbaz/lightline-ale'
-Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'mg979/vim-visual-multi'
 Plug 'mhinz/vim-signify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neomake/neomake'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
 Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
@@ -52,11 +50,10 @@ Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
 Plug 'TaDaa/vimade'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'      " comment
-Plug 'wincent/terminus'
+" Plug 'wincent/terminus'
 Plug 'w0rp/ale'
 " Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 
@@ -137,30 +134,6 @@ let g:palenight_terminal_italics=1
 " let g:xcodedarkhc_emph_funcs = 1
 " let g:xcodedarkhc_emph_idents = 0
 
-" let g:lightline = {
-"       \ 'colorscheme': 'palenight',
-"       \ 'active': {
-"             \ 'left': [[ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified'], [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]],
-"             \ 'right' : [[]],
-"       \},
-"         \ 'component_function': {
-"         \   'cocstatus': 'coc#status',
-"         \   'gitbranch': 'fugitive#head',
-"         \ },
-"         \ 'component_expand': {
-"         \  'linter_checking': 'lightline#ale#checking',
-"         \  'linter_warnings': 'lightline#ale#warnings',
-"         \  'linter_errors': 'lightline#ale#errors',
-"         \  'linter_ok': 'lightline#ale#ok',
-"         \ },
-"         \ 'component_type': {
-"         \     'linter_checking': 'left',
-"         \     'linter_warnings': 'warning',
-"         \     'linter_errors': 'error',
-"         \     'linter_ok': 'left',
-"         \ },
-" \}
-
 " ====================================================================
 set noshowmode
 
@@ -235,32 +208,6 @@ function! SetFiletype(filetype) " {{{
 endfunction
 " }}}
 
-function! TestStatus() abort
-  if g:TESTING_STATUS == 'passing'
-      hi MyStatuslineTestStatus guifg=#AAFFE4
-    return "  "
-  elseif g:TESTING_STATUS == 'running'
-    return "   "
-  elseif g:TESTING_STATUS == 'failing'
-    hi MyStatuslineTestStatus guifg=#ff5370
-    return "   "
-  endif
-endfunction
-
-function! LSDiagnostic()
-  let info = get(b:, 'coc_diagnostic_info', {})
-
-  if get(info, 'error', 0)
-    return "   "
-  endif
-
-  if get(info, 'warning', 0)
-    return info['warning'] . "   "
-  endif
-
-  return "   "
-endfunction
-
 " Statusbar items
 " ====================================================================
 
@@ -268,30 +215,25 @@ endfunction
 " called every time the mode changes, thus updating the colors used for the
 " components.
 set statusline=%{RedrawModeColors(mode())}
-" " Left side items
-" " =======================
+" Left side items
+" =======================
 set statusline+=%#MyStatuslineAccent#
 set statusline+=%#MyStatuslineAccentBody#
 set statusline+=\   "
 set statusline+=\   "
 
-" " Filename
+" Filename
 set statusline+=%#MyStatuslineFilename#\ %t
 set statusline+=%#MyStatuslineModified#\ "
 
-" " Modified status
+" Modified status
 set statusline+=%#MyStatuslineModified#
 set statusline+=%#MyStatuslineModifiedBody#%{SetModifiedSymbol(&modified)}
 set statusline+=%#MyStatuslineModified#
-" " Right side items
-" " =======================
+" Right side items
+" =======================
+" Filetype
 set statusline+=%=
-set statusline+=%#MyStatuslineAccent#
-set statusline+=%#MyStatuslineAccentLabel#Tests\ "
-set statusline+=%#MyStatuslineTestStatus#%{TestStatus()}
-set statusline+=%#MyStatuslineLineCol#\ "
-
-" " Filetype
 set statusline+=%#MyStatuslineFiletype#
 set statusline+=%#MyStatuslineFiletypeBody#%{SetFiletype(&filetype)}
 set statusline+=%#MyStatuslineFiletype#\ "
@@ -445,6 +387,7 @@ vnoremap K :m '<-2<CR>gv=gv
 
 " }}}
 " Plugins configuration {{{
+
 " vim-signify
 " Disable showing counts next to signs.
 let g:signify_sign_show_count = v:false
@@ -470,7 +413,7 @@ let g:nuake_size = 0.6
 autocmd FileType,BufEnter *
             \ if &filetype == 'nuake' && (g:nuake_start_insert == 1) |
             \ execute 'silent! normal i' |
-            \ execute 'set laststatus=0 noshowmode noruler' |
+            "\ execute 'set laststatus=0 noshowmode noruler' |
             \ endif
 nnoremap <C-t> :Nuake<CR>
 inoremap <C-t> <C-\><C-n>:Nuake<CR>
@@ -480,6 +423,7 @@ tnoremap <C-t> <C-\><C-n>:Nuake<CR>
 let g:VM_maps = {}
 let g:VM_maps["Select Cursor Down"] = '<C-j>'
 let g:VM_maps["Select Cursor Up"]   = '<C-k>'
+let g:VM_mouse_mappings = 1
 
 "indent lines
 " let g:indentLine_char = '│'
@@ -505,6 +449,7 @@ au BufNewFile,BufRead *.css,*.scss :ColorHighlight!
 
 " vim-matchup
 let g:loaded_matchit = 1
+let g:matchup_matchparen_enabled = 0
 
 " coc-nvim
 let g:coc_global_extensions = []
@@ -520,9 +465,10 @@ let g:coc_global_extensions = [
 \  'coc-vetur',
 \  'coc-phpls',
 \  'coc-snippets',
-\  'coc-tailwindcss',
 \  'coc-flutter',
-\  'coc-explorer'
+\  'coc-explorer',
+\  'coc-tabnine',
+\  'https://github.com/rodrigore/coc-tailwind-intellisense',
 \ ]
 
 " User configuration.
@@ -718,37 +664,6 @@ let g:prettier#quickfix_enabled = 0
 let g:prettier#exec_cmd_async = 1
 " autocmd BufWritePre *.vue Prettier
 
-" neomake
-let g:neomake_open_list = 1
-let g:neomake_warning_sign = {
-  \   'text': '◉'
-  \ }
-let g:neomake_error_sign = {
-  \   'text': '◉'
-  \ }
-
-" Show message that tests have started
-function! MyOnNeomakeJobStarted() abort
-  let g:TESTING_STATUS = 'running'
-endfunction
-
-" Show message when all tests are passing
-function! MyOnNeomakeJobFinished() abort
-  let context = g:neomake_hook_context
-  if context.jobinfo.exit_code == 0
-    let g:TESTING_STATUS = 'passing'
-  endif
-  if context.jobinfo.exit_code == 1
-    let g:TESTING_STATUS = 'failing'
-  endif
-endfunction
-
-augroup my_neomake_hooks
-  au!
-  autocmd User NeomakeJobFinished call MyOnNeomakeJobFinished()
-  autocmd User NeomakeJobStarted call MyOnNeomakeJobStarted()
-augroup END
-
 " vim-test
 " nuake strategy
 function! NuakeStrategy(cmd)
@@ -762,8 +677,8 @@ let g:test#preserve_screen = 0
 if has('nvim')
    let test#strategy = {
     \ 'nearest': 'nuake',
-    \ 'file':    'neomake',
-    \ 'suite':   'neomake',
+    \ 'file':    'nuake',
+    \ 'suite':   'nuake',
     \}
    tmap <C-o> <C-\><C-n>
 else
@@ -856,6 +771,7 @@ let g:php_namespace_sort_after_insert = 1
 
 " coc explorer
 nmap <leader>n :CocCommand explorer --file-root-template=[icon][1][root] --sources=file+<CR>
+
 " hide statusbar on coc-explorer
 augroup CocExplorerCustom
   autocmd!
@@ -932,3 +848,4 @@ hi Normal guibg=none
 " endfunc
 "
 " nnoremap <leader>; :call SynStack()<CR>
+map <silent> <C-i> <Plug>(coc-codeaction-line)
