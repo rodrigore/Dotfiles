@@ -1,3 +1,7 @@
+# Lower the time it take to start repeating keys. Normal value is "15"
+# and make the key repeat quite a bit faster. Normal value is "2"
+alias keyrepeat="defaults write -g InitialKeyRepeat -int 12 && defaults write -g KeyRepeat -int 2"
+
 # Show-Hide hidden files in Finder
 alias showhidden="defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder"
 alias hidehidden="defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder"

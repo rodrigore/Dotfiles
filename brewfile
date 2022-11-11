@@ -1,3 +1,4 @@
+# https://github.com/xiCO2k/.dotfiles/blob/master/Brewfile
 update
 upgrade
 install ack
@@ -5,13 +6,18 @@ install bat
 install --HEAD --with-jansson universal-ctags/universal-ctags/universal-ctags
 install diff-so-fancy
 install exa
+install fd
 install git
+install git-delta
 install jq
 install neovim
 install ripgrep
+install shottr
 install ssh-copy-id
 install tmux
 install trash
+install tree-sitter
 install homebrew/php/php-code-sniffer
 install homebrew/php/php-cs-fixer
+install zoxide
 install zsh-syntax-highlighting
