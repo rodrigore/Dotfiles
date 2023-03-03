@@ -2,4 +2,9 @@ vim/.netrwhist
 vim/bundle/*
 vim/plugged/*
 vim/autoload/*
+config/valet
+config/configstore
+config/gh
+config/psysh
+config/raycast
 .DS_Store
