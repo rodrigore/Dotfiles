@@ -72,8 +72,6 @@ export LC_CTYPE=en_US.UTF-8
 
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 export PATH="/opt/homebrew/bin:$PATH"
 
 intelephenseLicence=$(cat /Users/gauzman/intelephense/license.txt)
@@ -83,29 +81,8 @@ export INTELEPHENSE_LICENSE_KEY="$intelephenseLicence"
 #sudo env PATH=$PATH:/opt/homebrew/Cellar/node@16/16.13.2/bin /opt/homebrew/lib/node_modules/pm2/bin/pm2 startup launchd -u gauzman --hp /Users/gauzman
 
 # nvm
- export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-#
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
 
 setup-tracts() {
     nvm use system
@@ -119,3 +96,7 @@ setup-tracts() {
 
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 export PUPPETEER_EXECUTABLE_PATH=`which chromium`
+
+#wezterm
+PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
+export PATH

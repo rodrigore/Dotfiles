@@ -7,6 +7,7 @@ install --HEAD --with-jansson universal-ctags/universal-ctags/universal-ctags
 install diff-so-fancy
 install exa
 install fd
+install gh
 install git
 install git-delta
 install jq
@@ -14,6 +15,7 @@ install neovim
 install ripgrep
 install shottr
 install ssh-copy-id
+install starship
 install tmux
 install trash
 install tree-sitter
