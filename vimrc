@@ -744,8 +744,8 @@ require'nvim-tree'.setup {
 
 }
 EOF
-" let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache', 'vendor' ] "empty by default
 
+" let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache', 'vendor' ] "empty by default
 " let g:nvim_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
 " let g:nvim_tree_auto_close = 1 "0 by default, closes the tree when it's the last window
 " let g:nvim_tree_auto_ignore_ft = [ 'startify', 'dashboard' ] "empty by default, don't auto open tree on specific filetypes.
@@ -862,9 +862,12 @@ require'nvim-treesitter.configs'.setup {
      "javascript",
      "json",
      "jsonc",
+     "help",
      "html",
+     "lua",
      "php",
     "typescript",
+     "vim",
      "vue",
    },
     autotag = {
@@ -1349,10 +1352,10 @@ lua <<EOF
   })
 
   -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  require('lspconfig')['intelephense'].setup {
-    capabilities = capabilities,
-  }
+  --[[ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()) ]]
+  --[[ require('lspconfig')['intelephense'].setup { ]]
+  --[[   capabilities = capabilities, ]]
+  --[[ } ]]
 EOF
 
 " null-ls
@@ -1366,7 +1369,7 @@ lua <<EOF
             require("null-ls").builtins.completion.spell,
             require("null-ls").builtins.formatting.phpcsfixer,
             -- require('null-ls').builtins.formatting.prettier,
-            require('null-ls').builtins.diagnostics.phpcs,
+            -- require('null-ls').builtins.diagnostics.phpcs,
             -- require('null-ls').builtins.formatting.eslint_d,
         },
 
