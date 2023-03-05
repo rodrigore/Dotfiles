@@ -84,6 +84,18 @@ return require('lazy').setup({
     end,
   },
 
+  -- Search
+  {
+    "windwp/nvim-spectre",
+    dependencies = {'windwp/nvim-spectre'},
+    keys = {
+      { "<leader>SS", "<cmd>lua require('spectre').open()<CR>" },
+      { "<leader>SV", "<esc>:lua require('spectre').open_visual()<CR>" },
+      { "<leader>SW", "<cmd>lua require('spectre').open_visual({select_word=true})<CR>" },
+      { "<leader>SF", "viw:lua require('spectre').open_file_search()<cr>" },
+    },
+  },
+
   -- Surround text
   {
     "echasnovski/mini.surround",

@@ -10,6 +10,7 @@ install fd
 install gh
 install git
 install git-delta
+install gnu-sed
 install jq
 install neovim
 install ripgrep

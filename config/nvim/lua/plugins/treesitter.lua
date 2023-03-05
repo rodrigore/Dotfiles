@@ -11,9 +11,12 @@ require('nvim-treesitter.configs').setup({
     "javascript",
     "json",
     "jsonc",
+    "help",
     "html",
+    "lua",
     "php",
     "typescript",
+    "vim",
     "vue",
   }
 })

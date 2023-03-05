@@ -5,6 +5,7 @@ require("mason-lspconfig").setup({
     -- "blade",
     "eslint",
     "intelephense",
+    "stylua",
     "tsserver",
     "volar",
   }
