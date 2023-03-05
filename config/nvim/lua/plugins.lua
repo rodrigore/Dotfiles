@@ -36,7 +36,15 @@ return require('lazy').setup({
   -- Fuzzy finder
   { 'ibhagwan/fzf-lua',
     config = function () require("plugins.fzf-lua") end,
-    dependencies = { 'nvim-tree/nvim-web-devicons' }
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    keys = {
+      {"<C-p>", "<cmd>lua require('fzf-lua').files()<CR>"},
+      {"<C-v>", "<cmd>lua require('fzf-lua').live_grep_resume()<CR>"},
+      {"<leader>s", "<cmd>lua require('fzf-lua').git_status()<CR>"},
+      {"<leader>b", "<cmd>lua require('fzf-lua').buffers()<CR>"},
+      {"<leader>v", "<cmd>lua require('fzf-lua').grep_cWORD()<CR>"},
+      {"<leader>m", "<cmd>lua require('fzf-lua').keymaps()<CR>"},
+    }
   },
 
   -- Git
@@ -72,7 +80,10 @@ return require('lazy').setup({
   -- maximizer
   {
     "declancm/windex.nvim",
-    config = function() require('plugins.windex') end
+    config = function() require('plugins.windex') end,
+    keys = {
+      { "<Leader>z", "<Cmd>lua require('windex').toggle_maximize()<CR>"},
+    }
   },
 
   -- Split-Join lines
@@ -82,6 +93,11 @@ return require('lazy').setup({
     config = function()
       require('treesj').setup({})
     end,
+    keys = {
+      { "gS", "<cmd>TSJSplit<CR>" },
+      { "gJ", "<cmd>TSJJoin<CR>" },
+      --:TSJToggle - toggle node under cursor (split if one-line and join if multiline);
+    }
   },
 
   -- Search
@@ -107,15 +123,27 @@ return require('lazy').setup({
     'nvim-tree/nvim-tree.lua',
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function() require('plugins.nvimtree') end,
+    keys = {
+      { "<leader>nn", "<cmd>NvimTreeToggle<CR>"},
+      { "<leader>nf", "<cmd>NvimTreeFindFile<CR>"},
+    }
   },
 
   -- Telescope
-  {
-    'nvim-telescope/telescope.nvim',
-    dependencies = {{'nvim-lua/plenary.nvim'}},
-    config = function() require('plugins.telescope') end,
-  },
-  {'nvim-telescope/telescope-fzf-native.nvim', build ='make'},
+  -- {
+    -- 'nvim-telescope/telescope.nvim',
+    -- dependencies = {{'nvim-lua/plenary.nvim'}},
+    -- config = function() require('plugins.telescope') end,
+    -- keys = {
+      -- { "<C-p>", "<cmd>Telescope find_files<CR>" },
+      -- { "<leader>g", "<cmd>Telescope live_grep<CR>" },
+      -- { "<leader>b", "<cmd>Telescope buffers<CR>" },
+      -- { "<leader>s", "<cmd>Telescope git_status<CR>" },
+      -- { "<leader>co", "<cmd>Telescope commands<CR>" },
+      -- { "<leader>*", function () return ":execute <cmd>Telescope live_grep default_text=" .. vim.fn.expand('<cword>') .. "<cr>" end, { expr = true } },
+    -- }
+  -- },
+  -- {'nvim-telescope/telescope-fzf-native.nvim', build ='make'},
 
   -- Terminal
   {
@@ -145,5 +173,11 @@ return require('lazy').setup({
   },
 
   -- Vim easy align
-  'junegunn/vim-easy-align',
+  {
+    'junegunn/vim-easy-align',
+    keys = {
+      { "ga",  "<Plug>(EasyAlign)", mode = "x"},
+      { "ga",  "<Plug>(EasyAlign)"},
+    }
+  }
 })
