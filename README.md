@@ -1,17 +1,13 @@
-![](https://raw.githubusercontent.com/rodrigore/Dotfiles/master/screenshot.png)
-<p align="center">
-<img class="center" width="64" src="iterm-palenight-icon.png" />
-</p>
+![](https://raw.githubusercontent.com/rodrigore/Dotfiles/master/screenshot.jpeg)
 
 ## [Rodri](http://twitter.com/rodri_gore) dotfiles
 
-* Neovim
-* Tmux
-* zsh
-
-## Italic font setup
-```
-tic xterm-256color-italic.terminfo
-
-Report Terminal Type (Inside ITerm): xterm-256color-italic
-```
+- Colors: [nightfox](https://github.com/EdenEast/nightfox.nvim)
+- Editor: [Neovim](https://neovim.io)
+- Font: [SFMono Nerd Font with Ligatures](https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized)
+- Git: [Lazygit](https://github.com/jesseduffield/lazygit)
+- Multiplexer: [Tmux](https://github.com/tmux/tmux/wiki)
+- Shell: [fish](https://fishshell.com)
+- Operative System: [MacOS](https://www.apple.com/macos/)
+- Terminal: [Wezterm](https://wezfurlong.org/wezterm)
+- MacOS package manager: [Homebrew](https://brew.sh)
