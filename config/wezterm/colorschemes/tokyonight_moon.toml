@@ -12,7 +12,8 @@ brights = ["#444a73", "#ff757f", "#c3e88d", "#ffc777", "#82aaff", "#c099ff", "#8
 
 [colors.tab_bar]
 inactive_tab_edge = "#1e2030"
-background = "#191b28"
+# background = "#191b28"
+background = "#222436"
 
 [colors.tab_bar.active_tab]
 fg_color = "#82aaff"

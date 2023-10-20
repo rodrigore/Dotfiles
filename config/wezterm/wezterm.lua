@@ -1,198 +1,241 @@
 local wezterm = require("wezterm")
+local mod = "CMD"
+local act = wezterm.action
 
 local function font(opts)
   return wezterm.font_with_fallback({
     opts,
-    "Symbols Nerd Font Mono",
+    "SFMono Nerd Font",
   })
 end
 
-return {
+-- wezterm.on('augment-command-palette', function(window, pane)
+--   return {
+--     {
+--       brief = 'Rename tab rodri',
+--       icon = 'md_rename_box',
+--
+--       action = act.PromptInputLine {
+--         description = 'Enter new name for tab',
+--         action = wezterm.action_callback(function(window, pane, line)
+--           if line then
+--             window:active_tab():set_title(line)
+--           end
+--         end),
+--       },
+--     },
+--   }
+-- end)
+
+-- remove padding only on nvim
+wezterm.on('update-status', function(window, pane)
+    local padding = {
+        left = '1cell',
+        right = 0,
+        top = 0,
+        bottom = 0,
+    }
+    local overrides = window:get_config_overrides() or {}
+    if string.find(pane:get_title(), '^n-vi-m-.*') then
+      overrides.window_padding = {
+        left = 0,
+        right = 0,
+        top = 0,
+        bottom = 0
+      }
+    else
+        overrides.window_padding = padding
+    end
+    window:set_config_overrides(overrides)
+end)
+
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+  local pane = tab.active_pane
+  local title = pane.foreground_process_name
+  -- get the last string from the abs path of the title string
+  local processName = string.match(title, "[^/]+$")
+
+  -- I want a lua tables with the process list and I want to pass the processName and return the values
+  local list = {
+    bash= "",
+    caffeinate= "",
+    brew= "",
+    fish= "",
+    git= "",
+    lazygit= "",
+    pm2= "",
+    ['pm2 log']= "",
+    node= "",
+    npm= "",
+    nvim= "",
+    ssh= "",
+    tmux= "",
+    wezterm= "",
+  }
+
+  return {
+    { Text = " " .. list[processName] .. " " },
+    -- { Text = " " .. tab.active_pane.title .. " " },
+  }
+end)
+
+local config =  {
   color_scheme_dirs = { "/Users/gauzman/.config/wezterm/colorschemes" },
-  color_scheme = "tokyonight_storm",
-  font = font("SFMono Nerd Font"),
+  font = font("Liga SFMono Nerd Font"),
   font_size = 17.0,
-	line_height = 2.2, --1.7,
-  use_fancy_tab_bar = true,
+  line_height = 2,
+  default_cursor_style = "BlinkingBar",
+  use_fancy_tab_bar = false,
   tab_bar_at_bottom = true,
   hide_tab_bar_if_only_one_tab = true,
   show_tab_index_in_tab_bar = false,
+  show_new_tab_button_in_tab_bar = false,
   window_decorations = "RESIZE",
   bold_brightens_ansi_colors = true,
-  cell_width = 0.9,
-  window_padding = {
-    -- left = 0,
-    -- right = 0,
-    top = 0,
-    bottom = 0,
-  },
+  cell_width = 0.90,
+  -- window_padding = {
+  --   left = '1cell',
+  --   right = 0,
+  --   top = 0,
+  --   bottom = 0,
+  -- },
   window_close_confirmation = 'NeverPrompt',
+  quick_select_alphabet = "arstqwfpzxcvneioluymdhgjbk",
+  -- command palette
+  command_palette_font_size = 16.0,
+  command_palette_fg_color = '#82aaff', --'white', --rgba(0.75, 0.75, 0.75, 0.8)',
+  command_palette_bg_color = "#191b28",
+
+  -- key bindings
+  leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 },
+  -- disable_default_key_bindings = true,
+  keys = {
+    -- { mods = mod, key = "[", action = act.SendString '\x1b\x0a' }, --  option + [
+    -- { mods = mod, key = "[", action = act.SendKey {key = '[', mods = 'OPT'}},
+
+  -- tmux keybinding
+  -- keys = {
+    { key = 't', mods = 'CMD', action = wezterm.action.SendString '\x02\x63' }, --  create new TMUX window
+    { key = 'e', mods = 'CMD', action = wezterm.action.SendString '\x02%' }, --  split tmux windows vertically
+    { key = 'e', mods = 'CMD|SHIFT', action = wezterm.action.SendString '\x02\"' }, --  split tmux window horizontally
+    { key = 'w', mods = 'CMD', action = wezterm.action.SendString '\x02x' }, --kill the current pane
+    { key = 'z', mods = 'CMD', action = wezterm.action.SendString '\x02z' }, -- toggle zoom state of the current tmux pane
+    { key = ',', mods = 'CMD', action = wezterm.action.SendString '\x02,' }, -- rename the current tmux window
+    { key = ']', mods = 'CMD', action = wezterm.action.SendString '\x02n' }, -- switch to next tmux window
+    { key = '[', mods = 'CMD', action = wezterm.action.SendString '\x02p' }, -- switch to next tmux window
+    { key = 'j', mods = 'CMD', action = wezterm.action.SendString '\x02\x54' }, -- open t - tmux smart session manager
+    { key = 'h', mods = 'CTRL', action = wezterm.action.SendString '\x02h' }, -- navigate left
+    { key = 'j', mods = 'CTRL', action = wezterm.action.SendString '\x02j' }, -- navigate down
+    { key = 'k', mods = 'CTRL', action = wezterm.action.SendString '\x02k' }, -- navigate up
+    { key = 'l', mods = 'CTRL', action = wezterm.action.SendString '\x02l' }, -- navigate right
+  -- }
+
+    -- wezterm
+    -- {mods = mod, key = "[", action = wezterm.action {ActivateTabRelative = -1}},
+    -- {mods = mod, key = "]", action = wezterm.action {ActivateTabRelative = 1}},
+    -- { mods = mod, key = "t", action = act.SpawnTab("CurrentPaneDomain") },
+    -- { mods = mod, key = "w", action = act.CloseCurrentPane { confirm = false } },
+    -- { mods = mod, key = "e", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+    -- { mods = 'CMD|SHIFT', key = "e", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+    -- { mods = mod, key = "h", action = act.ActivatePaneDirection 'Left' },
+    -- { mods = mod, key = "l", action = act.ActivatePaneDirection 'Right' },
+    -- { mods = mod, key = "j", action = act.ActivatePaneDirection 'Down' },
+    -- { mods = mod, key = "k", action = act.ActivatePaneDirection 'Up' },
+    -- { mods = mod, key = "c", action = act.CopyTo("ClipboardAndPrimarySelection") },
+    -- { mods = mod, key = "z", action = act.TogglePaneZoomState },
+    -- { mods = mod, key = "p", action = act.ActivateCommandPalette, },
+    -- { mods = 'OPT', key = "h", action = act.AdjustPaneSize { 'Left', 5 } },
+    -- { mods = 'OPT', key = "j", action = act.AdjustPaneSize { 'Down', 5 } },
+    -- { mods = 'OPT', key = "k", action = act.AdjustPaneSize { 'Up', 5 } },
+    -- { mods = 'OPT', key = "l", action = act.AdjustPaneSize { 'Right', 5 } },
+    -- { mods = 'LEADER', key = "H", action = act.AdjustPaneSize { 'Left', 5 } },
+    -- { mods = 'LEADER', key = "J", action = act.AdjustPaneSize { 'Down', 5 } },
+    -- { mods = 'LEADER', key = "K", action = act.AdjustPaneSize { 'Up', 5 } },
+    -- { mods = 'LEADER', key = "L", action = act.AdjustPaneSize { 'Right', 5 } },
+    -- { key = '[', mods = 'LEADER', action = act.ActivateCopyMode, },
+    {
+      mods = 'CMD|SHIFT',
+      key = 's',
+      action = wezterm.action_callback(function(window, pane)
+        -- Here you can dynamically construct a longer list if needed
+
+        local home = wezterm.home_dir
+        local workspaces = {
+          { id = home, label = 'Home' },
+          { id = home .. '/work', label = 'Work' },
+          { id = home .. '/personal', label = 'Personal' },
+          { id = home .. '/.config', label = 'Config' },
+        }
+
+        window:perform_action(
+          act.InputSelector {
+            action = wezterm.action_callback(
+              function(inner_window, inner_pane, id, label)
+                if not id and not label then
+                  wezterm.log_info 'cancelled'
+                else
+                  wezterm.log_info('id = ' .. id)
+                  wezterm.log_info('label = ' .. label)
+                  inner_window:perform_action(
+                    act.SwitchToWorkspace {
+                      name = label,
+                      spawn = {
+                        label = 'Workspace: ' .. label,
+                        cwd = id,
+                      },
+                    },
+                    inner_pane
+                  )
+                end
+              end
+            ),
+            title = 'Choose Workspace',
+            choices = workspaces,
+            fuzzy = true,
+            fuzzy_description = 'Fuzzy find and/or make a workspace',
+          },
+          pane
+        )
+      end),
+    },
+    {
+    key = 'N',
+    mods = 'CTRL|SHIFT',
+    action = act.PromptInputLine {
+      description = wezterm.format {
+        { Attribute = { Intensity = 'Bold' } },
+        { Foreground = { AnsiColor = 'Fuchsia' } },
+        { Text = 'Enter name for new workspace' },
+      },
+      action = wezterm.action_callback(function(window, pane, line)
+        -- line will be `nil` if they hit escape without entering anything
+        -- An empty string if they just hit enter
+        -- Or the actual line of text they wrote
+        if line then
+          window:perform_action(
+            act.SwitchToWorkspace {
+              name = line,
+            },
+            pane
+          )
+        end
+      end),
+    },
+  },
+    -- { mods = mod, key = "l", action = act({ ActivateTabRelative = 1 }) },
+    -- { mods = mod, key = "h", action = act({ ActivateTabRelative = -1 }) },
+    -- { mods = mod, key = "p", action = act.PaneSelect({ alphabet = "", mode = "Activate" }) },
+    -- { mods = mod, key = "d", action = wezterm.action.ShowDebugOverlay },
+  },
 }
--- local wezterm = require("wezterm")
--- local act = wezterm.action
--- local mod = "SHIFT|SUPER"
---
--- local function font(opts)
---   return wezterm.font_with_fallback({
---     opts,
---     "Symbols Nerd Font Mono",
---   })
--- end
---
--- -- The filled in variant of the < symbol
--- local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
---
--- -- The filled in variant of the > symbol
--- local SOLID_RIGHT_ARROW = utf8.char(0xe0b0)
---
--- wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
---   return {
---     { Text = " " .. tab.active_pane.title .. " " },
---   }
--- end)
---
--- local function make_mouse_binding(dir, streak, button, mods, action)
---   return {
---     event = { [dir] = { streak = streak, button = button } },
---     mods = mods,
---     action = action,
---   }
--- end
---
--- return {
---   -- stylua: ignore
--- 	mouse_bindings = {
--- 		make_mouse_binding( "Up", 1, "Left", "NONE", wezterm.action.CompleteSelectionOrOpenLinkAtMouseCursor("ClipboardAndPrimarySelection")),
--- 		make_mouse_binding( "Up", 1, "Left", "SHIFT", wezterm.action.CompleteSelectionOrOpenLinkAtMouseCursor("ClipboardAndPrimarySelection")),
--- 		make_mouse_binding("Up", 1, "Left", "ALT", wezterm.action.CompleteSelection("ClipboardAndPrimarySelection")),
--- 		make_mouse_binding( "Up", 1, "Left", "SHIFT|ALT", wezterm.action.CompleteSelectionOrOpenLinkAtMouseCursor("ClipboardAndPrimarySelection")),
--- 		make_mouse_binding("Up", 2, "Left", "NONE", wezterm.action.CompleteSelection("ClipboardAndPrimarySelection")),
--- 		make_mouse_binding("Up", 3, "Left", "NONE", wezterm.action.CompleteSelection("ClipboardAndPrimarySelection")),
--- 	},
---   term = "wezterm",
---   font_size = 12,
---   font = font("Fira Code"),
---   font_rules = {
---     {
---       italic = true,
---       intensity = "Normal",
---       font = font({
---         family = "Victor Mono",
---         style = "Italic",
---       }),
---     },
---     {
---       italic = true,
---       intensity = "Half",
---       font = font({
---         family = "Victor Mono",
---         weight = "DemiBold",
---         style = "Italic",
---       }),
---     },
---     {
---       italic = true,
---       intensity = "Bold",
---       font = font({
---         family = "Victor Mono",
---         weight = "Bold",
---         style = "Italic",
---       }),
---     },
---   },
---   color_scheme_dirs = { "/home/folke/projects/tokyonight.nvim/extras/wezterm" },
---   color_scheme = "tokyonight_moon",
---   use_fancy_tab_bar = true,
---   tab_bar_at_bottom = true,
---   hide_tab_bar_if_only_one_tab = true,
---   show_tab_index_in_tab_bar = false,
---   -- window_decorations = "NONE",
---   window_frame = {
---     -- The font used in the tab bar.
---     -- Roboto Bold is the default; this font is bundled
---     -- with wezterm.
---     -- Whatever font is selected here, it will have the
---     -- main font setting appended to it to pick up any
---     -- fallback fonts you may have used there.
---     font = font({ family = "Fira Code", weight = "Bold" }),
---
---     -- The size of the font in the tab bar.
---     -- Default to 10. on Windows but 12.0 on other systems
---     font_size = 11.0,
---
---     -- The overall background color of the tab bar when
---     -- the window is focused
---     active_titlebar_bg = "#12131d",
---
---     -- The overall background color of the tab bar when
---     -- the window is not focused
---     inactive_titlebar_bg = "#1e2030",
---   },
---   window_padding = {
---     left = 0,
---     right = 0,
---     top = 0,
---     bottom = 0,
---   },
---   disable_default_key_bindings = true,
---   keys = {
---     { mods = mod, key = "UpArrow", action = act.ActivatePaneDirection("Up") },
---     { mods = mod, key = "DownArrow", action = act.ActivatePaneDirection("Down") },
---     { mods = mod, key = "RightArrow", action = act.ActivatePaneDirection("Right") },
---     { mods = mod, key = "LeftArrow", action = act.ActivatePaneDirection("Left") },
---     { mods = mod, key = "t", action = act.SpawnTab("CurrentPaneDomain") },
---     { mods = mod, key = "|", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
---     { mods = mod, key = "_", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
---     { mods = mod, key = ">", action = act.MoveTabRelative(1) },
---     { mods = mod, key = "<", action = act.MoveTabRelative(-1) },
---     { mods = mod, key = "M", action = act.TogglePaneZoomState },
---     { mods = mod, key = "p", action = act.PaneSelect({ alphabet = "", mode = "Activate" }) },
---     { mods = mod, key = "C", action = act.CopyTo("ClipboardAndPrimarySelection") },
---     { mods = mod, key = "l", action = wezterm.action({ ActivateTabRelative = 1 }) },
---     { mods = mod, key = "h", action = wezterm.action({ ActivateTabRelative = -1 }) },
---     { key = "C", mods = "CTRL", action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
---     { mods = mod, key = "d", action = wezterm.action.ShowDebugOverlay },
---   },
---   bold_brightens_ansi_colors = true,
---   window_background_opacity = 0.9,
---   cell_width = 0.9,
---   scrollback_lines = 10000,
---   hyperlink_rules = {
---     -- Linkify things that look like URLs and the host has a TLD name.
---     -- Compiled-in default. Used if you don't specify any hyperlink_rules.
---     {
---       regex = "\\b\\w+://[\\w.-]+\\.[a-z]{2,15}\\S*\\b",
---       format = "$0",
---     },
---
---     -- linkify email addresses
---     -- Compiled-in default. Used if you don't specify any hyperlink_rules.
---     {
---       regex = [[\b\w+@[\w-]+(\.[\w-]+)+\b]],
---       format = "mailto:$0",
---     },
---
---     -- file:// URI
---     -- Compiled-in default. Used if you don't specify any hyperlink_rules.
---     {
---       regex = [[\bfile://\S*\b]],
---       format = "$0",
---     },
---
---     -- Linkify things that look like URLs with numeric addresses as hosts.
---     -- E.g. http://127.0.0.1:8000 for a local development server,
---     -- or http://192.168.1.1 for the web interface of many routers.
---     {
---       regex = [[\b\w+://(?:[\d]{1,3}\.){3}[\d]{1,3}\S*\b]],
---       format = "$0",
---     },
---
---     -- Make username/project paths clickable. This implies paths like the following are for GitHub.
---     -- As long as a full URL hyperlink regex exists above this it should not match a full URL to
---     -- GitHub or GitLab / BitBucket (i.e. https://gitlab.com/user/project.git is still a whole clickable URL)
---     {
---       regex = [[["]?([\w\d]{1}[-\w\d]+)(/){1}([-\w\d\.]+)["]?]],
---       format = "https://www.github.com/$1/$3",
---     },
---   },
--- }
+
+-- colorscheme
+local appearance = wezterm.gui.get_appearance()
+
+if appearance:find 'Dark' then
+  config.color_scheme = 'duskfox'
+else
+  config.color_scheme = 'dawnfox'
+end
+
+return config
