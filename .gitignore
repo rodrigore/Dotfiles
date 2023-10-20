@@ -7,4 +7,6 @@ config/configstore
 config/gh
 config/psysh
 config/raycast
+config/yarn
+config/lazygit/state.yml
 .DS_Store

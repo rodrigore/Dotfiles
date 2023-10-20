@@ -1,35 +1,37 @@
 [user]
-	name = rodrigore
-	email = rodrigopcg@gmail.com
+  name = Rodrigo Guzmán C.
+  email = rodrigopcg@gmail.com
 [diff]
-    tool = vimdiff
-    compactionHeuristic = true
+  tool = diff-so-fancy
+  compactionHeuristic = true
 [color]
-    ui = auto
+  ui = true
 [alias]
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
-    ch = checkout -
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative
+  ch = checkout -
 [core]
-    ignore = dirty
-    editor = nvim
-	excludesfile = ~/.gitignore_global
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  ignore = dirty
+  editor = nvim
+  excludesfile = ~/.gitignore_global
+  pager = diff-so-fancy | less --tabs=4 -RFX
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
 [color "diff"]
-	meta = yellow
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+  meta = yellow
+  frag = magenta bold
+  commit = yellow bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[interactive]
+	diffFilter = diff-so-fancy --patch

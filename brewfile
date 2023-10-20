@@ -4,9 +4,11 @@ upgrade
 install ack
 install bat
 install --HEAD --with-jansson universal-ctags/universal-ctags/universal-ctags
+install cormacrelf/tap/dark-notify
 install diff-so-fancy
 install exa
 install fd
+install fish
 install gh
 install git
 install git-delta

@@ -31,6 +31,9 @@ source $HOME/dotfiles/scripts/aliases.sh
 # EXPORT
 export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/sbin:~/dotfiles
 
+# homebrew (m1)
+# export PATH=~/opt/homebrew/bin:$PATH
+
 # composer
 export PATH=~/.composer/vendor/bin:$PATH
 
@@ -81,22 +84,26 @@ export INTELEPHENSE_LICENSE_KEY="$intelephenseLicence"
 #sudo env PATH=$PATH:/opt/homebrew/Cellar/node@16/16.13.2/bin /opt/homebrew/lib/node_modules/pm2/bin/pm2 startup launchd -u gauzman --hp /Users/gauzman
 
 # nvm
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+eval "$(fnm env --use-on-cd)"
+# source $(brew --prefix nvm)/nvm.sh
 
 setup-tracts() {
-    nvm use system
-    nvm uninstall 16
-    nvm install 16
-    nvm use 16
+    fnm use system
+    fnm uninstall 18
+    fnm install 18
+    fnm use 18
     rm -rf node_modules
     yarn cache clean
     yarn install
 }
 
-export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-export PUPPETEER_EXECUTABLE_PATH=`which chromium`
+# export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+# export PUPPETEER_EXECUTABLE_PATH=`which chromium`
+ export PUPPETEER_EXECUTABLE_PATH="/Applications/Firefox.app/Contents/MacOS/firefox"
 
 #wezterm
 PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
 export PATH
+
+# lazygit
+export XDG_CONFIG_HOME="$HOME/.config"
