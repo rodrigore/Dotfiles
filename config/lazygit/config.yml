@@ -47,7 +47,7 @@ gui:
 git:
   paging:
     colorArg: always
-    useConfig: false
+    pager: diff-so-fancy
   commit:
     signOff: false
     verbose: default # one of 'default' | 'always' | 'never'

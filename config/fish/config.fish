@@ -20,3 +20,6 @@ export PATH
 
 # ~/.tmux/plugins
 fish_add_path $HOME/.tmux/plugins/t-smart-tmux-session-manager/bin
+
+# theme
+source ~/.local/share/nvim/lazy/nightfox.nvim/extra/duskfox/nightfox_fish.fish
