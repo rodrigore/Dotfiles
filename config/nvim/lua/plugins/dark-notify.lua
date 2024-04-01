@@ -4,7 +4,7 @@ return {
     require("dark_notify").run({
       schemes = {
         dark = "duskfox",
-        light = "dawnfox",
+        light = "catppuccin-latte" -- "dawnfox",
       },
     })
   end,

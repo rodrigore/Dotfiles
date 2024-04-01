@@ -14,3 +14,6 @@ abbr pmstart 'pm2 start ~/config/ecosystem.config.js --only dev --watch --node-a
 
 abbr f "zoxide query --interactive"
 
+# sesh
+abbr s sesh_start
+abbr s. "sesh connect ."

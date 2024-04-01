@@ -123,7 +123,7 @@ local config =  {
     { key = ',', mods = 'CMD', action = wezterm.action.SendString '\x02,' }, -- rename the current tmux window
     { key = ']', mods = 'CMD', action = wezterm.action.SendString '\x02n' }, -- switch to next tmux window
     { key = '[', mods = 'CMD', action = wezterm.action.SendString '\x02p' }, -- switch to next tmux window
-    { key = 'j', mods = 'CMD', action = wezterm.action.SendString '\x02\x54' }, -- open t - tmux smart session manager
+    { key = 'j', mods = 'CMD', action = wezterm.action.SendString '\x02\x54' }, -- sesh session manager
     { key = 'h', mods = 'CTRL', action = wezterm.action.SendString '\x02h' }, -- navigate left
     { key = 'j', mods = 'CTRL', action = wezterm.action.SendString '\x02j' }, -- navigate down
     { key = 'k', mods = 'CTRL', action = wezterm.action.SendString '\x02k' }, -- navigate up
@@ -235,7 +235,7 @@ local appearance = wezterm.gui.get_appearance()
 if appearance:find 'Dark' then
   config.color_scheme = 'duskfox'
 else
-  config.color_scheme = 'dawnfox'
+  config.color_scheme = 'catpuccin_latte'
 end
 
 return config

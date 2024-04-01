@@ -39,7 +39,7 @@ SETUVAR fish_pager_color_description:B3A06D\x1eyellow\x1e\x2di
 SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
-SETUVAR fish_user_paths:/Users/gauzman/\x2etmux/plugins/t\x2dsmart\x2dtmux\x2dsession\x2dmanager/bin
+SETUVAR fish_user_paths:/Users/gauzman/dotfiles/bin\x1e/Users/gauzman/Library/Application\x20Support/Herd/bin\x1e/Users/gauzman/\x2etmux/plugins/t\x2dsmart\x2dtmux\x2dsession\x2dmanager/bin\x1e/Users/gauzman/\x2ecomposer/vendor/bin
 SETUVAR sponge_allow_previously_successful:true
 SETUVAR sponge_delay:2
 SETUVAR sponge_filters:sponge_filter_failed\x1esponge_filter_matched

@@ -18,8 +18,16 @@ export INTELEPHENSE_LICENSE_KEY=$(cat /Users/gauzman/intelephense/license.txt)
 set -x PATH $PATH /Applications/WezTerm.app/Contents/MacOS
 export PATH
 
-# ~/.tmux/plugins
-fish_add_path $HOME/.tmux/plugins/t-smart-tmux-session-manager/bin
+# bin folders
+fish_add_path $HOME/dotfiles/bin
 
 # theme
-source ~/.local/share/nvim/lazy/nightfox.nvim/extra/duskfox/nightfox_fish.fish
+source ~/.local/share/nvim/lazy/nightfox.nvim/extra/duskfox/duskfox.fish
+
+# atuin
+if status --is-interactive
+    atuin init fish | source
+end
+
+# laravel herd
+fish_add_path -U $HOME/Library/Application\ Support/Herd/bin/
