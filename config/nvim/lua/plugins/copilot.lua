@@ -18,15 +18,15 @@ return {
   opts = {
     suggestion = {
       auto_trigger = true,
-      keymap = {
-        accept = false;
-        -- accept = "<C-CR>",
-        -- next = "<Tab>",
-        -- prev = "<S-Tab>",
-        -- next = "<M-]>",
-        -- prev = "<M-[>",
-      },
-      copilot_node_command = '/opt/homebrew/bin/node',
+      -- keymap = {
+      --   accept = false;
+      --   -- accept = "<C-CR>",
+      --   -- next = "<Tab>",
+      --   -- prev = "<S-Tab>",
+      --   -- next = "<M-]>",
+      --   -- prev = "<M-[>",
+      -- },
+      -- copilot_node_command = '/opt/homebrew/bin/node',
     },
 
     -- suggestion = {

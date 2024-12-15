@@ -3,6 +3,7 @@ return {
     dependencies = {
       'benmills/vimux'
     },
+    vscode = false,
     config = function ()
       vim.keymap.set('n', '<Leader>tt', ':TestNearest<CR>')
       vim.keymap.set('n', '<Leader>T', ':TestFile<CR>')

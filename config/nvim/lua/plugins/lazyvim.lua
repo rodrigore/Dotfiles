@@ -7,7 +7,7 @@ return {
         keymaps = true, -- lazyvim.config.keymaps
         options = true, -- lazyvim.config.options
       },
-      colorscheme = "catppuccin-latte" --"dawnfox",
+      colorscheme = "duskfox"  --"duskfox" --catppuccin-latte" --"dawnfox",
     },
   },
 }

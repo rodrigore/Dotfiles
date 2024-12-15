@@ -28,6 +28,7 @@ return {
       { "<leader>nf", "<cmd>Neotree reveal<cr>", desc = "Explorer NeoTree (cwd)" },
     },
     opts = {
+      enable_git_status = true,
       filesystem = {
         follow_current_file = {
           enabled = false,

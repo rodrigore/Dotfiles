@@ -4,3 +4,5 @@ tags
 **/.DS_Store
 **/._.DS_Store
 .npmrc
+.vscode/
+.config/fish/conf.d/openai.fish

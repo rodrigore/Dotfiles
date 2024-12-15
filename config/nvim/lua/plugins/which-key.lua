@@ -1,11 +1,16 @@
 return {
   "folke/which-key.nvim",
-  config = function()
-    local wk = require("which-key")
-    wk.register({
-      ["<leader>"] = {
-        w = { "<Cmd>w<CR>", "Save Buffer" },
-      },
-    })
-  end,
+   opts = {
+      spec = {
+        { "<leader>w", group = "Save" },
+      }
+  },
+  -- keys = {
+  --   { "<leader>w", "<Cmd>w<CR>", desc = "Save Buffer" },
+    -- { "<leader>wm", hidden = true },
+    -- { "<leader>wd", hidden = true },
+    -- { "<leader>w-", hidden = true },
+    -- { "<leader>w|", hidden = true },
+    -- { "<leader>wm", hidden = true },
+  -- }
 }

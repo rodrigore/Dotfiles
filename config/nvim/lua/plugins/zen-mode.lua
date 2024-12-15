@@ -1,5 +1,6 @@
 return {
   "folke/zen-mode.nvim",
+  enabled = false,
   opts = {
     plugins = {
       tmux = { enabled = true }, -- disables the tmux statusline

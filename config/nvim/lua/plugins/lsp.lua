@@ -1,15 +1,32 @@
 -- Automatically format on save
 vim.g.autoformat = false;
+local on_attach = function(client, bufnr)
+  client.server_capabilities.hoverProvider = false
+end
 return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      inlay_hints = {
+        enabled = false,
+      },
+      codelens = {
+        enabled = false,
+      },
       servers = {
-        intelephense = {
-           init_options = {
-            licenceKey = os.getenv('INTELEPHENSE_LICENSE_KEY'),
-          },
-        },
+        -- pyright = {
+        --   mason = false,
+        --   autostart = false,
+        -- },
+        -- ruff_lsp = {
+        --   mason = true,
+        --   autostart = true,
+        -- },
+        -- intelephense = {
+        --    init_options = {
+        --     licenceKey = os.getenv('INTELEPHENSE_LICENSE_KEY'),
+        --   },
+        -- },
       },
     },
     -- init = function()

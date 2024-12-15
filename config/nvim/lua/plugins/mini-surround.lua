@@ -8,7 +8,7 @@ return {
         find = "sf",
         find_left = "sF",
         highlight = "sh",
-        replace = "sr",
+        replace = "cs",
         update_n_lines = "sn",
       },
     },

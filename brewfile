@@ -20,6 +20,7 @@ install ripgrep
 install shottr
 install ssh-copy-id
 install starship
+install tailspin
 install tmux
 install trash
 install tree-sitter

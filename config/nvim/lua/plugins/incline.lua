@@ -1,11 +1,12 @@
 return {
   {
     "b0o/incline.nvim",
+    enabled = false,
     config = function()
       require("incline").setup({
         window = {
           placement = {
-            vertical = 'bottom',
+            -- vertical = 'bottom',
           },
         },
         render = function(props)

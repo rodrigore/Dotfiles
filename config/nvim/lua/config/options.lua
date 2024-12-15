@@ -21,3 +21,10 @@ vim.o.swapfile = false
 vim.o.backup = false
 vim.opt.undofile = true -- Maintain undo history between sessions
 vim.opt.undodir = vim.fn.expand("~/.vim/undodir") -- set dir for persistent undo
+
+-- spelling
+-- vim.opt.spell = true
+-- vim.opt_local.spell = true
+
+-- tabline
+vim.opt.showtabline = 0

@@ -1,5 +1,6 @@
 return {
   "chrisgrieser/nvim-spider",
+  vscode = true,
   opts = {
     skipInsignificantPunctuation = false
   },

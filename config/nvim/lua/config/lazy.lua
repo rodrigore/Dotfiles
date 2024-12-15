@@ -11,11 +11,13 @@ require("lazy").setup({
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
-    -- { import = "lazyvim.plugins.extras.coding.copilot" },
     { import = "lazyvim.plugins.extras.test.core" },
     { import = "lazyvim.plugins.extras.dap.core" },
     { import = "lazyvim.plugins.extras.lang.python" },
-    -- import/override plugins
+    -- { import = "lazyvim.plugins.extras.editor.refactoring" },
+    -- { import = "lazyvim.plugins.extras.coding.copilot-chat" },
+    { import = "lazyvim.plugins.extras.ui.treesitter-context" },
+    { import = "lazyvim.plugins.extras.vscode" },
     { import = "plugins" },
   },
   defaults = {
@@ -28,9 +30,6 @@ require("lazy").setup({
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
   install = { colorscheme = { "catppuccin", "tokyonight"  } },
-  -- ui = {
-  --   border = 'single'
-  -- },
   checker = { enabled = false }, -- automatically check for plugin updates
   performance = {
     rtp = {

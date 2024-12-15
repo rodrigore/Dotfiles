@@ -5,7 +5,7 @@ local act = wezterm.action
 local function font(opts)
   return wezterm.font_with_fallback({
     opts,
-    "SFMono Nerd Font",
+    "Liga SFMono Nerd Font",
   })
 end
 
@@ -80,9 +80,9 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 end)
 
 local config =  {
-  color_scheme_dirs = { "/Users/gauzman/.config/wezterm/colorschemes" },
-  font = font("Liga SFMono Nerd Font"),
-  font_size = 17.0,
+  color_scheme_dirs = { "/Users/rodrigoguzman/.config/wezterm/colorschemes" },
+  font = font("Dank Mono"),
+  font_size = 18.0,
   line_height = 2,
   default_cursor_style = "BlinkingBar",
   use_fancy_tab_bar = false,
@@ -128,6 +128,7 @@ local config =  {
     { key = 'j', mods = 'CTRL', action = wezterm.action.SendString '\x02j' }, -- navigate down
     { key = 'k', mods = 'CTRL', action = wezterm.action.SendString '\x02k' }, -- navigate up
     { key = 'l', mods = 'CTRL', action = wezterm.action.SendString '\x02l' }, -- navigate right
+    { key = 'p', mods = 'CMD', action = wezterm.action.SendString '\x10' },   -- ctrl+p
   -- }
 
     -- wezterm
@@ -237,5 +238,27 @@ if appearance:find 'Dark' then
 else
   config.color_scheme = 'catpuccin_latte'
 end
+
+wezterm.on("user-var-changed", function(window, pane, name, value)
+  	local overrides = window:get_config_overrides() or {}
+
+  if name == "DIFF_VIEW" then
+      local incremental = value:find("+")
+      local number_value = tonumber(value)
+      if incremental ~= nil then
+        while number_value > 0 do
+          window:perform_action(wezterm.action.DecreaseFontSize, pane)
+          number_value = number_value - 1
+        end
+      elseif number_value < 0 then
+        window:perform_action(wezterm.action.ResetFontSize, pane)
+        overrides.background = nil
+        overrides.font_size = nil
+      else
+        overrides.font_size = number_value
+      end
+    end
+    window:set_config_overrides(overrides)
+  end)
 
 return config

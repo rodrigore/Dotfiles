@@ -8,5 +8,8 @@ config/gh
 config/psysh
 config/raycast
 config/yarn
+config/gcloud
+config/karabiner
+config/github-copilot
 config/lazygit/state.yml
 .DS_Store
