@@ -1,0 +1,148 @@
+# visuals
+font-family = JetBrains Mono
+font-size = 17
+adjust-cell-height = 85%
+macos-window-shadow = false
+mouse-hide-while-typing = true
+# theme = Catppuccin Mocha
+theme = TokyoNight Moon
+
+# custom gtk
+gtk-custom-css = "styles/gtk.css"
+
+# custom shader
+custom-shader-animation = true
+# custom-shader = "shaders/tesla_coil.glsl"
+# custom-shader = "shaders/glow.glsl"
+
+# title
+title = " "
+# macos-titlebar-proxy-icon = hidden # this kill the three dots
+window-decoration = true
+# macos-titlebar-style = hidden
+# this kill tabs
+
+# window
+# window-decoration = false
+window-padding-balance = true
+window-save-state = always
+window-padding-x = 10
+window-padding-y = 10
+window-colorspace = "display-p3"
+
+# clipboard
+clipboard-read = "allow"
+clipboard-trim-trailing-spaces = true
+clipboard-write = "allow"
+
+# # keybindings
+
+# Tab Navigation
+keybind = cmd+[=previous_tab
+keybind = cmd+]=next_tab
+
+# New Tab
+keybind = cmd+t=new_tab
+
+# Toggle Split Zoom
+keybind = cmd+z=toggle_split_zoom
+
+# Close Current Surface (pane/tab)
+keybind = cmd+w=close_surface
+
+# Split Horizontal (right)
+keybind = cmd+e=new_split:right
+
+# Split Vertical (down)
+keybind = cmd+shift+e=new_split:down
+
+# Navigate Splits (vim-style)
+keybind = cmd+h=goto_split:left
+keybind = cmd+l=goto_split:right
+keybind = cmd+j=goto_split:down
+keybind = cmd+k=goto_split:up
+
+# Copy to Clipboard
+keybind = cmd+c=copy_to_clipboard
+
+# Toggle Split Zoom
+keybind = cmd+z=toggle_split_zoom
+
+# Command Palette
+keybind = cmd+shift+p=toggle_command_palette
+
+# Resize Splits
+keybind = opt+h=resize_split:left,5
+keybind = opt+j=resize_split:down,5
+keybind = opt+k=resize_split:up,5
+keybind = opt+l=resize_split:right,5
+
+
+keybind = super+p=text:\x10
+
+# # a-z
+# # keybind = super+a= # select all?
+# # keybind = super+b= # build?
+# # keybind = super+c= # copy
+# # keybind = super+d=
+
+# keybind = super+e=text:\x02%
+
+    # { key = 'e', mods = 'CMD|SHIFT', action = wezterm.action.SendString '\x02\"' }, --  split tmux window horizontally
+
+# keybind = super+f=text:\x3a\x47\x72\x65\x70\x0a # :Grep (find)
+# keybind = super+g=text:\x02\x67 # <perfix>+g (open lazygit window)
+# # keybind = super+h= # hide?
+# # keybind = super+i=
+# # keybind = super+j=
+# keybind = super+k=text:\x02\x4b # <perfix>+k (open sesh picker)
+# keybind = super+l=text:\x02\x4c # <perfix>+l (switch to last session)
+# # keybind = super+m= # minimize?
+# # keybind = super+n= # new?
+# keybind = super+o=text:\x02\x75 # <perfix>+u
+# keybind = super+q=text:\x3a\x1b\x1b\x3a\x71\x61\x21\x0a # :qa!
+# # keybind = super+r= (refresh?)
+# keybind = super+s>r=reload_config
+# keybind = super+t=text:\x02\x63 # <perfix>+c (new window)
+# # keybind = super+u=
+# # keybind = super+v= # paste
+# keybind = super+w=text:\x02\x78 # <perfix>+x (close window)
+# # keybind = super+x= # cut
+# # keybind = super+y=
+# keybind = super+z=text:\x02z
+#
+# # A-Z
+# # keybind = super+shift+a=
+# # keybind = super+shift+b=
+# # keybind = super+shift+c=
+# # keybind = super+shift+d=
+# # keybind = super+shift+e=
+# # keybind = super+shift+f=
+# # keybind = super+shift+g=
+# # keybind = super+shift+h=
+# # keybind = super+shift+i=
+# # keybind = super+shift+j=
+# # keybind = super+shift+k= # secondary sesh
+# # keybind = super+shift+l=
+# # keybind = super+shift+m=
+# # keybind = super+shift+n=
+# keybind = super+shift+o=text:\x3a\x47\x6f\x54\x6f\x53\x79\x6d\x62\x6f\x6c\x0a # :GotoSymbol
+# keybind = super+shift+p=text:\x3a\x47\x6f\x54\x6f\x43\x6f\x6d\x6d\x61\x6e\x64\x0a # :GotoCommand
+# # keybind = super+shift+q=
+# # keybind = super+shift+r=
+# # keybind = super+shift+s=
+# # keybind = super+shift+t=
+# # keybind = super+shift+u=
+# # keybind = super+shift+v=
+# # keybind = super+shift+w= (undo close?)
+# # keybind = super+shift+x=
+# # keybind = super+shift+y=
+# # keybind = super+shift+z= (redo?)
+#
+# # special characters
+# keybind = super+left_bracket=text:<C-o> # jump back
+# keybind = super+right_bracket=text:<C-i> # jump forward
+#
+# # special characters (shift)
+# keybind = super+shift+left_bracket=text:\x02\x6e # <perfix>+n (next window)
+# keybind = super+shift+right_bracket=text:\x02\x70 # <perfix>+p (previous window)
